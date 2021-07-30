@@ -1,0 +1,22 @@
+{
+	"name": "ParametersExpressionsLab2Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "twadfpracticestorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ParametersExpressionsLab"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "*.csv",
+				"container": "adftutorial"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

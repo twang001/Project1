@@ -1,0 +1,16 @@
+{
+	"name": "SELFHOSTNODE1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=20.42.110.66;initial catalog=practice;user id=SSISUser",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkYTZmMWRhYi1kMDlkLTQwMDYtYjI3My0xM2YyZTQwZTZmZWYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "selfhostHA",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

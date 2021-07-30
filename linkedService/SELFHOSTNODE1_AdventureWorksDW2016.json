@@ -1,0 +1,16 @@
+{
+	"name": "SELFHOSTNODE1_AdventureWorksDW2016",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=SELFHOSTNODE1;initial catalog=AdventureWorksDW2016;user id=SSISUSer",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwMTVlMTkwZS00Yzg1LTQxZjAtOTA2Yi0xZDkwOTZlYjQxNzciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "selfhostHA",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

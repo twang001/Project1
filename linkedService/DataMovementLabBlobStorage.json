@@ -1,0 +1,12 @@
+{
+	"name": "DataMovementLabBlobStorage",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://twadfpracticestorage.blob.core.windows.net",
+			"accountKind": "StorageV2"
+		}
+	}
+}

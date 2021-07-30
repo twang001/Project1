@@ -1,0 +1,17 @@
+{
+	"name": "Schedule Trigger Every One Min",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 1,
+				"startTime": "2021-07-07T06:48:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

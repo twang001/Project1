@@ -1,0 +1,36 @@
+{
+	"name": "TriggerLab",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "TriggerTime",
+					"value": {
+						"value": "@pipeline().parameters.GetTime",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"GetTime": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"TriggerTime": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "TriggerLab"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-07T07:57:09Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

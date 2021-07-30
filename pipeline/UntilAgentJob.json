@@ -1,0 +1,155 @@
+{
+	"name": "UntilAgentJob",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait For SQL Agent",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals('SUCCESSED', variables('JobStatus'))",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Query MSDB",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": "DECLARE @JOBNAME VARCHAR ( 50 ) = 'TEST'\n\n;WITH JOBINFO AS \n     (\n\t SELECT TOP 1 \n\t        1 AS 'ORDERING'\n\t\t    , CASE JOBHIS.RUN_STATUS\n\t\t\t      WHEN 0 THEN 'FAILED'\n\t\t\t\t  WHEN 1 THEN 'SUCCESSED'\n\t\t\t\t  WHEN 2 THEN 'RETRY'\n\t\t\t\t  WHEN 3 THEN 'CANCELLED'\n\t\t\t\t  ELSE 'UNKNOWN'\n\t\t\t  END AS 'JOBOUTCOME'\n\t\t\t  --, MSDB.DBO.AGENT_DATETIME( CAST( RUN_DATE AS VARCHAR( 15 ) ) , CAST( RUN_TIME  AS VARCHAR( 15 ) ))\t\t\t  \n\t   FROM [MSDB].[DBO].[SYSJOBHISTORY] JOBHIS ( NOLOCK )\n\t   JOIN [MSDB].[DBO].[SYSJOBS] JOBS ( NOLOCK )\n\t     ON JOBHIS.JOB_ID = JOBS.JOB_ID\n\t  WHERE JOBHIS.STEP_ID = 0\n\t    AND JOBS.NAME = @JOBNAME\n\t\tAND MSDB.DBO.AGENT_DATETIME( CAST( RUN_DATE AS VARCHAR( 15 ) ) , CAST( RUN_TIME  AS VARCHAR( 15 ) )) >= DATEADD( MINUTE, -5, GETDATE() )\n\t  ORDER BY JOBHIS.RUN_DATE DESC, JOBHIS.RUN_TIME DESC\n\t ), \n     RESULTS AS\n\t (\n\t SELECT 2 AS 'ORDERING'\n\t        , 'UNKNOWN' AS 'JOBOUTCOME'\n\t  UNION \n\t SELECT * \n\t   FROM JOBINFO\n\t )\n\t SELECT TOP 1 JOBOUTCOME FROM RESULTS ORDER BY ORDERING",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "SELFHOSTNODE1_DIMCUSTOMER",
+									"type": "DatasetReference"
+								}
+							}
+						},
+						{
+							"name": "Wait",
+							"type": "Wait",
+							"dependsOn": [
+								{
+									"activity": "GetJobStatus",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 20
+							}
+						},
+						{
+							"name": "GetJobStatus",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Query MSDB",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "JobStatus",
+								"value": {
+									"value": "@string( activity('Query MSDB').output.firstRow.JOBOUTCOME)\n\n\n",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"timeout": "7.00:00:00"
+				}
+			},
+			{
+				"name": "ReportCompleted",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Wait For SQL Agent",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "DECLARE @JOBNAME VARCHAR( 15 ) = 'TEST'\nSELECT TOP 1 \n\t--1 AS 'ORDERING'\n\t  JOBS.NAME AS JOBNAME\n\t  , CASE JOBHIS.RUN_STATUS\n\t\t\tWHEN 0 THEN 'FAILED'\n\t\t\tWHEN 1 THEN 'SUCCESSED'\n\t\t\tWHEN 2 THEN 'RETRY'\n\t\t\tWHEN 3 THEN 'CANCELLED'\n\t\t\tELSE 'UNKNOWN'\n\t\tEND AS 'JOBOUTCOME'\n        , MSDB.DBO.AGENT_DATETIME( CAST( RUN_DATE AS VARCHAR( 15 ) ) , CAST( RUN_TIME  AS VARCHAR( 15 ) )) AS COMPLETIONTIME\t \t  \nFROM [MSDB].[DBO].[SYSJOBHISTORY] JOBHIS ( NOLOCK )\nJOIN [MSDB].[DBO].[SYSJOBS] JOBS ( NOLOCK )\n\tON JOBHIS.JOB_ID = JOBS.JOB_ID\nWHERE JOBHIS.STEP_ID = 0\nAND JOBS.NAME = @JOBNAME\nAND MSDB.DBO.AGENT_DATETIME( CAST( RUN_DATE AS VARCHAR( 15 ) ) , CAST( RUN_TIME  AS VARCHAR( 15 ) )) >= DATEADD( MINUTE, -2, GETDATE() )\nORDER BY JOBHIS.RUN_DATE DESC, JOBHIS.RUN_TIME DESC",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SELFHOSTNODE1_DIMCUSTOMER",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UntilAgentJobOutput",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"variables": {
+			"JobStatus": {
+				"type": "String",
+				"defaultValue": "NULL"
+			}
+		},
+		"folder": {
+			"name": "UntilActivity"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-06T07:58:23Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
