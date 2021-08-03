@@ -1,0 +1,26 @@
+{
+	"name": "AzureBlobStorage_Output",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "twadfpracticestorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@utcnow()",
+					"type": "Expression"
+				},
+				"container": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
