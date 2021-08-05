@@ -1,0 +1,230 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "TWADFTutorialDataFactory"
+		},
+		"ADLSGen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+		},
+		"AzureSQLDB_SELFHOSTIR_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB_SELFHOSTIR'"
+		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+		},
+		"AzureStorageLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
+		},
+		"DataMovementLabAzureSQL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'"
+		},
+		"HDILabBlobStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'HDILabBlobStorage'"
+		},
+		"SELFHOSTNODE1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SELFHOSTNODE1'"
+		},
+		"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SELFHOSTNODE1_AdventureWorksDW2016'"
+		},
+		"SqlServerLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServerLinkedService'"
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://twadfpracticestorage.dfs.core.windows.net"
+		},
+		"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
+			"type": "string",
+			"defaultValue": "BlobSAS"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://TWKV.vault.azure.net/"
+		},
+		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
+		},
+		"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
+		},
+		"Tumbling_properties_pipeline_parameters_GetTime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Sql/servers/twadfpractice"
+		},
+		"twadfpracticeprivatepoint_properties_groupId": {
+			"type": "string",
+			"defaultValue": "sqlServer"
+		},
+		"twadfpracticeprivatepoint_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"twadfpractice.database.windows.net"
+			]
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ADLSGen2_accountKey": {
+						"value": "[parameters('ADLSGen2_accountKey')]"
+					},
+					"AzureSqlDatabaseLinkedService_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
+					},
+					"AzureStorageLinkedService_connectionString": {
+						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
+					},
+					"HDILabBlobStorage_connectionString": {
+						"value": "[parameters('HDILabBlobStorage_connectionString')]"
+					},
+					"ADLSGen2_properties_typeProperties_url": {
+						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
+					},
+					"AzureKeyVault1_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					},
+					"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint')]"
+					},
+					"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('twadfpracticestorage_properties_typeProperties_serviceEndpoint')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSQLDB_SELFHOSTIR_connectionString": {
+						"value": "[parameters('AzureSQLDB_SELFHOSTIR_connectionString')]"
+					},
+					"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
+						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_sasUri_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"DataMovementLabAzureSQL_connectionString": {
+						"value": "[parameters('DataMovementLabAzureSQL_connectionString')]"
+					},
+					"SELFHOSTNODE1_connectionString": {
+						"value": "[parameters('SELFHOSTNODE1_connectionString')]"
+					},
+					"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
+						"value": "[parameters('SELFHOSTNODE1_AdventureWorksDW2016_connectionString')]"
+					},
+					"SqlServerLinkedService_connectionString": {
+						"value": "[parameters('SqlServerLinkedService_connectionString')]"
+					},
+					"Tumbling_properties_pipeline_parameters_GetTime": {
+						"value": "[parameters('Tumbling_properties_pipeline_parameters_GetTime')]"
+					},
+					"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
+						"value": "[parameters('twadfpracticeprivatepoint_properties_privateLinkResourceId')]"
+					},
+					"twadfpracticeprivatepoint_properties_groupId": {
+						"value": "[parameters('twadfpracticeprivatepoint_properties_groupId')]"
+					},
+					"twadfpracticeprivatepoint_properties_fqdns": {
+						"value": "[parameters('twadfpracticeprivatepoint_properties_fqdns')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_2')]"
+			]
+		}
+	]
+}

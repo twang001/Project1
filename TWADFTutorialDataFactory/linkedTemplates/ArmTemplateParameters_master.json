@@ -1,0 +1,71 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "TWADFTutorialDataFactory"
+		},
+		"ADLSGen2_accountKey": {
+			"value": ""
+		},
+		"AzureSQLDB_SELFHOSTIR_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"value": ""
+		},
+		"AzureStorageLinkedService_connectionString": {
+			"value": ""
+		},
+		"DataMovementLabAzureSQL_connectionString": {
+			"value": ""
+		},
+		"HDILabBlobStorage_connectionString": {
+			"value": ""
+		},
+		"SELFHOSTNODE1_connectionString": {
+			"value": ""
+		},
+		"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
+			"value": ""
+		},
+		"SqlServerLinkedService_connectionString": {
+			"value": ""
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"value": "https://twadfpracticestorage.dfs.core.windows.net"
+		},
+		"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
+			"value": "BlobSAS"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://TWKV.vault.azure.net/"
+		},
+		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
+			"value": "https://twadfpracticestorage.blob.core.windows.net"
+		},
+		"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
+			"value": "https://twadfpracticestorage.blob.core.windows.net"
+		},
+		"Tumbling_properties_pipeline_parameters_GetTime": {
+			"value": "@trigger().outputs.windowStartTime"
+		},
+		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Sql/servers/twadfpractice"
+		},
+		"twadfpracticeprivatepoint_properties_groupId": {
+			"value": "sqlServer"
+		},
+		"twadfpracticeprivatepoint_properties_fqdns": {
+			"value": [
+				"twadfpractice.database.windows.net"
+			]
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
