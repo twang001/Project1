@@ -1,0 +1,42 @@
+{
+	"name": "ErrorHandling",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "MoviesDB",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSQLJUNKTable",
+						"type": "DatasetReference"
+					},
+					"name": "AzureSQLDBTable"
+				},
+				{
+					"dataset": {
+						"referenceName": "BadRows",
+						"type": "DatasetReference"
+					},
+					"name": "BadRows"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "GoodRows"
+				}
+			],
+			"script": "source(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 derive(movie = toInteger(movie)) ~> DerivedColumn1\nDerivedColumn1 split(length(title) <= 5,\n\tdisjoint: false) ~> GoodRows@(GoodRows, BadRows)\nGoodRows@GoodRows sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tNAME as string,\n\t\tID as integer\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\terrorHandlingOption: 'stopOnFirstError',\n\toutputRejectedData: true,\n\tmapColumn(\n\t\tNAME = title,\n\t\tID = movie\n\t)) ~> AzureSQLDBTable\nGoodRows@BadRows sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"BadRows_{currentDate()}.txt\")],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> BadRows"
+		}
+	}
+}
