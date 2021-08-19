@@ -30,13 +30,22 @@
 						"type": "SqlServerSink",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": true,
-					"stagingSettings": {
-						"linkedServiceName": {
-							"referenceName": "twadfpracticestorage",
-							"type": "LinkedServiceReference"
-						},
-						"path": "output"
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "GUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GUID",
+									"type": "Guid"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
