@@ -37,8 +37,18 @@
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
 					"translator": {
-						"value": "@json(activity('Lookup1').output.firstRow.json_output)",
-						"type": "Expression"
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "GUID"
+								},
+								"sink": {
+									"name": "GUID",
+									"type": "Guid"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
