@@ -26,10 +26,9 @@
 						}
 					},
 					"sink": {
-						"type": "BinarySink",
-						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
-						}
+						"type": "SqlServerSink",
+						"preCopyScript": "TRUNCATE TABLE [practice].[dbo].[emp]",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false
 				},
@@ -41,7 +40,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Binary2",
+						"referenceName": "SqlServerDataset",
 						"type": "DatasetReference"
 					}
 				]
