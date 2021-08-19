@@ -27,22 +27,7 @@
 						"type": "SqlServerSink"
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "GUID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "GUID",
-									"type": "Guid"
-								}
-							}
-						]
-					}
+					"enableSkipIncompatibleRow": false
 				},
 				"inputs": [
 					{
