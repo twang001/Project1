@@ -5,7 +5,14 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -30,45 +37,8 @@
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
 					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "ID"
-								},
-								"sink": {
-									"name": "ID",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "FirstName"
-								},
-								"sink": {
-									"name": "FirstName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LastName"
-								},
-								"sink": {
-									"name": "LastName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "GUID"
-								},
-								"sink": {
-									"name": "GUID",
-									"type": "Guid"
-								}
-							}
-						]
+						"value": "@json(activity('Lookup1').output.firstRow.column_name)",
+						"type": "Expression"
 					}
 				},
 				"inputs": [
@@ -83,6 +53,31 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "DECLARE @json_construct varchar(MAX) = '{\"type\": \"TabularTranslator\", \"mappings\": ';\n;with etc as (\nSELECT c.name AS ColName, t.name AS TableName\nFROM sys.columns c\n  JOIN sys.tables t ON c.object_id = t.object_id\n--WHERE c.name LIKE '%MyCol%';\n)\n\n--select * \n--from etc\n\nSELECT  CONCAT(  @json_construct, '[',\n    STRING_AGG(\n        CONCAT('{\"source\":{\"name\":\"' ,c.ColName, '\"},\n            \"sink\":{\"name\":\"',   c.ColName, '\"}}')\n    ,','),\n    ']') as json_output\nFROM etc as c\nwhere  c.[TableName] = 'emp'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SqlServerDataset",
+						"type": "DatasetReference"
+					}
+				}
 			}
 		],
 		"folder": {
