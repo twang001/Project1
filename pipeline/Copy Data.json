@@ -69,7 +69,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "DECLARE @json_construct varchar(MAX) = '{\"type\": \"TabularTranslator\", \"mappings\": ';\n;with etc as (\nSELECT c.name AS ColName, t.name AS TableName\nFROM sys.columns c\n  JOIN sys.tables t ON c.object_id = t.object_id\n--WHERE c.name LIKE '%MyCol%';\n)\n\n--select * \n--from etc\n\nSELECT  CONCAT(  @json_construct, '[',\n    STRING_AGG(\n        CONCAT('{\"source\":{\"name\":\"' ,c.ColName, '\"},\n            \"sink\":{\"name\":\"',   c.ColName, '\"}}')\n    ,','),\n    ']') as json_output\nFROM etc as c\nwhere  c.[TableName] = 'emp'",
+						"sqlReaderQuery": "DECLARE @json_construct varchar(MAX) = '{\"type\": \"TabularTranslator\", \"mappings\": ';\n;with etc as (\nSELECT c.name AS ColName, t.name AS TableName\nFROM sys.columns c\n  JOIN sys.tables t ON c.object_id = t.object_id\n--WHERE c.name LIKE '%MyCol%';\n)\n\n--select * \n--from etc\n\nSELECT  CONCAT(  @json_construct, '[',\n    STRING_AGG(\n        CONCAT('{\"source\":{\"name\":\"' ,c.ColName, '\"},\n            \"sink\":{\"name\":\"',   c.ColName, '\"}}')\n    ,','),\n    ']}') as json_output\nFROM etc as c\nwhere  c.[TableName] = 'emp'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
