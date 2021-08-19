@@ -1,0 +1,40 @@
+{
+	"name": "TestingSample",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSGen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "3735e6e5-693d-41f0-baf9-30e648be2282.txt",
+				"fileSystem": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "1",
+				"type": "String"
+			},
+			{
+				"name": "John",
+				"type": "String"
+			},
+			{
+				"name": "Doe",
+				"type": "String"
+			},
+			{
+				"name": "ce6b7d05-12f4-4e5a-9f82-2507e812806d",
+				"type": "String"
+			}
+		]
+	}
+}
