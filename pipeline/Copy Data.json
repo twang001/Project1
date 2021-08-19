@@ -27,8 +27,13 @@
 						}
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"disableMetricsCollection": false
+						"type": "AvroSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "AvroWriteSettings"
+						}
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
@@ -56,7 +61,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlServerDataset",
+						"referenceName": "Avrosample",
 						"type": "DatasetReference"
 					}
 				]

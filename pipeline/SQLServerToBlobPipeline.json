@@ -21,14 +21,12 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "AvroSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "AvroWriteSettings"
 						}
 					},
 					"enableStaging": false,
@@ -49,7 +47,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureBlobDataset",
+						"referenceName": "Avrosample",
 						"type": "DatasetReference"
 					}
 				]
