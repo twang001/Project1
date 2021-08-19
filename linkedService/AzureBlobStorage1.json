@@ -1,18 +1,12 @@
 {
 	"name": "AzureBlobStorage1",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
-			"sasUri": {
-				"type": "AzureKeyVaultSecret",
-				"store": {
-					"referenceName": "AzureKeyVault1",
-					"type": "LinkedServiceReference"
-				},
-				"secretName": "BlobSAS"
-			}
+			"serviceEndpoint": "https://twadfpracticestorage.blob.core.windows.net",
+			"accountKind": "StorageV2"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
