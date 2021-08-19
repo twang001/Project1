@@ -16,24 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "AvroSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
-						"type": "AvroSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "AvroWriteSettings"
-						}
+						"type": "SqlServerSink"
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
@@ -55,13 +46,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TestingSample",
+						"referenceName": "Avrosample",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "Avrosample",
+						"referenceName": "SqlServerDataset",
 						"type": "DatasetReference"
 					}
 				]
