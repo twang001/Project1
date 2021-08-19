@@ -37,7 +37,7 @@
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
 					"translator": {
-						"value": "@json(activity('Lookup1').output.firstRow.column_name)",
+						"value": "@json(activity('Lookup1').output.firstRow.json_output)",
 						"type": "Expression"
 					}
 				},
