@@ -37,8 +37,45 @@
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
 					"translator": {
-						"value": "@json(activity('Lookup1').output.firstRow.json_output)",
-						"type": "Expression"
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "FirstName"
+								},
+								"sink": {
+									"name": "FirstName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastName"
+								},
+								"sink": {
+									"name": "LastName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GUID"
+								},
+								"sink": {
+									"name": "GUID",
+									"type": "Guid"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
@@ -69,7 +106,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "\nDECLARE @json_construct varchar(MAX) = '{\"type\": \"TabularTranslator\", \n         \"mappings\":';\n;with cte as (\nSELECT TABLE_NAME AS TableName\n       , COLUMN_NAME AS ColName\n\t   , \"DATA_TYPE\" =\n\tCASE \n\t   WHEN DATA_TYPE LIKE 'varchar%' THEN 'String'\n\t   WHEN DATA_TYPE LIKE 'INT%' THEN 'Int32'\n\t   WHEN DATA_TYPE LIKE '%CHAR%' THEN 'String'\n\t   WHEN DATA_TYPE = 'uniqueidentifier' THEN 'Guid'\n\t   ELSE 'String'\n    END\n  FROM INFORMATION_SCHEMA.COLUMNS\n)\n\n--select * \n--from cte\n\nSELECT  CONCAT(  @json_construct, '[',\n    STRING_AGG(\n        CONCAT('\n\t\t         {\n\t\t         \"source\":{\n\t\t             \"name\":\"' ,c.ColName, '\"\n\t\t\t     },\n                          \"sink\":{\n\t\t\t\t \"name\":\"',   c.ColName, ',\n\t\t\t         \"type\":\"',c.DATA_TYPE,'\"\n\t\t\t\t }\n\t\t\t\t}')\n    ,','),\n    ']\n\t') as json_output\nFROM cte as c\nwhere  c.[TableName] = 'emp'\n",
+						"sqlReaderQuery": "DECLARE @json_construct varchar(MAX) = '{\"type\": \"TabularTranslator\", \n\"mappings\": ';\n;with cte as (\nSELECT TABLE_NAME AS TableName\n       , COLUMN_NAME AS ColName\n\t   , \"DATA_TYPE\" =\n\tCASE \n\t   WHEN DATA_TYPE LIKE 'varchar%' THEN 'String'\n\t   WHEN DATA_TYPE LIKE 'INT%' THEN 'Int32'\n\t   WHEN DATA_TYPE LIKE '%CHAR%' THEN 'String'\n\t   WHEN DATA_TYPE = 'uniqueidentifier' THEN 'Guid'\n\t   ELSE 'String'\n    END\n  FROM INFORMATION_SCHEMA.COLUMNS\n)\n\n--select * \n--from cte\n\nSELECT  CONCAT(  @json_construct, '[',\n    STRING_AGG(\n        CONCAT('\n\t\t         {\n\t\t         \"source\": {\n\t\t             \"name\": \"' ,c.ColName, '\"\n\t\t\t     },\n                 \"sink\": {\n\t\t\t\t  \"name\": \"',   c.ColName, '\",\n\t\t\t      \"type\": \"',c.DATA_TYPE,'\"\n\t\t\t\t }\n\t\t\t\t}')\n    ,','),\n    ']\n\t}') as json_output\nFROM cte as c\nwhere  c.[TableName] = 'emp'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
