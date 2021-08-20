@@ -37,45 +37,8 @@
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": false,
 					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "ID"
-								},
-								"sink": {
-									"name": "ID",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "FirstName"
-								},
-								"sink": {
-									"name": "FirstName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LastName"
-								},
-								"sink": {
-									"name": "LastName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "GUID"
-								},
-								"sink": {
-									"name": "GUID",
-									"type": "Guid"
-								}
-							}
-						]
+						"value": "@json(activity('Lookup1').output.firstRow.json_output)",
+						"type": "Expression"
 					}
 				},
 				"inputs": [
