@@ -68,7 +68,7 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "CovertToAvro",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -122,6 +122,44 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "GetMappingJson",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "CovertToAvro",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": "DECLARE @json_construct VARCHAR(MAX) = '{\"type\": \"TabularTranslator\", \n\"mappings\": ';\n;WITH CTE AS (\nSELECT TABLE_NAME AS TABLENAME\n       , COLUMN_NAME AS COLNAME\n\t   , \"DATA_TYPE\" =\n\tCASE \n\t   WHEN DATA_TYPE LIKE 'varchar%' THEN 'String'\n\t   WHEN DATA_TYPE LIKE 'INT%' THEN 'Int32'\n\t   WHEN DATA_TYPE LIKE '%CHAR%' THEN 'String'\n\t   WHEN DATA_TYPE = 'uniqueidentifier' THEN 'Guid'\n\t   ELSE 'String'\n    END\n  FROM INFORMATION_SCHEMA.COLUMNS\n)\n\n--select * \n--from cte\n\nSELECT  CONCAT(  @json_construct, '[',\n    STRING_AGG(\n        CONCAT('\n\t\t         {\n\t\t         \"source\": {\n\t\t             \"name\": \"', C.COLNAME, '\"\n\t\t\t     },\n                 \"sink\": {\n\t\t\t\t  \"name\": \"', C.COLNAME, '\",\n\t\t\t      \"type\": \"', C.DATA_TYPE,'\"\n\t\t\t\t }\n\t\t\t\t}')\n    ,','),\n    ']\n\t}') AS JSON_OUTPUT\nFROM CTE AS C\nwhere  C.TABLENAME = @item().TABLE_NAME\n",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "LocalSQLServer",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": {
+											"value": "@item().TABLE_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							}
 						}
 					]
 				}
