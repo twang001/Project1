@@ -169,6 +169,68 @@
 									}
 								}
 							}
+						},
+						{
+							"name": "ConvertAvroToSQL",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "GetMappingJson",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AvroSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									}
+								},
+								"sink": {
+									"type": "SqlServerSink"
+								},
+								"enableStaging": false,
+								"translator": {
+									"value": "@json(activity('GetMappingJson').output.firstRow.json_output)",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "AvroOutputList",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": {
+											"value": "@item().TABLE_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "LocalSQLDBPractice2",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": {
+											"value": "@item().TABLE_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
 					]
 				}

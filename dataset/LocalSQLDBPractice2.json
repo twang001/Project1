@@ -1,0 +1,23 @@
+{
+	"name": "LocalSQLDBPractice2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LocalSQLPractice2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
