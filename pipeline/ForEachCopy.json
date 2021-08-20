@@ -202,6 +202,8 @@
 									"type": "SqlServerSink"
 								},
 								"enableStaging": false,
+								"enableSkipIncompatibleRow": false,
+								"validateDataConsistency": false,
 								"translator": {
 									"value": "@json(activity('GetMappingJson').output.firstRow.json_output)",
 									"type": "Expression"
