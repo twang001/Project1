@@ -213,7 +213,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"TableName": {
-											"value": "@concat(item().TABLE_NAME, 'avro')",
+											"value": "@concat(item().TABLE_NAME, '.avro')",
 											"type": "Expression"
 										}
 									}
