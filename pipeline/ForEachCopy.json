@@ -43,7 +43,7 @@
 				"typeProperties": {
 					"variableName": "TableList",
 					"value": {
-						"value": "@activity('GetTableList').output.values",
+						"value": "@activity('GetTableList').output.value",
 						"type": "Expression"
 					}
 				}
