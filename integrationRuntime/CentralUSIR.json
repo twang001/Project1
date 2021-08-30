@@ -4,7 +4,7 @@
 		"type": "Managed",
 		"typeProperties": {
 			"computeProperties": {
-				"location": "Central US",
+				"location": "East Asia",
 				"dataFlowProperties": {
 					"computeType": "General",
 					"coreCount": 8,
