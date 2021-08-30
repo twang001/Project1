@@ -6,10 +6,10 @@
 		"type": "SqlServer",
 		"typeProperties": {
 			"connectionString": "integrated security=False;data source=SELFHOSTNODE1;initial catalog=AdventureWorksDW2016;user id=SSISUSer",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwMTVlMTkwZS00Yzg1LTQxZjAtOTA2Yi0xZDkwOTZlYjQxNzciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzYjY5MTk5OC01ODBmLTRiZDEtYmFiNC1iZmRlYTMyNzZlMzEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
-			"referenceName": "selfhostHA",
+			"referenceName": "PrivateEndPoint",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
