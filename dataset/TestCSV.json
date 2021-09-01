@@ -10,13 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "CsvSample3.csv",
+				"fileName": "CsvSample.csv",
 				"container": "input"
 			},
-			"columnDelimiter": {
-				"value": "|~",
-				"type": "Expression"
-			},
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
