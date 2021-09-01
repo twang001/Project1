@@ -25,11 +25,16 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
-						"allowCopyCommand": true,
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
+						"allowCopyCommand": true
 					},
-					"enableStaging": false
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "twadfpracticestorage",
+							"type": "LinkedServiceReference"
+						},
+						"path": "output"
+					}
 				},
 				"inputs": [
 					{
