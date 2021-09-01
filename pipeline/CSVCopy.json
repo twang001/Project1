@@ -26,11 +26,21 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowCopyCommand": true
+					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
 						"referenceName": "TestCSV",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSynapseAnalyticsTable",
 						"type": "DatasetReference"
 					}
 				]
