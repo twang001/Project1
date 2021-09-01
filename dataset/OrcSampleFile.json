@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "CsvSample.orc",
 				"container": "input"
 			},
 			"enablePhysicalSchema": true
