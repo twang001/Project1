@@ -1,0 +1,19 @@
+{
+	"name": "OrcSampleFile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Orc",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "input"
+			},
+			"enablePhysicalSchema": true
+		},
+		"schema": []
+	}
+}
