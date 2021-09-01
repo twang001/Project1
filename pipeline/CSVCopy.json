@@ -16,9 +16,9 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AvroSource",
+						"type": "OrcSource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						}
@@ -46,7 +46,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "Avrosample",
+						"referenceName": "OrcSampleFile",
 						"type": "DatasetReference"
 					}
 				],
