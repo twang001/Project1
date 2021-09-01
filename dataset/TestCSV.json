@@ -13,7 +13,7 @@
 				"fileName": "CsvSample3.csv",
 				"container": "input"
 			},
-			"columnDelimiter": "|",
+			"columnDelimiter": "|~",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
