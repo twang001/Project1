@@ -2,7 +2,7 @@
 	"name": "OrcSampleFile",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureBlobStorage1",
+			"referenceName": "AzureBlobStorageAuthenticationKey",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
