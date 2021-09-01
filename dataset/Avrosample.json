@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "a5134987-41a7-41a2-b0b0-a4dc1cb2828d.avro",
 				"fileSystem": "output"
 			}
 		},
