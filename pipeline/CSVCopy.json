@@ -25,7 +25,8 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
-						"sqlWriterUseTableLock": false
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false
 				},
