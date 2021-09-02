@@ -34,51 +34,6 @@
 							"type": "LinkedServiceReference"
 						},
 						"path": "output"
-					},
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "ID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ID",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "FirstName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "FirstName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LastName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "LastName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "GUID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "GUID",
-									"type": "Guid"
-								}
-							}
-						]
 					}
 				},
 				"inputs": [
