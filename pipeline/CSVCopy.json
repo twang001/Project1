@@ -25,7 +25,7 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
-						"sqlWriterUseTableLock": true
+						"allowCopyCommand": true
 					},
 					"enableStaging": true,
 					"stagingSettings": {
