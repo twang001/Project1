@@ -25,6 +25,7 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
+						"allowCopyCommand": true,
 						"disableMetricsCollection": false
 					},
 					"enableStaging": true,
@@ -34,14 +35,6 @@
 							"type": "LinkedServiceReference"
 						},
 						"path": "filesystem"
-					},
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
 					}
 				},
 				"inputs": [
