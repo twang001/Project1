@@ -25,9 +25,17 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
+						"allowCopyCommand": true,
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "datalakestorage",
+							"type": "LinkedServiceReference"
+						},
+						"path": "filesystem"
+					}
 				},
 				"inputs": [
 					{
