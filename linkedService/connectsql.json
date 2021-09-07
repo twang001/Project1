@@ -1,0 +1,10 @@
+{
+	"name": "connectsql",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://connectsql.vault.azure.net/"
+		}
+	}
+}
