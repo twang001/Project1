@@ -16,14 +16,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "BinarySource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
+							"recursive": true
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "BinaryReadSettings"
 						}
 					},
 					"sink": {
@@ -36,7 +35,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TestCSV",
+						"referenceName": "Binary1",
 						"type": "DatasetReference"
 					}
 				],
