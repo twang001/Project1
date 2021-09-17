@@ -5,10 +5,6 @@
 		"type": "AzureBlobFS",
 		"typeProperties": {
 			"url": "https://twadfpracticestorage.dfs.core.windows.net"
-		},
-		"connectVia": {
-			"referenceName": "selfhostHA",
-			"type": "IntegrationRuntimeReference"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
