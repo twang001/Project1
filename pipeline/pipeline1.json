@@ -21,17 +21,70 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "OrcSink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "OrcWriteSettings"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "FirstName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FirstName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "GUID",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "TEST",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "TEST",
+									"type": "bigDecimal"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
@@ -41,7 +94,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "TestCSV",
+						"referenceName": "OrcSampleFile",
 						"type": "DatasetReference"
 					}
 				]
