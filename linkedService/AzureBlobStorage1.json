@@ -6,10 +6,6 @@
 		"typeProperties": {
 			"serviceEndpoint": "https://twadfpracticestorage.blob.core.windows.net",
 			"accountKind": "StorageV2"
-		},
-		"connectVia": {
-			"referenceName": "selfhostHA",
-			"type": "IntegrationRuntimeReference"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
