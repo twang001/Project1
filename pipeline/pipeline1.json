@@ -80,7 +80,7 @@
 								},
 								"sink": {
 									"name": "TEST",
-									"type": "Decimal"
+									"type": "float"
 								}
 							}
 						]
