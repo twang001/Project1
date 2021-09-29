@@ -21,12 +21,12 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "AvroSink",
+						"type": "OrcSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "AvroWriteSettings"
+							"type": "OrcWriteSettings"
 						}
 					},
 					"enableStaging": false,
@@ -94,7 +94,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Avrosample",
+						"referenceName": "OrcSampleFile",
 						"type": "DatasetReference"
 					}
 				]
