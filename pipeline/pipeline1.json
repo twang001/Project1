@@ -80,7 +80,7 @@
 								},
 								"sink": {
 									"name": "TEST",
-									"type": "float"
+									"type": "String"
 								}
 							}
 						]
