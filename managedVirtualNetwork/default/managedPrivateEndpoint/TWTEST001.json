@@ -1,0 +1,7 @@
+{
+	"name": "TWTEST001",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.KeyVault/vaults/TWTEST001",
+		"groupId": "vault"
+	}
+}
