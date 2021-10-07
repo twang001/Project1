@@ -1,0 +1,10 @@
+{
+	"name": "TWTEST001",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://TWTEST001.vault.azure.net/"
+		}
+	}
+}
