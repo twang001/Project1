@@ -16,18 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlDWSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"type": "AvroSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
-						"type": "AvroSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "AvroWriteSettings"
-						}
+						"type": "SqlDWSink",
+						"allowCopyCommand": true
 					},
 					"enableStaging": false,
 					"translator": {
@@ -88,13 +86,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSynapseAnalyticsTable",
+						"referenceName": "Avrosample",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "Avrosample",
+						"referenceName": "AzureSynapseAnalyticsTable",
 						"type": "DatasetReference"
 					}
 				]
