@@ -85,7 +85,7 @@
 								},
 								"sink": {
 									"name": "TEST",
-									"type": "BigDecimals"
+									"type": "Decimals"
 								}
 							}
 						]
