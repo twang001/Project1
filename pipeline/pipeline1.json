@@ -27,7 +27,14 @@
 						"type": "SqlDWSink",
 						"allowCopyCommand": true
 					},
-					"enableStaging": false,
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "datalakestorage",
+							"type": "LinkedServiceReference"
+						},
+						"path": "filesystem"
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
