@@ -66,10 +66,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "TransformMovies",
-						"type": "DataFlowReference",
-						"parameters": {
-							"parameter1": "currentDate()"
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,
