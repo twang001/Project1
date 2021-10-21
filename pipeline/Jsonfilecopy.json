@@ -52,7 +52,7 @@
 				]
 			},
 			{
-				"name": "JSONTEST",
+				"name": "TransformMovies",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -64,6 +64,13 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "TransformMovies",
+						"type": "DataFlowReference",
+						"parameters": {
+							"parameter1": "currentDate()"
+						}
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
