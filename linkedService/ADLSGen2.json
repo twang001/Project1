@@ -5,6 +5,10 @@
 		"type": "AzureBlobFS",
 		"typeProperties": {
 			"url": "https://twadfpracticestorage.dfs.core.windows.net"
+		},
+		"connectVia": {
+			"referenceName": "CentralUSIR",
+			"type": "IntegrationRuntimeReference"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
