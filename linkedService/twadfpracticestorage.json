@@ -7,10 +7,6 @@
 		"typeProperties": {
 			"serviceEndpoint": "https://twadfpracticestorage.blob.core.windows.net",
 			"accountKind": "StorageV2"
-		},
-		"connectVia": {
-			"referenceName": "AzureIRWithVnet",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
