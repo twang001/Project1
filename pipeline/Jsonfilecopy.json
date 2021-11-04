@@ -16,9 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
 					},
 					"sink": {
 						"type": "JsonSink",
@@ -34,11 +40,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "LocalSQLServer",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": "EMP"
-						}
+						"referenceName": "Json1",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
