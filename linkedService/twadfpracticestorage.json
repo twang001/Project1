@@ -9,7 +9,7 @@
 			"accountKind": "StorageV2"
 		},
 		"connectVia": {
-			"referenceName": "CentralUSIR",
+			"referenceName": "AzureIRWithVnet",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
