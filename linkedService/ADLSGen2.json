@@ -7,7 +7,7 @@
 			"url": "https://twadfpracticestorage.dfs.core.windows.net"
 		},
 		"connectVia": {
-			"referenceName": "CentralUSIR",
+			"referenceName": "AzureIRWithVnet",
 			"type": "IntegrationRuntimeReference"
 		}
 	},
