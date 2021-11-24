@@ -1,0 +1,15 @@
+{
+	"name": "DynamicsCrm1",
+	"properties": {
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Server=tcp:myserver.database.windows.net,1433;Database=@{linkedService().DBName};User ID=user;Password=fake;Trusted_Connection=False;Encrypt=True;Connection Timeout=30"
+		},
+		"parameters": {
+			"DBName": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
