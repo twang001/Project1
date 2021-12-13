@@ -88,35 +88,26 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "AvroSource",
+									"type": "BinarySource",
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
 									}
 								},
 								"sink": {
-									"type": "AvroSink",
+									"type": "BinarySink",
 									"storeSettings": {
 										"type": "AzureBlobStorageWriteSettings"
-									},
-									"formatSettings": {
-										"type": "AvroWriteSettings"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
-									"referenceName": "AvroLogList",
+									"referenceName": "AvroFileList",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
@@ -128,7 +119,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "AvroOutput",
+									"referenceName": "AvroFileOutput",
 									"type": "DatasetReference"
 								}
 							]
