@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "AvroLogList",
+						"referenceName": "AvroInput",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -91,6 +91,7 @@
 									"type": "AvroSource",
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
 										"enablePartitionDiscovery": false
 									}
 								},
