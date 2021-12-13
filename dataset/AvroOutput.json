@@ -1,0 +1,44 @@
+{
+	"name": "AvroOutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "output"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "HybridDelivery.ClientLibraryJob",
+			"fields": [
+				{
+					"name": "internal_cust_id",
+					"type": [
+						"long",
+						"null"
+					]
+				},
+				{
+					"name": "access_code",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "restriction",
+					"type": [
+						"string",
+						"null"
+					]
+				}
+			]
+		}
+	}
+}
