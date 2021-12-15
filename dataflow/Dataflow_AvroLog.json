@@ -6,27 +6,31 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AvroLogList",
+						"referenceName": "MovieFiles",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "ConditionalSplit1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
-				"          SequenceNumber as long,",
-				"          Offset as string,",
-				"          EnqueuedTimeUtc as string,",
-				"          SystemProperties as [string,string],",
-				"          Properties as [string,string],",
-				"          Body as string",
+				"          Column_1 as string,",
+				"          Column_2 as string,",
+				"          Column_3 as string,",
+				"          Column_4 as string,",
+				"          Column_5 as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     limit: 100,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 split(ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> ConditionalSplit1@(, )"
 			]
 		}
 	}
