@@ -51,7 +51,7 @@
 				"          Column_5 as string,",
 				"          Column_6 as string",
 				"     ),",
-				"     partitionFileNames:[(concat('Response_',toString(year(currentUTC())),'_',toString(month(currentUTC())),'_',toString(dayOfMonth(currentUTC())),'_',toString(hour(currentUTC())),'_',toString(minute(currentUTC())),'_',toString(second(currentUTC()))))],",
+				"     partitionFileNames:[(concat('Response_',toString(year(currentUTC())),'_',toString(month(currentUTC())),'_',toString(dayOfMonth(currentUTC())),'_',toString(hour(currentUTC())),'_',toString(minute(currentUTC())),'_',toString(second(currentUTC())),'.csv'))],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('hash', 1)) ~> sink1"
