@@ -5,13 +5,18 @@
 			"referenceName": "AzureStorageLinkedService",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"OutputFileName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@concat('Response_',utcnow())",
+					"value": "@dataset().OutputFileName",
 					"type": "Expression"
 				},
 				"folderPath": "Response",
