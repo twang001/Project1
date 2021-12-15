@@ -51,8 +51,10 @@
 				"          Column_5 as string,",
 				"          Column_6 as string",
 				"     ),",
+				"     partitionFileNames:[(concat('outputcsv'))],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
