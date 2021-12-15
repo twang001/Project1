@@ -140,7 +140,15 @@
 							"typeProperties": {
 								"dataflow": {
 									"referenceName": "Dataflow_AvroLog",
-									"type": "DataFlowReference"
+									"type": "DataFlowReference",
+									"datasetParameters": {
+										"source1": {
+											"FileName": {
+												"value": "@item().name",
+												"type": "Expression"
+											}
+										}
+									}
 								},
 								"compute": {
 									"coreCount": 8,
