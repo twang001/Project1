@@ -26,7 +26,7 @@
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
 						"modifiedDatetimeStart": {
-							"value": "@addminutes(utcnow(),-15)",
+							"value": "@addminutes(utcnow(),-105)",
 							"type": "Expression"
 						},
 						"modifiedDatetimeEnd": {
