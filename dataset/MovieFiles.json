@@ -2,7 +2,7 @@
 	"name": "MovieFiles",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "twadfpracticestorage",
+			"referenceName": "AzureStorageLinkedService",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
