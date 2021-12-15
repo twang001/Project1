@@ -7,8 +7,7 @@
 		},
 		"parameters": {
 			"FileName": {
-				"type": "string",
-				"defaultValue": "jinleitest_test001_0_2021_12_13_07_43_52.avro"
+				"type": "string"
 			}
 		},
 		"annotations": [],
