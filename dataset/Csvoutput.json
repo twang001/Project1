@@ -15,6 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().OutputFileName",
+					"type": "Expression"
+				},
 				"folderPath": "Response",
 				"container": "output"
 			},
