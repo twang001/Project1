@@ -46,8 +46,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     mapColumn(",
-				"          feedsID = {feeds.id},",
-				"          Mediaid = {feeds.multiMedia.id}",
+				"          feeds = {feeds.id}",
 				"     ),",
 				"     partitionBy('hash', 1)) ~> sink1"
 			]
