@@ -12,17 +12,42 @@
 					"name": "samplejson"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "samplejsonoutput",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Select1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
-				"          feeds as (id as integer, title as string, description as string, location as string, lng as integer, lat as integer, userId as integer, name as string, isdeleted as boolean, profilePicture as string, videoUrl as string, images as string, mediatype as integer, imagePaths as string, feedsComment as string, commentCount as integer, multiMedia as (id as integer, name as string, description as string, url as string, mediatype as integer, likeCount as integer, place as string, createAt as string)[], likeDislike as (likes as integer, dislikes as integer, userAction as integer), createdAt as string, code as integer, msg as string)[],",
-				"          totalFeed as integer",
+				"          feeds as (code as boolean, commentCount as short, createdAt as string, description as string, feedsComment as string, id as short, imagePaths as string, images as string, isdeleted as boolean, lat as boolean, likeDislike as (dislikes as short, likes as short, userAction as short), lng as boolean, location as string, mediatype as boolean, msg as string, multiMedia as (createAt as string, description as string, id as short, likeCount as boolean, mediatype as short, name as string, place as string, url as string)[], name as string, profilePicture as string, title as string, userId as short, videoUrl as string)[],",
+				"          totalFeed as short",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> samplejson"
+				"     documentForm: 'arrayOfDocuments') ~> samplejson",
+				"samplejson select(mapColumn(",
+				"          feeds",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Select1",
+				"Select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          feeds = feeds[1].id,",
+				"          id = feeds[1].multiMedia[1].id",
+				"     )) ~> sink1"
 			]
 		}
 	}

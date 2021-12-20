@@ -1,0 +1,19 @@
+{
+	"name": "samplejsonoutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "outputcolumn.csv",
+				"container": "sample-data"
+			}
+		},
+		"schema": {}
+	}
+}
