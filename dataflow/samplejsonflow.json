@@ -24,6 +24,9 @@
 			"transformations": [
 				{
 					"name": "Select1"
+				},
+				{
+					"name": "Flatten1"
 				}
 			],
 			"scriptLines": [
@@ -40,15 +43,17 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> Select1",
-				"Select1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     partitionFileNames:['Output.json'],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
+				"Select1 foldDown(unroll(feeds),",
 				"     mapColumn(",
-				"          feeds = {feeds.id}",
+				"          feedsID = feeds.id,",
+				"          multiMedia = feeds.multiMedia.id",
 				"     ),",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> Flatten1",
+				"Flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
