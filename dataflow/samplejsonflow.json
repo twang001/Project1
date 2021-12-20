@@ -1,0 +1,29 @@
+{
+	"name": "samplejsonflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "samplejson",
+						"type": "DatasetReference"
+					},
+					"name": "samplejson"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          feeds as (id as integer, title as string, description as string, location as string, lng as integer, lat as integer, userId as integer, name as string, isdeleted as boolean, profilePicture as string, videoUrl as string, images as string, mediatype as integer, imagePaths as string, feedsComment as string, commentCount as integer, multiMedia as (id as integer, name as string, description as string, url as string, mediatype as integer, likeCount as integer, place as string, createAt as string)[], likeDislike as (likes as integer, dislikes as integer, userAction as integer), createdAt as string, code as integer, msg as string)[],",
+				"          totalFeed as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> samplejson"
+			]
+		}
+	}
+}
