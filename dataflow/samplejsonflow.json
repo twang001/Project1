@@ -42,12 +42,14 @@
 				"     skipDuplicateMapOutputs: true) ~> Select1",
 				"Select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['Output.json'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     mapColumn(",
 				"          feeds = feeds[1].id,",
 				"          id = feeds[1].multiMedia[1].id",
-				"     )) ~> sink1"
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
