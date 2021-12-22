@@ -47,6 +47,7 @@
                     "resourceId": "="
                 },
                 "computeProperties": {
+                     "location": "=",
                     "dataFlowProperties": {
                         "externalComputeInfo": [
                             {
