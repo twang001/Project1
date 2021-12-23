@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "samplejson - Copy.json",
-				"container": "jsonsample"
+				"container": "sample-data"
 			}
 		},
 		"schema": {
