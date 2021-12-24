@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlemp1",
+						"referenceName": "samplejson",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -15,14 +15,14 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AZUREOutput",
+						"referenceName": "samplejsonoutput",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				}
 			],
 			"transformations": [],
-			"script": "source(output(\n\t\tID as integer,\n\t\tFirstName as string,\n\t\tLastName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
+			"script": "source(output(\n\t\tfeeds as (id as integer, title as string, description as string, location as string, lng as integer, lat as integer, userId as integer, name as string, isdeleted as boolean, profilePicture as string, videoUrl as string, images as string, mediatype as integer, imagePaths as string, feedsComment as string, commentCount as integer, multiMedia as (id as integer, name as string, description as string, url as string, mediatype as integer, likeCount as integer, place as string, createAt as string)[], likeDislike as (likes as integer, dislikes as integer, userAction as integer), createdAt as string, code as integer, msg as string)[],\n\t\ttotalFeed as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument') ~> source1\nsource1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1) ~> sink1"
 		}
 	}
 }

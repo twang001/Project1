@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "part-00000-79965127-d2ff-4338-90ff-c26dded83abf-c000.json",
 				"container": "sample-data"
 			}
 		},
