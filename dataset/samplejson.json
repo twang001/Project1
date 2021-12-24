@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "samplejson - Copy.json",
-				"container": "sample-data"
+				"fileName": "samplejson.json",
+				"container": "jsonsample"
 			}
 		},
 		"schema": {
