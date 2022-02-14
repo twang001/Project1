@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "TestCSV",
+						"referenceName": "csvsample",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "splitfileoutput",
+						"referenceName": "csvsplit",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -24,32 +24,23 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          ID as short,",
-				"          FirstName as string,",
-				"          LastName as string,",
-				"          GUID as string,",
-				"          TEST as double",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     inferDriftedColumnTypes: true,",
-				"     ignoreNoFilesFound: false,",
-				"     partitionBy('hash', 1)) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     input(",
 				"          Column_1 as string,",
 				"          Column_2 as string,",
 				"          Column_3 as string,",
 				"          Column_4 as string,",
-				"          Column_5 as string,",
-				"          Column_6 as string",
+				"          Column_5 as string",
 				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     partitionBy('hash', 1)) ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('key',",
 				"          0,",
-				"          GUID",
+				"          ERROR_FUNCTION('')",
 				"     )) ~> sink1"
 			]
 		}
