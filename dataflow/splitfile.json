@@ -23,14 +23,7 @@
 			],
 			"transformations": [],
 			"scriptLines": [
-				"source(output(",
-				"          {_col0_} as string,",
-				"          {_col1_} as string,",
-				"          {_col2_} as string,",
-				"          {_col3_} as string,",
-				"          {_col4_} as string",
-				"     ),",
-				"     allowSchemaDrift: false,",
+				"source(allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     wildcardPaths:['*.csv'],",
@@ -41,7 +34,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('key',",
 				"          0,",
-				"          ERROR_FUNCTION('')",
+				"          year",
 				"     )) ~> sink1"
 			]
 		}
