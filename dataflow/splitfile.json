@@ -21,14 +21,20 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: false,",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     wildcardPaths:['*.csv'],",
 				"     partitionBy('hash', 1)) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 derive(createddate = ERROR_FUNCTION('')) ~> DerivedColumn1",
+				"DerivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
