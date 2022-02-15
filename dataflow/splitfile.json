@@ -31,7 +31,6 @@
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
-				"     wildcardPaths:['*.csv'],",
 				"     partitionBy('key',",
 				"          0,",
 				"          ERROR_FUNCTION('')",
