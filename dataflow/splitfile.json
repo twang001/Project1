@@ -27,16 +27,8 @@
 				}
 			],
 			"scriptLines": [
-				"source(output(",
-				"          movie as integer,",
-				"          title as string,",
-				"          genres as string,",
-				"          year as short,",
-				"          {Rotton Tomato} as short",
-				"     ),",
-				"     allowSchemaDrift: true,",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     wildcardPaths:['*.csv'],",
 				"     partitionBy('key',",

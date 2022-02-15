@@ -1,0 +1,24 @@
+{
+	"name": "SqlDimension1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSQLDB_SELFHOSTIR",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().Table",
+				"type": "Expression"
+			}
+		}
+	}
+}
