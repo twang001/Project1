@@ -40,7 +40,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('key',",
 				"          0,",
-				"          year",
+				"          createddate",
 				"     )) ~> sink1"
 			]
 		}
