@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "splitfile",
-				"type": "ExecuteDataFlow",
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "1.00:00:00",
+					"timeout": "7.00:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -15,18 +15,48 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "splitfile",
-						"type": "DataFlowReference"
+					"dataset": {
+						"referenceName": "csvsample",
+						"type": "DatasetReference"
 					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
+					"fieldList": [
+						"structure"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"enablePartitionDiscovery": false
 					},
-					"traceLevel": "Fine"
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "tablestructure",
+					"value": {
+						"value": "@activity('Get Metadata1').output",
+						"type": "Expression"
+					}
 				}
 			}
 		],
+		"variables": {
+			"tablestructure": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
