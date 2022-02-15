@@ -46,7 +46,7 @@
 				"typeProperties": {
 					"variableName": "tablestructure",
 					"value": {
-						"value": "@activity('Get Metadata1').output.itemName",
+						"value": "@activity('Get Metadata1').output.structure",
 						"type": "Expression"
 					}
 				}
