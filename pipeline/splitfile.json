@@ -52,6 +52,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"tableschema": {
+				"type": "object"
+			}
+		},
 		"variables": {
 			"tablestructure": {
 				"type": "Array"
