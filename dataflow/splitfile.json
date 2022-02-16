@@ -36,7 +36,7 @@
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     wildcardPaths:[($filename)]) ~> source1",
-				"source1 derive(createddate = $partitionbycolumn) ~> DerivedColumn1",
+				"source1 derive(createddate = year) ~> DerivedColumn1",
 				"DerivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
