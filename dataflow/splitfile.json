@@ -36,7 +36,6 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     partitionBy('key',",
 				"          0,",
