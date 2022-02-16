@@ -21,7 +21,11 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
 			"scriptLines": [
 				"parameters{",
 				"     filename as string,",
@@ -32,13 +36,14 @@
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     wildcardPaths:[($filename)]) ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 derive(createddate = $partitionbycolumn) ~> DerivedColumn1",
+				"DerivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('key',",
 				"          0,",
-				"          $partitionbycolumn",
+				"          createddate",
 				"     )) ~> sink1"
 			]
 		}
