@@ -45,6 +45,14 @@
 				"type": "string"
 			}
 		},
+		"variables": {
+			"filename": {
+				"type": "String"
+			},
+			"columnname": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
