@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "csvsample",
+						"referenceName": "CsvSample",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -27,7 +27,14 @@
 				"     filename as string,",
 				"     partitionbycolumn as string",
 				"}",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          movie as string,",
+				"          title as string,",
+				"          year as string,",
+				"          Rating as string,",
+				"          {Rotton Tomato} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
