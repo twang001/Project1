@@ -1,12 +1,19 @@
 {
 	"name": "TEST",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
 			"url": "https://redcap.petermac.org.au/api/",
 			"enableServerCertificateValidation": true,
-			"authenticationType": "Anonymous"
+			"authenticationType": "Anonymous",
+			"authHeaders": {
+				"token": {
+					"type": "SecureString",
+					"value": "**********"
+				}
+			}
 		}
 	}
 }
