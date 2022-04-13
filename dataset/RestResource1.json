@@ -5,20 +5,6 @@
 			"referenceName": "TEST",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"token": {
-				"type": "string",
-				"defaultValue": "4CDCADB4E1C95D988083688E0B45CA34"
-			},
-			"content": {
-				"type": "string",
-				"defaultValue": "record"
-			},
-			"format": {
-				"type": "string",
-				"defaultValue": "json"
-			}
-		},
 		"annotations": [],
 		"type": "RestResource",
 		"schema": []
