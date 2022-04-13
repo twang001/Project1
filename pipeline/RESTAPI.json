@@ -22,11 +22,8 @@
 						"requestMethod": "POST",
 						"requestBody": "token:C1A3E983C6512C54B6581E3A0859A76C\ncontent:record\nformat:json",
 						"additionalHeaders": {
-							"Content-Length": "70",
-							"Content-Type": "application/x-www-form-urlencoded"
-						},
-						"paginationRules": {
-							"supportRFC5988": "true"
+							"Content-type": "application/x-www-form-urlencoded",
+							"Content-Length": ""
 						}
 					},
 					"enableStaging": false
@@ -34,12 +31,7 @@
 				"inputs": [
 					{
 						"referenceName": "RestResource1",
-						"type": "DatasetReference",
-						"parameters": {
-							"token": "4CDCADB4E1C95D988083688E0B45CA34",
-							"content": "record",
-							"format": "json"
-						}
+						"type": "DatasetReference"
 					}
 				]
 			}
