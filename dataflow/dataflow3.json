@@ -40,6 +40,7 @@
 				"     recreate:true,",
 				"     format: 'document',",
 				"     partitionKey: ['/test'],",
+				"     throughput: 2000,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
