@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@CONCAT('text',utcnow(), '.txt')",
+					"value": "@CONCAT('text',utcnow(), '.wav')",
 					"type": "Expression"
 				},
 				"container": "wavsampleoutput"
