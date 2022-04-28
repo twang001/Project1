@@ -15,7 +15,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "@CONCAT('test',utcnow())",
+					"value": "@CONCAT('test',utcnow(),'/','test')",
 					"type": "Expression"
 				},
 				"container": "wavsampleoutput"
