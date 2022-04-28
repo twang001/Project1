@@ -10,6 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@CONCAT('text',utcnow(), '.txt')",
+					"type": "Expression"
+				},
 				"container": "wavsampleoutput"
 			}
 		}
