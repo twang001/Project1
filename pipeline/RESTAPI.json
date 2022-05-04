@@ -20,7 +20,10 @@
 						"httpRequestTimeout": "00:01:40",
 						"requestInterval": "00.00:00:00.010",
 						"requestMethod": "POST",
-						"requestBody": "token:C1A3E983C6512C54B6581E3A0859A76C\ncontent:record\nformat:json"
+						"requestBody": "token:C1A3E983C6512C54B6581E3A0859A76C\ncontent:record\nformat:json",
+						"additionalHeaders": {
+							"Content-Type": "application/x-www-form-urlencoded"
+						}
 					},
 					"enableStaging": false
 				},
