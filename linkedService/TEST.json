@@ -19,7 +19,7 @@
 		"type": "RestService",
 		"typeProperties": {
 			"url": "https://redcap.petermac.org.au/api/",
-			"enableServerCertificateValidation": true,
+			"enableServerCertificateValidation": false,
 			"authenticationType": "Anonymous"
 		}
 	},
