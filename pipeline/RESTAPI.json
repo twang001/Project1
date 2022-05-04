@@ -22,7 +22,7 @@
 						"requestMethod": "POST",
 						"requestBody": "token=C1A3E983C6512C54B6581E3A0859A76C&content=record&format=json",
 						"additionalHeaders": {
-							"Content-Type": "application/x-www-form-urlencoded\n"
+							"Content-Type": "application/x-www-form-urlencoded"
 						}
 					},
 					"enableStaging": false
