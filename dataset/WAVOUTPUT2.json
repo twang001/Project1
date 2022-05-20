@@ -2,7 +2,7 @@
 	"name": "WAVOUTPUT2",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureStorageLinkedService",
+			"referenceName": "twadfpracticestorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
