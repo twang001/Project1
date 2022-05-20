@@ -9,8 +9,7 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"container": "wavsampleoutput"
+				"type": "AzureBlobStorageLocation"
 			}
 		}
 	}
