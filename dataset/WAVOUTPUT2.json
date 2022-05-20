@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "INT_\"\"",
+				"fileName": "INV_\"\"",
 				"container": "wavsampleoutput"
 			}
 		}
