@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "\"*.TXT\"",
+					"value": "*.txt",
 					"type": "Expression"
 				},
 				"container": "wavsampleoutput"
