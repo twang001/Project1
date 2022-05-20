@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "INV_*",
+					"value": "INV_*.TXT",
 					"type": "Expression"
 				},
 				"container": "wavsampleoutput"
