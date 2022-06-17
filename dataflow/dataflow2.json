@@ -24,7 +24,9 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          Column_1 as string",
+				"          {test1 } as string,",
+				"          { test2} as short,",
+				"          { test3} as short",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
