@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "TWTEST001"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"ls_AzureSqlDatabase_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://twadfpracticestorage.dfs.core.windows.net/"
+		},
+		"storageeventtrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/twstoragetrigger"
+		},
+		"TWTEST001_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.KeyVault/vaults/TWTEST001"
+		},
+		"TWTEST001_properties_groupId": {
+			"value": "vault"
+		},
+		"TWTEST001_properties_fqdns": {
+			"value": [
+				"twtest001.vaultcore.azure.net"
+			]
+		},
+		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Sql/servers/twadfpractice"
+		},
+		"twadfpracticeprivatepoint_properties_groupId": {
+			"value": "sqlServer"
+		}
+	}
+}
