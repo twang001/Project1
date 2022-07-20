@@ -1,0 +1,34 @@
+{
+	"name": "ds_SQLDB_StagingTables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Stg_Table": {
+				"type": "string"
+			},
+			"Stg_Schema": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SAP_Datasets"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().Stg_Schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().Stg_Table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

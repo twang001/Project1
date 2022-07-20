@@ -1,0 +1,24 @@
+{
+	"name": "storageeventtrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/triggertest/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/twstoragetrigger",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

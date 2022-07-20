@@ -1,0 +1,34 @@
+{
+	"name": "ds_SQLDB_StagingTmpTables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TmpStg_Schema": {
+				"type": "String"
+			},
+			"TmpStg_Table": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "SAP_Datasets"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().TmpStg_Schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().TmpStg_Table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

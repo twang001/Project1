@@ -1,0 +1,145 @@
+{
+	"name": "pl_Dataflow_SAP_TmpStg_To_Stg",
+	"properties": {
+		"description": "Slowly Change Dimension Type 2 Implementation for SAP data between Temporary Staging tables and Staging Tables in Azure SQL Database",
+		"activities": [
+			{
+				"name": "SCD Type2 Transformation",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_SCDType2_SAP_Data",
+						"type": "DataFlowReference",
+						"parameters": {
+							"PrimaryKey": {
+								"value": "'@{pipeline().parameters.PrimaryKey}'",
+								"type": "Expression"
+							},
+							"Columns": {
+								"value": "'@{pipeline().parameters.ColumnNames}'",
+								"type": "Expression"
+							}
+						},
+						"datasetParameters": {
+							"TemporaryStagingData": {
+								"TmpStg_Schema": {
+									"value": "@pipeline().parameters.TemporaryStagingSchema",
+									"type": "Expression"
+								},
+								"TmpStg_Table": {
+									"value": "@pipeline().parameters.TemporaryStagingTable",
+									"type": "Expression"
+								}
+							},
+							"StagingData": {
+								"Stg_Table": {
+									"value": "@pipeline().parameters.StagingTable",
+									"type": "Expression"
+								},
+								"Stg_Schema": {
+									"value": "@pipeline().parameters.StagingSchema",
+									"type": "Expression"
+								}
+							},
+							"StagingDataSink": {
+								"Stg_Table": {
+									"value": "@pipeline().parameters.StagingTable",
+									"type": "Expression"
+								},
+								"Stg_Schema": {
+									"value": "@pipeline().parameters.StagingSchema",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "AzureManagedIntegrationRuntime-prod-04",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "Coarse"
+				}
+			},
+			{
+				"name": "Truncate Tmp Stg table",
+				"description": "Delete all rows from Temporary Staging table after successfully loading data in corresponding staging table",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "SCD Type2 Transformation",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[stg_history].[TruncateTable]",
+					"storedProcedureParameters": {
+						"tableName": {
+							"value": {
+								"value": "@pipeline().parameters.TemporaryStagingTable",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"schemaName": {
+							"value": {
+								"value": "@pipeline().parameters.TemporaryStagingSchema",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_AzureSqlDatabase",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"concurrency": 10,
+		"parameters": {
+			"StagingTable": {
+				"type": "string"
+			},
+			"PrimaryKey": {
+				"type": "string"
+			},
+			"ColumnNames": {
+				"type": "string"
+			},
+			"TemporaryStagingTable": {
+				"type": "string"
+			},
+			"TemporaryStagingSchema": {
+				"type": "string"
+			},
+			"StagingSchema": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SAP_Pipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-12-02T04:51:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "ls_AzureSqlDatabase",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-dcpprod01-prod-dcpcdh-04.database.windows.net;Initial Catalog=sql-database-dcpprod01-dcpcdh-04"
+		},
+		"connectVia": {
+			"referenceName": "AzureManagedIntegrationRuntime-prod-04",
+			"type": "IntegrationRuntimeReference"
+		},
+		"description": "Azure SQL Database for CDH",
+		"annotations": []
+	}
+}

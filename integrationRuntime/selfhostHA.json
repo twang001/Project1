@@ -1,0 +1,6 @@
+{
+	"name": "selfhostHA",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
