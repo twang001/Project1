@@ -1,0 +1,17 @@
+{
+	"name": "RestResource2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "New REST",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ID": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
