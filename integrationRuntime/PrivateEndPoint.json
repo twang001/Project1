@@ -1,0 +1,6 @@
+{
+	"name": "PrivateEndPoint",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

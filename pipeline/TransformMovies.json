@@ -30,6 +30,8 @@
 		"folder": {
 			"name": "DataFlowTransformation"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2021-08-05T02:41:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

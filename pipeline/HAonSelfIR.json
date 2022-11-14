@@ -58,6 +58,8 @@
 		"folder": {
 			"name": "HAonSelfIR"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2021-08-05T02:41:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

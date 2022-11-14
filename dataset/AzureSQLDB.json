@@ -136,5 +136,6 @@
 			"schema": "dbo",
 			"table": "DimCustomer"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

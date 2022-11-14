@@ -1,0 +1,758 @@
+{
+	"name": "Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "twadfpracticestorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "part-1661378449-294a2394-8551-42d8-8597-3ef1c9682107-01.parquet",
+				"container": "parquetinput"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "__operation_type",
+				"type": "BINARY"
+			},
+			{
+				"name": "__sequence_number",
+				"type": "INT64"
+			},
+			{
+				"name": "__timestamp",
+				"type": "INT64"
+			},
+			{
+				"name": "MANDT",
+				"type": "BINARY"
+			},
+			{
+				"name": "BUKRS",
+				"type": "BINARY"
+			},
+			{
+				"name": "LIFNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "UMSKS",
+				"type": "BINARY"
+			},
+			{
+				"name": "UMSKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "AUGDT",
+				"type": "INT32"
+			},
+			{
+				"name": "AUGBL",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZUONR",
+				"type": "BINARY"
+			},
+			{
+				"name": "GJAHR",
+				"type": "BINARY"
+			},
+			{
+				"name": "BELNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "BUZEI",
+				"type": "BINARY"
+			},
+			{
+				"name": "BUDAT",
+				"type": "INT32"
+			},
+			{
+				"name": "BLDAT",
+				"type": "INT32"
+			},
+			{
+				"name": "CPUDT",
+				"type": "INT32"
+			},
+			{
+				"name": "WAERS",
+				"type": "BINARY"
+			},
+			{
+				"name": "XBLNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "BLART",
+				"type": "BINARY"
+			},
+			{
+				"name": "MONAT",
+				"type": "BINARY"
+			},
+			{
+				"name": "BSCHL",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZUMSK",
+				"type": "BINARY"
+			},
+			{
+				"name": "SHKZG",
+				"type": "BINARY"
+			},
+			{
+				"name": "GSBER",
+				"type": "BINARY"
+			},
+			{
+				"name": "MWSKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "DMBTR",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "WRBTR",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "MWSTS",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "WMWST",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "BDIFF",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "BDIF2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "SGTXT",
+				"type": "BINARY"
+			},
+			{
+				"name": "PROJN",
+				"type": "BINARY"
+			},
+			{
+				"name": "AUFNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "ANLN1",
+				"type": "BINARY"
+			},
+			{
+				"name": "ANLN2",
+				"type": "BINARY"
+			},
+			{
+				"name": "EBELN",
+				"type": "BINARY"
+			},
+			{
+				"name": "EBELP",
+				"type": "BINARY"
+			},
+			{
+				"name": "SAKNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "HKONT",
+				"type": "BINARY"
+			},
+			{
+				"name": "FKONT",
+				"type": "BINARY"
+			},
+			{
+				"name": "FILKD",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZFBDT",
+				"type": "INT32"
+			},
+			{
+				"name": "ZTERM",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZBD1T",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "ZBD2T",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "ZBD3T",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "ZBD1P",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "ZBD2P",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "SKFBT",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "SKNTO",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "WSKTO",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "ZLSCH",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZLSPR",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZBFIX",
+				"type": "BINARY"
+			},
+			{
+				"name": "HBKID",
+				"type": "BINARY"
+			},
+			{
+				"name": "BVTYP",
+				"type": "BINARY"
+			},
+			{
+				"name": "REBZG",
+				"type": "BINARY"
+			},
+			{
+				"name": "REBZJ",
+				"type": "BINARY"
+			},
+			{
+				"name": "REBZZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "SAMNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZOLLT",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZOLLD",
+				"type": "INT32"
+			},
+			{
+				"name": "LZBKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "LANDL",
+				"type": "BINARY"
+			},
+			{
+				"name": "DIEKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "MANSP",
+				"type": "BINARY"
+			},
+			{
+				"name": "MSCHL",
+				"type": "BINARY"
+			},
+			{
+				"name": "MADAT",
+				"type": "INT32"
+			},
+			{
+				"name": "MANST",
+				"type": "BINARY"
+			},
+			{
+				"name": "MABER",
+				"type": "BINARY"
+			},
+			{
+				"name": "XNETB",
+				"type": "BINARY"
+			},
+			{
+				"name": "XANET",
+				"type": "BINARY"
+			},
+			{
+				"name": "XCPDD",
+				"type": "BINARY"
+			},
+			{
+				"name": "XESRD",
+				"type": "BINARY"
+			},
+			{
+				"name": "XZAHL",
+				"type": "BINARY"
+			},
+			{
+				"name": "MWSK1",
+				"type": "BINARY"
+			},
+			{
+				"name": "DMBT1",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "WRBT1",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "MWSK2",
+				"type": "BINARY"
+			},
+			{
+				"name": "DMBT2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "WRBT2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "MWSK3",
+				"type": "BINARY"
+			},
+			{
+				"name": "DMBT3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "WRBT3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "QSSKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "QSSHB",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "QBSHB",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "BSTAT",
+				"type": "BINARY"
+			},
+			{
+				"name": "ANFBN",
+				"type": "BINARY"
+			},
+			{
+				"name": "ANFBJ",
+				"type": "BINARY"
+			},
+			{
+				"name": "ANFBU",
+				"type": "BINARY"
+			},
+			{
+				"name": "VBUND",
+				"type": "BINARY"
+			},
+			{
+				"name": "REBZT",
+				"type": "BINARY"
+			},
+			{
+				"name": "STCEG",
+				"type": "BINARY"
+			},
+			{
+				"name": "EGBLD",
+				"type": "BINARY"
+			},
+			{
+				"name": "EGLLD",
+				"type": "BINARY"
+			},
+			{
+				"name": "QSZNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "QSFBT",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "XINVE",
+				"type": "BINARY"
+			},
+			{
+				"name": "PROJK",
+				"type": "BINARY"
+			},
+			{
+				"name": "FIPOS",
+				"type": "BINARY"
+			},
+			{
+				"name": "NPLNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "AUFPL",
+				"type": "BINARY"
+			},
+			{
+				"name": "APLZL",
+				"type": "BINARY"
+			},
+			{
+				"name": "XEGDR",
+				"type": "BINARY"
+			},
+			{
+				"name": "DMBE2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMBE3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMB21",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMB22",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMB23",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMB31",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMB32",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "DMB33",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "MWST2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "MWST3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "SKNT2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "SKNT3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "BDIF3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "XRAGL",
+				"type": "BINARY"
+			},
+			{
+				"name": "RSTGR",
+				"type": "BINARY"
+			},
+			{
+				"name": "UZAWE",
+				"type": "BINARY"
+			},
+			{
+				"name": "KOSTL",
+				"type": "BINARY"
+			},
+			{
+				"name": "LNRAN",
+				"type": "BINARY"
+			},
+			{
+				"name": "XSTOV",
+				"type": "BINARY"
+			},
+			{
+				"name": "KZBTR",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "XREF1",
+				"type": "BINARY"
+			},
+			{
+				"name": "XREF2",
+				"type": "BINARY"
+			},
+			{
+				"name": "XARCH",
+				"type": "BINARY"
+			},
+			{
+				"name": "PSWSL",
+				"type": "BINARY"
+			},
+			{
+				"name": "PSWBT",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "IMKEY",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZEKKN",
+				"type": "BINARY"
+			},
+			{
+				"name": "FISTL",
+				"type": "BINARY"
+			},
+			{
+				"name": "GEBER",
+				"type": "BINARY"
+			},
+			{
+				"name": "DABRZ",
+				"type": "INT32"
+			},
+			{
+				"name": "XNEGP",
+				"type": "BINARY"
+			},
+			{
+				"name": "EMPFB",
+				"type": "BINARY"
+			},
+			{
+				"name": "PRCTR",
+				"type": "BINARY"
+			},
+			{
+				"name": "XREF3",
+				"type": "BINARY"
+			},
+			{
+				"name": "DTWS1",
+				"type": "BINARY"
+			},
+			{
+				"name": "DTWS2",
+				"type": "BINARY"
+			},
+			{
+				"name": "DTWS3",
+				"type": "BINARY"
+			},
+			{
+				"name": "DTWS4",
+				"type": "BINARY"
+			},
+			{
+				"name": "XPYPR",
+				"type": "BINARY"
+			},
+			{
+				"name": "KIDNO",
+				"type": "BINARY"
+			},
+			{
+				"name": "PYCUR",
+				"type": "BINARY"
+			},
+			{
+				"name": "PYAMT",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "BUPLA",
+				"type": "BINARY"
+			},
+			{
+				"name": "SECCO",
+				"type": "BINARY"
+			},
+			{
+				"name": "PPDIFF",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PPDIF2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PPDIF3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PENLC1",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PENLC2",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PENLC3",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PENFC",
+				"type": "FIXED_LEN_BYTE_ARRAY"
+			},
+			{
+				"name": "PENDAYS",
+				"type": "INT32"
+			},
+			{
+				"name": "PENRC",
+				"type": "BINARY"
+			},
+			{
+				"name": "VERTT",
+				"type": "BINARY"
+			},
+			{
+				"name": "VERTN",
+				"type": "BINARY"
+			},
+			{
+				"name": "VBEWA",
+				"type": "BINARY"
+			},
+			{
+				"name": "KBLNR",
+				"type": "BINARY"
+			},
+			{
+				"name": "KBLPOS",
+				"type": "BINARY"
+			},
+			{
+				"name": "GRANT_NBR",
+				"type": "BINARY"
+			},
+			{
+				"name": "GMVKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "SRTYPE",
+				"type": "BINARY"
+			},
+			{
+				"name": "LOTKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "ZINKZ",
+				"type": "BINARY"
+			},
+			{
+				"name": "FKBER",
+				"type": "BINARY"
+			},
+			{
+				"name": "INTRENO",
+				"type": "BINARY"
+			},
+			{
+				"name": "PPRCT",
+				"type": "BINARY"
+			},
+			{
+				"name": "BUZID",
+				"type": "BINARY"
+			},
+			{
+				"name": "AUGGJ",
+				"type": "BINARY"
+			},
+			{
+				"name": "HKTID",
+				"type": "BINARY"
+			},
+			{
+				"name": "BUDGET_PD",
+				"type": "BINARY"
+			},
+			{
+				"name": "KONTT",
+				"type": "BINARY"
+			},
+			{
+				"name": "KONTL",
+				"type": "BINARY"
+			},
+			{
+				"name": "UEBGDAT",
+				"type": "INT32"
+			},
+			{
+				"name": "VNAME",
+				"type": "BINARY"
+			},
+			{
+				"name": "EGRUP",
+				"type": "BINARY"
+			},
+			{
+				"name": "BTYPE",
+				"type": "BINARY"
+			},
+			{
+				"name": "PROPMANO",
+				"type": "BINARY"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

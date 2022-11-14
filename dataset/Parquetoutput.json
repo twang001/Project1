@@ -1,25 +1,18 @@
 {
-	"name": "AzureBlobStorage_Output",
+	"name": "Parquetoutput",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "twadfpracticestorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@utcnow()",
-					"type": "Expression"
-				},
 				"container": "output"
 			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+			"compressionCodec": "snappy"
 		},
 		"schema": []
 	},

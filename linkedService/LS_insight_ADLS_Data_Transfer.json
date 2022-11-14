@@ -1,0 +1,16 @@
+{
+	"name": "LS_insight_ADLS_Data_Transfer",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://19251001devinsightxfer01.dfs.core.windows.net"
+		},
+		"connectVia": {
+			"referenceName": "devinsightIRAzure02",
+			"type": "IntegrationRuntimeReference"
+		},
+		"description": "19251001devinsightxfer01",
+		"annotations": []
+	}
+}

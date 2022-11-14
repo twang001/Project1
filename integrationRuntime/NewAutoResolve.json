@@ -1,10 +1,10 @@
 {
-	"name": "CentralUSIR",
+	"name": "NewAutoResolve",
 	"properties": {
 		"type": "Managed",
 		"typeProperties": {
 			"computeProperties": {
-				"location": "East US",
+				"location": "AutoResolve",
 				"dataFlowProperties": {
 					"computeType": "General",
 					"coreCount": 8,

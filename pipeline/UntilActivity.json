@@ -69,7 +69,6 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"preCopyScript": "TRUNCATE TABLE [dbo].[DimCustomer]",
-						"writeBehavior": "insert",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -576,7 +575,6 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"preCopyScript": "TRUNCATE TABLE [dbo].[DimCustomer]",
-						"writeBehavior": "insert",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,

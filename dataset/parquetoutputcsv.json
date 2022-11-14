@@ -1,5 +1,5 @@
 {
-	"name": "AzureBlobStorage_Output",
+	"name": "parquetoutputcsv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "twadfpracticestorage",
@@ -10,10 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@utcnow()",
-					"type": "Expression"
-				},
 				"container": "output"
 			},
 			"columnDelimiter": ",",
@@ -21,7 +17,35 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

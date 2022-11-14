@@ -1,0 +1,75 @@
+{
+	"name": "Synapse Test Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Data Test",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"deleteFilesAfterCompletion": false
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_INSIGHT_ADLS_LegacyBlob",
+						"type": "DatasetReference",
+						"parameters": {
+							"Container": "dmz-ofpm",
+							"Account": "https://19251001devinsightdmz.dfs.core.windows.net"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_INSIGHT_ADLS_BinaryFolder",
+						"type": "DatasetReference",
+						"parameters": {
+							"Folder": "testfiles"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"ErrorOutput": {
+				"type": "String"
+			},
+			"MailErr_LA0_01_EndPoint": {
+				"type": "String",
+				"defaultValue": "https://prod-11.australiaeast.logic.azure.com:443/workflows/0aeecb88af7f4db9822ea207c008a1f9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=HHcqxnCZMiynIM-3GoBieAvtr4fKtWvKTAZw6eUsqes"
+			},
+			"LastModified": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-23T06:42:42Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

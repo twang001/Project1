@@ -1,0 +1,7 @@
+{
+	"name": "AzureSqlDatabase278-serverless",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/synapseworkspace-managedrg-89c41f9a-9d1b-4791-a055-34305bdf81e8/providers/Microsoft.Sql/servers/syntest-tw001",
+		"groupId": "sqlServer"
+	}
+}
