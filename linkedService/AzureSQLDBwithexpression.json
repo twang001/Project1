@@ -1,0 +1,29 @@
+{
+	"name": "AzureSQLDBwithexpression",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"server": {
+				"type": "string",
+				"defaultValue": "twadfpractice.database.windows.net"
+			},
+			"database": {
+				"type": "string",
+				"defaultValue": "practice001"
+			},
+			"user": {
+				"type": "string",
+				"defaultValue": "DBA"
+			},
+			"pw": {
+				"type": "string",
+				"defaultValue": "Laowang001"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().server};Initial Catalog=@{linkedService().database};User ID=@{linkedService().user};Password=@{linkedService().pw}"
+		}
+	}
+}
