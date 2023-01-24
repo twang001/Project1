@@ -11,25 +11,52 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
 		},
+		"AzureBlobStorageAuthenticationKey_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageAuthenticationKey'"
+		},
 		"AzureSQLDB_SELFHOSTIR_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB_SELFHOSTIR'"
 		},
+		"AzureSQLDBwithexpression_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSQLDBwithexpression'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().server};Initial Catalog=@{linkedService().database};User ID=@{linkedService().user};Password=@{linkedService().pw}"
+		},
 		"AzureSqlDatabaseLinkedService_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001"
 		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
+		"AzureSynapseAnalytics_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics'"
+		},
+		"CosmosDb1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDb1'"
+		},
 		"DataMovementLabAzureSQL_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'"
+			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001;User ID=SSISUser"
 		},
 		"HDILabBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'HDILabBlobStorage'"
+		},
+		"LocalSQLPractice2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LocalSQLPractice2'"
+		},
+		"PrivateEndpoint_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'PrivateEndpoint'"
 		},
 		"SELFHOSTNODE1_connectionString": {
 			"type": "secureString",
@@ -39,9 +66,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SELFHOSTNODE1_AdventureWorksDW2016'"
 		},
+		"SapTable1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapTable1'"
+		},
+		"Sftp1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sftp1'"
+		},
 		"SqlServerLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerLinkedService'"
+		},
+		"datalakestorage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'datalakestorage'"
+		},
+		"twadfpracticestorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'twadfpracticestorage2'"
 		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
@@ -59,6 +102,54 @@
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
 		},
+		"LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().Account}"
+		},
+		"LS_insight_ADLS_Data_Transfer_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://19251001devinsightxfer01.dfs.core.windows.net"
+		},
+		"New REST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": " https://api.anaplan.com/2/0/workspaces/8a81b0946181ceb301619fb619445643/models/4B938EEE5E9A43AC8D4AB3A156600FB9/files/116000000055/chunks/0"
+		},
+		"SapTable1_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "11111"
+		},
+		"SapTable1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"SapTable1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"SapTable1_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+			"type": "string",
+			"defaultValue": "111"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "111"
+		},
+		"TEST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://redcap.petermac.org.au/api/"
+		},
+		"datalakestorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://twdatalakeaccount.dfs.core.windows.net"
+		},
 		"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
@@ -66,6 +157,42 @@
 		"Tumbling_properties_pipeline_parameters_GetTime": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"AzureSqlDatabase278-serverless_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/synapseworkspace-managedrg-89c41f9a-9d1b-4791-a055-34305bdf81e8/providers/Microsoft.Sql/servers/syntest-tw001"
+		},
+		"AzureSqlDatabase278-serverless_properties_groupId": {
+			"type": "string",
+			"defaultValue": "sqlServer"
+		},
+		"Private1_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/privatet1"
+		},
+		"Private1_properties_groupId": {
+			"type": "string",
+			"defaultValue": "blob"
+		},
+		"Private1_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"privatet1.blob.core.windows.net"
+			]
+		},
+		"TWTEST001_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.KeyVault/vaults/TWTEST001"
+		},
+		"TWTEST001_properties_groupId": {
+			"type": "string",
+			"defaultValue": "vault"
+		},
+		"TWTEST001_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"twtest001.vaultcore.azure.net"
+			]
 		},
 		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
 			"type": "string",
@@ -111,14 +238,35 @@
 					"ADLSGen2_accountKey": {
 						"value": "[parameters('ADLSGen2_accountKey')]"
 					},
+					"AzureBlobStorageAuthenticationKey_connectionString": {
+						"value": "[parameters('AzureBlobStorageAuthenticationKey_connectionString')]"
+					},
+					"AzureSQLDBwithexpression_connectionString": {
+						"value": "[parameters('AzureSQLDBwithexpression_connectionString')]"
+					},
 					"AzureSqlDatabaseLinkedService_connectionString": {
 						"value": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
 					},
 					"AzureStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
 					},
+					"AzureSynapseAnalytics_connectionString": {
+						"value": "[parameters('AzureSynapseAnalytics_connectionString')]"
+					},
+					"CosmosDb1_connectionString": {
+						"value": "[parameters('CosmosDb1_connectionString')]"
+					},
 					"HDILabBlobStorage_connectionString": {
 						"value": "[parameters('HDILabBlobStorage_connectionString')]"
+					},
+					"Sftp1_password": {
+						"value": "[parameters('Sftp1_password')]"
+					},
+					"datalakestorage_accountKey": {
+						"value": "[parameters('datalakestorage_accountKey')]"
+					},
+					"twadfpracticestorage2_connectionString": {
+						"value": "[parameters('twadfpracticestorage2_connectionString')]"
 					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
@@ -128,6 +276,24 @@
 					},
 					"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 						"value": "[parameters('DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint')]"
+					},
+					"New REST_properties_typeProperties_url": {
+						"value": "[parameters('New REST_properties_typeProperties_url')]"
+					},
+					"Sftp1_properties_typeProperties_host": {
+						"value": "[parameters('Sftp1_properties_typeProperties_host')]"
+					},
+					"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+						"value": "[parameters('Sftp1_properties_typeProperties_hostKeyFingerprint')]"
+					},
+					"Sftp1_properties_typeProperties_userName": {
+						"value": "[parameters('Sftp1_properties_typeProperties_userName')]"
+					},
+					"TEST_properties_typeProperties_url": {
+						"value": "[parameters('TEST_properties_typeProperties_url')]"
+					},
+					"datalakestorage_properties_typeProperties_url": {
+						"value": "[parameters('datalakestorage_properties_typeProperties_url')]"
 					},
 					"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
 						"value": "[parameters('twadfpracticestorage_properties_typeProperties_serviceEndpoint')]"
@@ -149,12 +315,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"AzureSQLDB_SELFHOSTIR_connectionString": {
-						"value": "[parameters('AzureSQLDB_SELFHOSTIR_connectionString')]"
-					},
-					"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
-						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_sasUri_secretName')]"
 					}
 				}
 			},
@@ -176,29 +336,26 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureSQLDB_SELFHOSTIR_connectionString": {
+						"value": "[parameters('AzureSQLDB_SELFHOSTIR_connectionString')]"
+					},
 					"DataMovementLabAzureSQL_connectionString": {
 						"value": "[parameters('DataMovementLabAzureSQL_connectionString')]"
 					},
-					"SELFHOSTNODE1_connectionString": {
-						"value": "[parameters('SELFHOSTNODE1_connectionString')]"
+					"LocalSQLPractice2_connectionString": {
+						"value": "[parameters('LocalSQLPractice2_connectionString')]"
 					},
-					"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
-						"value": "[parameters('SELFHOSTNODE1_AdventureWorksDW2016_connectionString')]"
+					"PrivateEndpoint_connectionString": {
+						"value": "[parameters('PrivateEndpoint_connectionString')]"
 					},
-					"SqlServerLinkedService_connectionString": {
-						"value": "[parameters('SqlServerLinkedService_connectionString')]"
+					"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
+						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_sasUri_secretName')]"
 					},
-					"Tumbling_properties_pipeline_parameters_GetTime": {
-						"value": "[parameters('Tumbling_properties_pipeline_parameters_GetTime')]"
+					"LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url": {
+						"value": "[parameters('LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url')]"
 					},
-					"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
-						"value": "[parameters('twadfpracticeprivatepoint_properties_privateLinkResourceId')]"
-					},
-					"twadfpracticeprivatepoint_properties_groupId": {
-						"value": "[parameters('twadfpracticeprivatepoint_properties_groupId')]"
-					},
-					"twadfpracticeprivatepoint_properties_fqdns": {
-						"value": "[parameters('twadfpracticeprivatepoint_properties_fqdns')]"
+					"LS_insight_ADLS_Data_Transfer_properties_typeProperties_url": {
+						"value": "[parameters('LS_insight_ADLS_Data_Transfer_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -219,11 +376,111 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SELFHOSTNODE1_connectionString": {
+						"value": "[parameters('SELFHOSTNODE1_connectionString')]"
+					},
+					"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
+						"value": "[parameters('SELFHOSTNODE1_AdventureWorksDW2016_connectionString')]"
+					},
+					"SapTable1_password": {
+						"value": "[parameters('SapTable1_password')]"
+					},
+					"SqlServerLinkedService_connectionString": {
+						"value": "[parameters('SqlServerLinkedService_connectionString')]"
+					},
+					"SapTable1_properties_typeProperties_clientId": {
+						"value": "[parameters('SapTable1_properties_typeProperties_clientId')]"
+					},
+					"SapTable1_properties_typeProperties_userName": {
+						"value": "[parameters('SapTable1_properties_typeProperties_userName')]"
+					},
+					"SapTable1_properties_typeProperties_server": {
+						"value": "[parameters('SapTable1_properties_typeProperties_server')]"
+					},
+					"SapTable1_properties_typeProperties_systemNumber": {
+						"value": "[parameters('SapTable1_properties_typeProperties_systemNumber')]"
+					},
+					"Tumbling_properties_pipeline_parameters_GetTime": {
+						"value": "[parameters('Tumbling_properties_pipeline_parameters_GetTime')]"
+					},
+					"AzureSqlDatabase278-serverless_properties_privateLinkResourceId": {
+						"value": "[parameters('AzureSqlDatabase278-serverless_properties_privateLinkResourceId')]"
+					},
+					"AzureSqlDatabase278-serverless_properties_groupId": {
+						"value": "[parameters('AzureSqlDatabase278-serverless_properties_groupId')]"
+					},
+					"Private1_properties_privateLinkResourceId": {
+						"value": "[parameters('Private1_properties_privateLinkResourceId')]"
+					},
+					"Private1_properties_groupId": {
+						"value": "[parameters('Private1_properties_groupId')]"
+					},
+					"Private1_properties_fqdns": {
+						"value": "[parameters('Private1_properties_fqdns')]"
+					},
+					"TWTEST001_properties_privateLinkResourceId": {
+						"value": "[parameters('TWTEST001_properties_privateLinkResourceId')]"
+					},
+					"TWTEST001_properties_groupId": {
+						"value": "[parameters('TWTEST001_properties_groupId')]"
+					},
+					"TWTEST001_properties_fqdns": {
+						"value": "[parameters('TWTEST001_properties_fqdns')]"
+					},
+					"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
+						"value": "[parameters('twadfpracticeprivatepoint_properties_privateLinkResourceId')]"
+					},
+					"twadfpracticeprivatepoint_properties_groupId": {
+						"value": "[parameters('twadfpracticeprivatepoint_properties_groupId')]"
+					},
+					"twadfpracticeprivatepoint_properties_fqdns": {
+						"value": "[parameters('twadfpracticeprivatepoint_properties_fqdns')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_3')]"
+			]
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_5",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_5.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_4')]"
 			]
 		}
 	]

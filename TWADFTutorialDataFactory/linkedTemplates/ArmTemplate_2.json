@@ -7,45 +7,1341 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "TWADFTutorialDataFactory"
 		},
+		"AzureSQLDB_SELFHOSTIR_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB_SELFHOSTIR'"
+		},
 		"DataMovementLabAzureSQL_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'"
+			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001;User ID=SSISUser"
 		},
-		"SELFHOSTNODE1_connectionString": {
+		"LocalSQLPractice2_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SELFHOSTNODE1'"
+			"metadata": "Secure string for 'connectionString' of 'LocalSQLPractice2'"
 		},
-		"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
+		"PrivateEndpoint_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SELFHOSTNODE1_AdventureWorksDW2016'"
+			"metadata": "Secure string for 'connectionString' of 'PrivateEndpoint'"
 		},
-		"SqlServerLinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SqlServerLinkedService'"
-		},
-		"Tumbling_properties_pipeline_parameters_GetTime": {
+		"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
 			"type": "string",
-			"defaultValue": "@trigger().outputs.windowStartTime"
+			"defaultValue": "BlobSAS"
 		},
-		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
+		"LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Sql/servers/twadfpractice"
+			"defaultValue": "@{linkedService().Account}"
 		},
-		"twadfpracticeprivatepoint_properties_groupId": {
+		"LS_insight_ADLS_Data_Transfer_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "sqlServer"
-		},
-		"twadfpracticeprivatepoint_properties_fqdns": {
-			"type": "array",
-			"defaultValue": [
-				"twadfpractice.database.windows.net"
-			]
+			"defaultValue": "https://19251001devinsightxfer01.dfs.core.windows.net"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@CONCAT(pipeline().RunId, '.txt')",
+							"type": "Expression"
+						},
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "sample4.json",
+						"container": "input"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"feeds": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"title": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									},
+									"location": {
+										"type": "string"
+									},
+									"lng": {
+										"type": "integer"
+									},
+									"lat": {
+										"type": "integer"
+									},
+									"userId": {
+										"type": "integer"
+									},
+									"name": {
+										"type": "string"
+									},
+									"isdeleted": {
+										"type": "boolean"
+									},
+									"profilePicture": {
+										"type": "string"
+									},
+									"videoUrl": {
+										"type": "null"
+									},
+									"images": {
+										"type": "null"
+									},
+									"mediatype": {
+										"type": "integer"
+									},
+									"imagePaths": {
+										"type": "null"
+									},
+									"feedsComment": {
+										"type": "null"
+									},
+									"commentCount": {
+										"type": "integer"
+									},
+									"multiMedia": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "integer"
+												},
+												"name": {
+													"type": "string"
+												},
+												"description": {
+													"type": "null"
+												},
+												"url": {
+													"type": "string"
+												},
+												"mediatype": {
+													"type": "integer"
+												},
+												"likeCount": {
+													"type": "integer"
+												},
+												"place": {
+													"type": "null"
+												},
+												"createAt": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"likeDislike": {
+										"type": "object",
+										"properties": {
+											"likes": {
+												"type": "integer"
+											},
+											"dislikes": {
+												"type": "integer"
+											},
+											"userAction": {
+												"type": "integer"
+											}
+										}
+									},
+									"createdAt": {
+										"type": "string"
+									},
+									"code": {
+										"type": "integer"
+									},
+									"msg": {
+										"type": "null"
+									}
+								}
+							}
+						},
+						"totalFeed": {
+							"type": "integer"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MoviesDB')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSGen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "moviesDB.csv",
+						"fileSystem": "sample-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "movie",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "genres",
+						"type": "String"
+					},
+					{
+						"name": "year",
+						"type": "String"
+					},
+					{
+						"name": "Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rotton Tomato",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MoviesSink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSGen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ParametersExpressionsLab')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ParametersExpressionsLab"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "inputEmp.txt",
+						"container": "adfv2tutorial"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ParametersExpressionsLab2Sink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ParametersExpressionsLab"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
+						"container": "adfv2tutorial"
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Fastest"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ParametersExpressionsLab2Source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ParametersExpressionsLab"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "*.csv",
+						"container": "adftutorial"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "part-1661378449-294a2394-8551-42d8-8597-3ef1c9682107-01.parquet",
+						"container": "parquetinput"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "__operation_type",
+						"type": "BINARY"
+					},
+					{
+						"name": "__sequence_number",
+						"type": "INT64"
+					},
+					{
+						"name": "__timestamp",
+						"type": "INT64"
+					},
+					{
+						"name": "MANDT",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUKRS",
+						"type": "BINARY"
+					},
+					{
+						"name": "LIFNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "UMSKS",
+						"type": "BINARY"
+					},
+					{
+						"name": "UMSKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUGDT",
+						"type": "INT32"
+					},
+					{
+						"name": "AUGBL",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZUONR",
+						"type": "BINARY"
+					},
+					{
+						"name": "GJAHR",
+						"type": "BINARY"
+					},
+					{
+						"name": "BELNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUZEI",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUDAT",
+						"type": "INT32"
+					},
+					{
+						"name": "BLDAT",
+						"type": "INT32"
+					},
+					{
+						"name": "CPUDT",
+						"type": "INT32"
+					},
+					{
+						"name": "WAERS",
+						"type": "BINARY"
+					},
+					{
+						"name": "XBLNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "BLART",
+						"type": "BINARY"
+					},
+					{
+						"name": "MONAT",
+						"type": "BINARY"
+					},
+					{
+						"name": "BSCHL",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZUMSK",
+						"type": "BINARY"
+					},
+					{
+						"name": "SHKZG",
+						"type": "BINARY"
+					},
+					{
+						"name": "GSBER",
+						"type": "BINARY"
+					},
+					{
+						"name": "MWSKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBTR",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBTR",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWSTS",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WMWST",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BDIFF",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BDIF2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SGTXT",
+						"type": "BINARY"
+					},
+					{
+						"name": "PROJN",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUFNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANLN1",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANLN2",
+						"type": "BINARY"
+					},
+					{
+						"name": "EBELN",
+						"type": "BINARY"
+					},
+					{
+						"name": "EBELP",
+						"type": "BINARY"
+					},
+					{
+						"name": "SAKNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "HKONT",
+						"type": "BINARY"
+					},
+					{
+						"name": "FKONT",
+						"type": "BINARY"
+					},
+					{
+						"name": "FILKD",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZFBDT",
+						"type": "INT32"
+					},
+					{
+						"name": "ZTERM",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZBD1T",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD2T",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD3T",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD1P",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD2P",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKFBT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKNTO",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WSKTO",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZLSCH",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZLSPR",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZBFIX",
+						"type": "BINARY"
+					},
+					{
+						"name": "HBKID",
+						"type": "BINARY"
+					},
+					{
+						"name": "BVTYP",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZG",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZJ",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "SAMNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZOLLT",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZOLLD",
+						"type": "INT32"
+					},
+					{
+						"name": "LZBKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "LANDL",
+						"type": "BINARY"
+					},
+					{
+						"name": "DIEKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "MANSP",
+						"type": "BINARY"
+					},
+					{
+						"name": "MSCHL",
+						"type": "BINARY"
+					},
+					{
+						"name": "MADAT",
+						"type": "INT32"
+					},
+					{
+						"name": "MANST",
+						"type": "BINARY"
+					},
+					{
+						"name": "MABER",
+						"type": "BINARY"
+					},
+					{
+						"name": "XNETB",
+						"type": "BINARY"
+					},
+					{
+						"name": "XANET",
+						"type": "BINARY"
+					},
+					{
+						"name": "XCPDD",
+						"type": "BINARY"
+					},
+					{
+						"name": "XESRD",
+						"type": "BINARY"
+					},
+					{
+						"name": "XZAHL",
+						"type": "BINARY"
+					},
+					{
+						"name": "MWSK1",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBT1",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBT1",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWSK2",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBT2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBT2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWSK3",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBT3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBT3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "QSSKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "QSSHB",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "QBSHB",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BSTAT",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANFBN",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANFBJ",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANFBU",
+						"type": "BINARY"
+					},
+					{
+						"name": "VBUND",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZT",
+						"type": "BINARY"
+					},
+					{
+						"name": "STCEG",
+						"type": "BINARY"
+					},
+					{
+						"name": "EGBLD",
+						"type": "BINARY"
+					},
+					{
+						"name": "EGLLD",
+						"type": "BINARY"
+					},
+					{
+						"name": "QSZNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "QSFBT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "XINVE",
+						"type": "BINARY"
+					},
+					{
+						"name": "PROJK",
+						"type": "BINARY"
+					},
+					{
+						"name": "FIPOS",
+						"type": "BINARY"
+					},
+					{
+						"name": "NPLNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUFPL",
+						"type": "BINARY"
+					},
+					{
+						"name": "APLZL",
+						"type": "BINARY"
+					},
+					{
+						"name": "XEGDR",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBE2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMBE3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB21",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB22",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB23",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB31",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB32",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB33",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWST2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWST3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKNT2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKNT3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BDIF3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "XRAGL",
+						"type": "BINARY"
+					},
+					{
+						"name": "RSTGR",
+						"type": "BINARY"
+					},
+					{
+						"name": "UZAWE",
+						"type": "BINARY"
+					},
+					{
+						"name": "KOSTL",
+						"type": "BINARY"
+					},
+					{
+						"name": "LNRAN",
+						"type": "BINARY"
+					},
+					{
+						"name": "XSTOV",
+						"type": "BINARY"
+					},
+					{
+						"name": "KZBTR",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "XREF1",
+						"type": "BINARY"
+					},
+					{
+						"name": "XREF2",
+						"type": "BINARY"
+					},
+					{
+						"name": "XARCH",
+						"type": "BINARY"
+					},
+					{
+						"name": "PSWSL",
+						"type": "BINARY"
+					},
+					{
+						"name": "PSWBT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "IMKEY",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZEKKN",
+						"type": "BINARY"
+					},
+					{
+						"name": "FISTL",
+						"type": "BINARY"
+					},
+					{
+						"name": "GEBER",
+						"type": "BINARY"
+					},
+					{
+						"name": "DABRZ",
+						"type": "INT32"
+					},
+					{
+						"name": "XNEGP",
+						"type": "BINARY"
+					},
+					{
+						"name": "EMPFB",
+						"type": "BINARY"
+					},
+					{
+						"name": "PRCTR",
+						"type": "BINARY"
+					},
+					{
+						"name": "XREF3",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS1",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS2",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS3",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS4",
+						"type": "BINARY"
+					},
+					{
+						"name": "XPYPR",
+						"type": "BINARY"
+					},
+					{
+						"name": "KIDNO",
+						"type": "BINARY"
+					},
+					{
+						"name": "PYCUR",
+						"type": "BINARY"
+					},
+					{
+						"name": "PYAMT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BUPLA",
+						"type": "BINARY"
+					},
+					{
+						"name": "SECCO",
+						"type": "BINARY"
+					},
+					{
+						"name": "PPDIFF",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PPDIF2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PPDIF3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENLC1",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENLC2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENLC3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENFC",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENDAYS",
+						"type": "INT32"
+					},
+					{
+						"name": "PENRC",
+						"type": "BINARY"
+					},
+					{
+						"name": "VERTT",
+						"type": "BINARY"
+					},
+					{
+						"name": "VERTN",
+						"type": "BINARY"
+					},
+					{
+						"name": "VBEWA",
+						"type": "BINARY"
+					},
+					{
+						"name": "KBLNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "KBLPOS",
+						"type": "BINARY"
+					},
+					{
+						"name": "GRANT_NBR",
+						"type": "BINARY"
+					},
+					{
+						"name": "GMVKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "SRTYPE",
+						"type": "BINARY"
+					},
+					{
+						"name": "LOTKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZINKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "FKBER",
+						"type": "BINARY"
+					},
+					{
+						"name": "INTRENO",
+						"type": "BINARY"
+					},
+					{
+						"name": "PPRCT",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUZID",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUGGJ",
+						"type": "BINARY"
+					},
+					{
+						"name": "HKTID",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUDGET_PD",
+						"type": "BINARY"
+					},
+					{
+						"name": "KONTT",
+						"type": "BINARY"
+					},
+					{
+						"name": "KONTL",
+						"type": "BINARY"
+					},
+					{
+						"name": "UEBGDAT",
+						"type": "INT32"
+					},
+					{
+						"name": "VNAME",
+						"type": "BINARY"
+					},
+					{
+						"name": "EGRUP",
+						"type": "BINARY"
+					},
+					{
+						"name": "BTYPE",
+						"type": "BINARY"
+					},
+					{
+						"name": "PROPMANO",
+						"type": "BINARY"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquetoutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "output"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PowerQueryBlobStorage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UntilAgentJobOutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "UntilActivity"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@CONCAT('JobStatus',pipeline().RunId, '.txt')",
+							"type": "Expression"
+						},
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/incrementalcopy')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "incrementalcopy"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
+							"type": "Expression"
+						},
+						"container": "adftutorial"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/parquetoutputcsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "AzureKeyVault1",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('AzureBlobStorage1_properties_typeProperties_sasUri_secretName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSQLDB_SELFHOSTIR')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSQLDB_SELFHOSTIR_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "selfhostHA",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DataMovementLabAzureSQL')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -68,51 +1364,54 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SELFHOSTNODE1')]",
+			"name": "[concat(parameters('factoryName'), '/LS_insight_ADLS_DMZ_Legacy')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SELFHOSTNODE1_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "selfhostHA",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SELFHOSTNODE1_AdventureWorksDW2016')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SELFHOSTNODE1_AdventureWorksDW2016_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "selfhostHA",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerLinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SqlServerLinkedService_connectionString')]",
-					"alwaysEncryptedSettings": {
-						"alwaysEncryptedAkvAuthType": "ManagedIdentity"
+				"parameters": {
+					"Account": {
+						"type": "string"
 					}
+				},
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "devinsightIRAzure02",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_insight_ADLS_Data_Transfer')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "19251001devinsightxfer01",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_insight_ADLS_Data_Transfer_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "devinsightIRAzure02",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LocalSQLPractice2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('LocalSQLPractice2_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "TutorialIntegrationRuntime",
@@ -122,1475 +1421,21 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Tumbling')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
+			"name": "[concat(parameters('factoryName'), '/PrivateEndpoint')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipeline": {
-					"pipelineReference": {
-						"referenceName": "TriggerLab",
-						"type": "PipelineReference"
-					},
-					"parameters": {
-						"GetTime": "[parameters('Tumbling_properties_pipeline_parameters_GetTime')]"
-					}
-				},
-				"type": "TumblingWindowTrigger",
+				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"frequency": "Minute",
-					"interval": 5,
-					"startTime": "2021-07-07T07:53:00Z",
-					"delay": "00:00:00",
-					"maxConcurrency": 50,
-					"retryPolicy": {
-						"intervalInSeconds": 30
-					},
-					"dependsOn": []
+					"connectionString": "[parameters('PrivateEndpoint_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "CentralUSIR",
+					"type": "IntegrationRuntimeReference"
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/default/twadfpracticeprivatepoint')]",
-			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"privateLinkResourceId": "[parameters('twadfpracticeprivatepoint_properties_privateLinkResourceId')]",
-				"groupId": "[parameters('twadfpracticeprivatepoint_properties_groupId')]",
-				"fqdns": "[parameters('twadfpracticeprivatepoint_properties_fqdns')]"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyFromBlobToSql')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopyFromBlobToSql",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "--TRUNCATE TABLE [dbo].[emp]",
-								"disableMetricsCollection": false,
-								"writeBehavior": "insert"
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSqlTable1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "SimpleCopy"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-07-06T02:15:27Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyFromBlobToSqlPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopyFromBlobToSqlPipeline",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert"
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "FirstName",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "FirstName",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "LastName",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "LastName",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSqlTable1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "SimpleCopy"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-07-06T02:15:27Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyJsonfilefromBlobtoAzureSQL')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopydatafromJson",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "input//jsonfilewithhierarchy-100.json"
-							},
-							{
-								"name": "Destination",
-								"value": "."
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false,
-								"writeBehavior": "insert"
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "[['firstName']"
-										},
-										"sink": {
-											"name": "firstName"
-										}
-									},
-									{
-										"source": {
-											"path": "[['lastName']"
-										},
-										"sink": {
-											"name": "lastName"
-										}
-									},
-									{
-										"source": {
-											"path": "[['gender']"
-										},
-										"sink": {
-											"name": "gender"
-										}
-									},
-									{
-										"source": {
-											"path": "[['age']"
-										},
-										"sink": {
-											"name": "age"
-										}
-									},
-									{
-										"source": {
-											"path": "[['number']"
-										},
-										"sink": {
-											"name": "number"
-										}
-									}
-								],
-								"collectionReference": "$['people']"
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "Json1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSqlTable2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "SimpleCopy"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-07-06T02:15:27Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Lab1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Data Movement Lab",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"parallelCopies": 1,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "CustomerKey",
-											"type": "Int32",
-											"physicalType": "int"
-										},
-										"sink": {
-											"name": "CustomerKey",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "GeographyKey",
-											"type": "Int32",
-											"physicalType": "int"
-										},
-										"sink": {
-											"name": "GeographyKey",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CustomerAlternateKey",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "CustomerAlternateKey",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Title",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "Title",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FirstName",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "FirstName",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "MiddleName",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "MiddleName",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "LastName",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "LastName",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NameStyle",
-											"type": "Boolean",
-											"physicalType": "bit"
-										},
-										"sink": {
-											"name": "NameStyle",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "BirthDate",
-											"type": "DateTime",
-											"physicalType": "date"
-										},
-										"sink": {
-											"name": "BirthDate",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "MaritalStatus",
-											"type": "String",
-											"physicalType": "nchar"
-										},
-										"sink": {
-											"name": "MaritalStatus",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Suffix",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "Suffix",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Gender",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "Gender",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EmailAddress",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "EmailAddress",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "YearlyIncome",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										},
-										"sink": {
-											"name": "YearlyIncome",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "TotalChildren",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										},
-										"sink": {
-											"name": "TotalChildren",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NumberChildrenAtHome",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										},
-										"sink": {
-											"name": "NumberChildrenAtHome",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EnglishEducation",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "EnglishEducation",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SpanishEducation",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "SpanishEducation",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FrenchEducation",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "FrenchEducation",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EnglishOccupation",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "EnglishOccupation",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SpanishOccupation",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "SpanishOccupation",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "FrenchOccupation",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "FrenchOccupation",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "HouseOwnerFlag",
-											"type": "String",
-											"physicalType": "nchar"
-										},
-										"sink": {
-											"name": "HouseOwnerFlag",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NumberCarsOwned",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										},
-										"sink": {
-											"name": "NumberCarsOwned",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "AddressLine1",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "AddressLine1",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "AddressLine2",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "AddressLine2",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Phone",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "Phone",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DateFirstPurchase",
-											"type": "DateTime",
-											"physicalType": "date"
-										},
-										"sink": {
-											"name": "DateFirstPurchase",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CommuteDistance",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "CommuteDistance",
-											"type": "String",
-											"physicalType": "String"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "AzureSQLPracticeDBDimCustomer",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DataMovementLabBlob",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "Data Movement Lab"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-07-09T09:37:22Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ParametersExpressionsLab1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Get Metadata1",
-						"type": "GetMetadata",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "ParametersExpressionsLab",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"fieldList": [
-								"itemName",
-								"lastModified",
-								"size"
-							],
-							"storeSettings": {
-								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					},
-					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Get Metadata1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "test",
-							"value": {
-								"value": "@activity( 'Get Metadata1' ).output.lastModified",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"variables": {
-					"test": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "ParametersExpressionsLab"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-07-02T07:26:56Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ParametersExpressionsLab2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*.csv",
-									"deleteFilesAfterCompletion": false
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings"
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "ParametersExpressionsLab2Source",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ParametersExpressionsLab2Sink",
-								"type": "DatasetReference",
-								"parameters": {
-									"FileName": {
-										"value": "@{pipeline().TriggerTime}.zip",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "ParametersExpressionsLab"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-07-02T07:26:56Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSQLDB')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSQLDB_SELFHOSTIR",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "CustomerKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "GeographyKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "CustomerAlternateKey",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Title",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FirstName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "MiddleName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "LastName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "NameStyle",
-						"type": "bit"
-					},
-					{
-						"name": "BirthDate",
-						"type": "date"
-					},
-					{
-						"name": "MaritalStatus",
-						"type": "nchar"
-					},
-					{
-						"name": "Suffix",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Gender",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EmailAddress",
-						"type": "nvarchar"
-					},
-					{
-						"name": "YearlyIncome",
-						"type": "money",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TotalChildren",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "NumberChildrenAtHome",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "EnglishEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpanishEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FrenchEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EnglishOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpanishOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FrenchOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "HouseOwnerFlag",
-						"type": "nchar"
-					},
-					{
-						"name": "NumberCarsOwned",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "AddressLine1",
-						"type": "nvarchar"
-					},
-					{
-						"name": "AddressLine2",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Phone",
-						"type": "nvarchar"
-					},
-					{
-						"name": "DateFirstPurchase",
-						"type": "date"
-					},
-					{
-						"name": "CommuteDistance",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "DimCustomer"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Binary1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "adftutorial"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Binary2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "output"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/BinarySinkFileStore')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Connection to your destination data store.",
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"container": {
-						"type": "string"
-					},
-					"directory": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"folderPath": {
-							"value": "@dataset().directory",
-							"type": "Expression"
-						},
-						"container": {
-							"value": "@dataset().container",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DataMovementLabDimCustomer')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "DataMovementLabAzureSQL",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Data Movement Lab"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "CustomerKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "GeographyKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "CustomerAlternateKey",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Title",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FirstName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "MiddleName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "LastName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "NameStyle",
-						"type": "bit"
-					},
-					{
-						"name": "BirthDate",
-						"type": "date"
-					},
-					{
-						"name": "MaritalStatus",
-						"type": "nchar"
-					},
-					{
-						"name": "Suffix",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Gender",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EmailAddress",
-						"type": "nvarchar"
-					},
-					{
-						"name": "YearlyIncome",
-						"type": "money",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TotalChildren",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "NumberChildrenAtHome",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "EnglishEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpanishEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FrenchEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EnglishOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpanishOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FrenchOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "HouseOwnerFlag",
-						"type": "nchar"
-					},
-					{
-						"name": "NumberCarsOwned",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "AddressLine1",
-						"type": "nvarchar"
-					},
-					{
-						"name": "AddressLine2",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Phone",
-						"type": "nvarchar"
-					},
-					{
-						"name": "DateFirstPurchase",
-						"type": "date"
-					},
-					{
-						"name": "CommuteDistance",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "DimCustomer"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/DataMovementLabAzureSQL')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SELFHOSTNODE1_DIMCUSTOMER')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SELFHOSTNODE1_AdventureWorksDW2016",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "UntilActivity"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "CustomerKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "GeographyKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "CustomerAlternateKey",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Title",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FirstName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "MiddleName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "LastName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "NameStyle",
-						"type": "bit"
-					},
-					{
-						"name": "BirthDate",
-						"type": "date"
-					},
-					{
-						"name": "MaritalStatus",
-						"type": "nchar"
-					},
-					{
-						"name": "Suffix",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Gender",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EmailAddress",
-						"type": "nvarchar"
-					},
-					{
-						"name": "YearlyIncome",
-						"type": "money",
-						"precision": 19,
-						"scale": 4
-					},
-					{
-						"name": "TotalChildren",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "NumberChildrenAtHome",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "EnglishEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpanishEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FrenchEducation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EnglishOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpanishOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FrenchOccupation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "HouseOwnerFlag",
-						"type": "nchar"
-					},
-					{
-						"name": "NumberCarsOwned",
-						"type": "tinyint",
-						"precision": 3
-					},
-					{
-						"name": "AddressLine1",
-						"type": "nvarchar"
-					},
-					{
-						"name": "AddressLine2",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Phone",
-						"type": "nvarchar"
-					},
-					{
-						"name": "DateFirstPurchase",
-						"type": "date"
-					},
-					{
-						"name": "CommuteDistance",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "DimCustomer"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SELFHOSTNODE1_AdventureWorksDW2016')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServerLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "FirstName",
-						"type": "varchar"
-					},
-					{
-						"name": "LastName",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "emp"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServerLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/WatermarkDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SELFHOSTNODE1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "incrementalcopy"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "TableName",
-						"type": "varchar"
-					},
-					{
-						"name": "WatermarkValue",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "watermarktable"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SELFHOSTNODE1')]"
-			]
 		}
 	]
 }

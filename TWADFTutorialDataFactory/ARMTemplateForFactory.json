@@ -11,25 +11,52 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
 		},
+		"AzureBlobStorageAuthenticationKey_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageAuthenticationKey'"
+		},
 		"AzureSQLDB_SELFHOSTIR_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB_SELFHOSTIR'"
 		},
+		"AzureSQLDBwithexpression_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSQLDBwithexpression'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().server};Initial Catalog=@{linkedService().database};User ID=@{linkedService().user};Password=@{linkedService().pw}"
+		},
 		"AzureSqlDatabaseLinkedService_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001"
 		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
+		"AzureSynapseAnalytics_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics'"
+		},
+		"CosmosDb1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDb1'"
+		},
 		"DataMovementLabAzureSQL_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'"
+			"metadata": "Secure string for 'connectionString' of 'DataMovementLabAzureSQL'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001;User ID=SSISUser"
 		},
 		"HDILabBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'HDILabBlobStorage'"
+		},
+		"LocalSQLPractice2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LocalSQLPractice2'"
+		},
+		"PrivateEndpoint_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'PrivateEndpoint'"
 		},
 		"SELFHOSTNODE1_connectionString": {
 			"type": "secureString",
@@ -39,9 +66,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SELFHOSTNODE1_AdventureWorksDW2016'"
 		},
+		"SapTable1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapTable1'"
+		},
+		"Sftp1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sftp1'"
+		},
 		"SqlServerLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerLinkedService'"
+		},
+		"datalakestorage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'datalakestorage'"
+		},
+		"twadfpracticestorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'twadfpracticestorage2'"
 		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
@@ -59,6 +102,54 @@
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
 		},
+		"LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().Account}"
+		},
+		"LS_insight_ADLS_Data_Transfer_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://19251001devinsightxfer01.dfs.core.windows.net"
+		},
+		"New REST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": " https://api.anaplan.com/2/0/workspaces/8a81b0946181ceb301619fb619445643/models/4B938EEE5E9A43AC8D4AB3A156600FB9/files/116000000055/chunks/0"
+		},
+		"SapTable1_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "11111"
+		},
+		"SapTable1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"SapTable1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"SapTable1_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "1111"
+		},
+		"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+			"type": "string",
+			"defaultValue": "111"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "111"
+		},
+		"TEST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://redcap.petermac.org.au/api/"
+		},
+		"datalakestorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://twdatalakeaccount.dfs.core.windows.net"
+		},
 		"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
@@ -66,6 +157,42 @@
 		"Tumbling_properties_pipeline_parameters_GetTime": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"AzureSqlDatabase278-serverless_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/synapseworkspace-managedrg-89c41f9a-9d1b-4791-a055-34305bdf81e8/providers/Microsoft.Sql/servers/syntest-tw001"
+		},
+		"AzureSqlDatabase278-serverless_properties_groupId": {
+			"type": "string",
+			"defaultValue": "sqlServer"
+		},
+		"Private1_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/privatet1"
+		},
+		"Private1_properties_groupId": {
+			"type": "string",
+			"defaultValue": "blob"
+		},
+		"Private1_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"privatet1.blob.core.windows.net"
+			]
+		},
+		"TWTEST001_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.KeyVault/vaults/TWTEST001"
+		},
+		"TWTEST001_properties_groupId": {
+			"type": "string",
+			"defaultValue": "vault"
+		},
+		"TWTEST001_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"twtest001.vaultcore.azure.net"
+			]
 		},
 		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
 			"type": "string",
@@ -139,6 +266,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "SimpleCopy"
 				},
@@ -183,8 +314,7 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"preCopyScript": "--TRUNCATE TABLE [dbo].[emp]",
-								"disableMetricsCollection": false,
-								"writeBehavior": "insert"
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -212,6 +342,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "SimpleCopy"
 				},
@@ -254,8 +388,7 @@
 								}
 							},
 							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert"
+								"type": "AzureSqlSink"
 							},
 							"enableStaging": false,
 							"translator": {
@@ -309,6 +442,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "SimpleCopy"
 				},
@@ -362,8 +499,7 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"tableOption": "autoCreate",
-								"disableMetricsCollection": false,
-								"writeBehavior": "insert"
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -429,6 +565,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "SimpleCopy"
 				},
@@ -478,10 +618,15 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "DataFlowTransformation"
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2021-08-05T02:41:06Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/ErrorHandling')]"
@@ -548,10 +693,15 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "HAonSelfIR"
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2021-08-05T02:41:05Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSQLDB')]",
@@ -731,6 +881,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "incrementalcopy"
 				},
@@ -1158,6 +1312,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "Data Movement Lab"
 				},
@@ -1229,6 +1387,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"variables": {
 					"test": {
 						"type": "String"
@@ -1304,6 +1466,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "ParametersExpressionsLab"
 				},
@@ -1347,20 +1513,29 @@
 								"coreCount": 8,
 								"computeType": "General"
 							},
-							"sinks": {
-								"UserQuery": {
-									"name": "SinkPowerQueryBlobStorage",
-									"dataset": {
-										"referenceName": "PowerQueryBlobStorage",
-										"type": "DatasetReference",
-										"parameters": {}
-									},
-									"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SinkPowerQueryBlobStorage"
+							"queries": [
+								{
+									"queryName": "UserQuery",
+									"dataflowSinks": [
+										{
+											"name": "SinkPowerQueryBlobStorage",
+											"dataset": {
+												"referenceName": "PowerQueryBlobStorage",
+												"type": "DatasetReference",
+												"parameters": {}
+											},
+											"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SinkPowerQueryBlobStorage"
+										}
+									]
 								}
-							}
+							]
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "DataFlowTransformation"
 				},
@@ -1433,6 +1608,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "SimpleCopy"
 				},
@@ -1441,6 +1620,244 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SqlServerDataset')]",
+				"[concat(variables('factoryId'), '/datasets/AzureBlobDataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Synapse Test Pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Data Test",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_INSIGHT_ADLS_LegacyBlob",
+								"type": "DatasetReference",
+								"parameters": {
+									"Container": "dmz-ofpm",
+									"Account": "https://19251001devinsightdmz.dfs.core.windows.net"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_INSIGHT_ADLS_BinaryFolder",
+								"type": "DatasetReference",
+								"parameters": {
+									"Folder": "testfiles"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"ErrorOutput": {
+						"type": "String"
+					},
+					"MailErr_LA0_01_EndPoint": {
+						"type": "String",
+						"defaultValue": "https://prod-11.australiaeast.logic.azure.com:443/workflows/0aeecb88af7f4db9822ea207c008a1f9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=HHcqxnCZMiynIM-3GoBieAvtr4fKtWvKTAZw6eUsqes"
+					},
+					"LastModified": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-09-23T06:42:42Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_INSIGHT_ADLS_LegacyBlob')]",
+				"[concat(variables('factoryId'), '/datasets/DS_INSIGHT_ADLS_BinaryFolder')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TEST')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AzureBlobDataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureBlobDataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureBlobDataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TEST_copy1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AzureBlobDataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureBlobDataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureBlobDataset')]"
 			]
 		},
@@ -1482,10 +1899,15 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"folder": {
 					"name": "DataFlowTransformation"
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2021-08-05T02:41:07Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/TransformMovies')]"
@@ -1511,6 +1933,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"parameters": {
 					"GetTime": {
 						"type": "string"
@@ -1603,8 +2029,7 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"preCopyScript": "TRUNCATE TABLE [dbo].[DimCustomer]",
-								"disableMetricsCollection": false,
-								"writeBehavior": "insert"
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -2113,8 +2538,7 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"preCopyScript": "TRUNCATE TABLE [dbo].[DimCustomer]",
-								"disableMetricsCollection": false,
-								"writeBehavior": "insert"
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -2536,6 +2960,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"variables": {
 					"LastID": {
 						"type": "String"
@@ -2703,6 +3131,10 @@
 						]
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"variables": {
 					"JobStatus": {
 						"type": "String",
@@ -2718,6 +3150,80 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SELFHOSTNODE1_DIMCUSTOMER')]",
 				"[concat(variables('factoryId'), '/datasets/UntilAgentJobOutput')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/parquettest')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Parquet1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Parquetoutput",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-10-19T10:43:49Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]",
+				"[concat(variables('factoryId'), '/datasets/Parquetoutput')]"
 			]
 		},
 		{
@@ -3455,6 +3961,75 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_INSIGHT_ADLS_BinaryFolder')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_insight_ADLS_Data_Transfer",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Folder": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_insight_ADLS_Data_Transfer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_INSIGHT_ADLS_LegacyBlob')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_insight_ADLS_DMZ_Legacy",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"Account": {
+							"value": "@dataset().Account",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"Container": {
+						"type": "string"
+					},
+					"Account": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_insight_ADLS_DMZ_Legacy')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DataMovementLabBlob')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -4063,6 +4638,792 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "part-1661378449-294a2394-8551-42d8-8597-3ef1c9682107-01.parquet",
+						"container": "parquetinput"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "__operation_type",
+						"type": "BINARY"
+					},
+					{
+						"name": "__sequence_number",
+						"type": "INT64"
+					},
+					{
+						"name": "__timestamp",
+						"type": "INT64"
+					},
+					{
+						"name": "MANDT",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUKRS",
+						"type": "BINARY"
+					},
+					{
+						"name": "LIFNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "UMSKS",
+						"type": "BINARY"
+					},
+					{
+						"name": "UMSKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUGDT",
+						"type": "INT32"
+					},
+					{
+						"name": "AUGBL",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZUONR",
+						"type": "BINARY"
+					},
+					{
+						"name": "GJAHR",
+						"type": "BINARY"
+					},
+					{
+						"name": "BELNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUZEI",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUDAT",
+						"type": "INT32"
+					},
+					{
+						"name": "BLDAT",
+						"type": "INT32"
+					},
+					{
+						"name": "CPUDT",
+						"type": "INT32"
+					},
+					{
+						"name": "WAERS",
+						"type": "BINARY"
+					},
+					{
+						"name": "XBLNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "BLART",
+						"type": "BINARY"
+					},
+					{
+						"name": "MONAT",
+						"type": "BINARY"
+					},
+					{
+						"name": "BSCHL",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZUMSK",
+						"type": "BINARY"
+					},
+					{
+						"name": "SHKZG",
+						"type": "BINARY"
+					},
+					{
+						"name": "GSBER",
+						"type": "BINARY"
+					},
+					{
+						"name": "MWSKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBTR",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBTR",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWSTS",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WMWST",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BDIFF",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BDIF2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SGTXT",
+						"type": "BINARY"
+					},
+					{
+						"name": "PROJN",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUFNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANLN1",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANLN2",
+						"type": "BINARY"
+					},
+					{
+						"name": "EBELN",
+						"type": "BINARY"
+					},
+					{
+						"name": "EBELP",
+						"type": "BINARY"
+					},
+					{
+						"name": "SAKNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "HKONT",
+						"type": "BINARY"
+					},
+					{
+						"name": "FKONT",
+						"type": "BINARY"
+					},
+					{
+						"name": "FILKD",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZFBDT",
+						"type": "INT32"
+					},
+					{
+						"name": "ZTERM",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZBD1T",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD2T",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD3T",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD1P",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZBD2P",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKFBT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKNTO",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WSKTO",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "ZLSCH",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZLSPR",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZBFIX",
+						"type": "BINARY"
+					},
+					{
+						"name": "HBKID",
+						"type": "BINARY"
+					},
+					{
+						"name": "BVTYP",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZG",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZJ",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "SAMNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZOLLT",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZOLLD",
+						"type": "INT32"
+					},
+					{
+						"name": "LZBKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "LANDL",
+						"type": "BINARY"
+					},
+					{
+						"name": "DIEKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "MANSP",
+						"type": "BINARY"
+					},
+					{
+						"name": "MSCHL",
+						"type": "BINARY"
+					},
+					{
+						"name": "MADAT",
+						"type": "INT32"
+					},
+					{
+						"name": "MANST",
+						"type": "BINARY"
+					},
+					{
+						"name": "MABER",
+						"type": "BINARY"
+					},
+					{
+						"name": "XNETB",
+						"type": "BINARY"
+					},
+					{
+						"name": "XANET",
+						"type": "BINARY"
+					},
+					{
+						"name": "XCPDD",
+						"type": "BINARY"
+					},
+					{
+						"name": "XESRD",
+						"type": "BINARY"
+					},
+					{
+						"name": "XZAHL",
+						"type": "BINARY"
+					},
+					{
+						"name": "MWSK1",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBT1",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBT1",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWSK2",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBT2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBT2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWSK3",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBT3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "WRBT3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "QSSKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "QSSHB",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "QBSHB",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BSTAT",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANFBN",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANFBJ",
+						"type": "BINARY"
+					},
+					{
+						"name": "ANFBU",
+						"type": "BINARY"
+					},
+					{
+						"name": "VBUND",
+						"type": "BINARY"
+					},
+					{
+						"name": "REBZT",
+						"type": "BINARY"
+					},
+					{
+						"name": "STCEG",
+						"type": "BINARY"
+					},
+					{
+						"name": "EGBLD",
+						"type": "BINARY"
+					},
+					{
+						"name": "EGLLD",
+						"type": "BINARY"
+					},
+					{
+						"name": "QSZNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "QSFBT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "XINVE",
+						"type": "BINARY"
+					},
+					{
+						"name": "PROJK",
+						"type": "BINARY"
+					},
+					{
+						"name": "FIPOS",
+						"type": "BINARY"
+					},
+					{
+						"name": "NPLNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUFPL",
+						"type": "BINARY"
+					},
+					{
+						"name": "APLZL",
+						"type": "BINARY"
+					},
+					{
+						"name": "XEGDR",
+						"type": "BINARY"
+					},
+					{
+						"name": "DMBE2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMBE3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB21",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB22",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB23",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB31",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB32",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "DMB33",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWST2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "MWST3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKNT2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "SKNT3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BDIF3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "XRAGL",
+						"type": "BINARY"
+					},
+					{
+						"name": "RSTGR",
+						"type": "BINARY"
+					},
+					{
+						"name": "UZAWE",
+						"type": "BINARY"
+					},
+					{
+						"name": "KOSTL",
+						"type": "BINARY"
+					},
+					{
+						"name": "LNRAN",
+						"type": "BINARY"
+					},
+					{
+						"name": "XSTOV",
+						"type": "BINARY"
+					},
+					{
+						"name": "KZBTR",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "XREF1",
+						"type": "BINARY"
+					},
+					{
+						"name": "XREF2",
+						"type": "BINARY"
+					},
+					{
+						"name": "XARCH",
+						"type": "BINARY"
+					},
+					{
+						"name": "PSWSL",
+						"type": "BINARY"
+					},
+					{
+						"name": "PSWBT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "IMKEY",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZEKKN",
+						"type": "BINARY"
+					},
+					{
+						"name": "FISTL",
+						"type": "BINARY"
+					},
+					{
+						"name": "GEBER",
+						"type": "BINARY"
+					},
+					{
+						"name": "DABRZ",
+						"type": "INT32"
+					},
+					{
+						"name": "XNEGP",
+						"type": "BINARY"
+					},
+					{
+						"name": "EMPFB",
+						"type": "BINARY"
+					},
+					{
+						"name": "PRCTR",
+						"type": "BINARY"
+					},
+					{
+						"name": "XREF3",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS1",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS2",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS3",
+						"type": "BINARY"
+					},
+					{
+						"name": "DTWS4",
+						"type": "BINARY"
+					},
+					{
+						"name": "XPYPR",
+						"type": "BINARY"
+					},
+					{
+						"name": "KIDNO",
+						"type": "BINARY"
+					},
+					{
+						"name": "PYCUR",
+						"type": "BINARY"
+					},
+					{
+						"name": "PYAMT",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "BUPLA",
+						"type": "BINARY"
+					},
+					{
+						"name": "SECCO",
+						"type": "BINARY"
+					},
+					{
+						"name": "PPDIFF",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PPDIF2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PPDIF3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENLC1",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENLC2",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENLC3",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENFC",
+						"type": "FIXED_LEN_BYTE_ARRAY"
+					},
+					{
+						"name": "PENDAYS",
+						"type": "INT32"
+					},
+					{
+						"name": "PENRC",
+						"type": "BINARY"
+					},
+					{
+						"name": "VERTT",
+						"type": "BINARY"
+					},
+					{
+						"name": "VERTN",
+						"type": "BINARY"
+					},
+					{
+						"name": "VBEWA",
+						"type": "BINARY"
+					},
+					{
+						"name": "KBLNR",
+						"type": "BINARY"
+					},
+					{
+						"name": "KBLPOS",
+						"type": "BINARY"
+					},
+					{
+						"name": "GRANT_NBR",
+						"type": "BINARY"
+					},
+					{
+						"name": "GMVKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "SRTYPE",
+						"type": "BINARY"
+					},
+					{
+						"name": "LOTKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "ZINKZ",
+						"type": "BINARY"
+					},
+					{
+						"name": "FKBER",
+						"type": "BINARY"
+					},
+					{
+						"name": "INTRENO",
+						"type": "BINARY"
+					},
+					{
+						"name": "PPRCT",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUZID",
+						"type": "BINARY"
+					},
+					{
+						"name": "AUGGJ",
+						"type": "BINARY"
+					},
+					{
+						"name": "HKTID",
+						"type": "BINARY"
+					},
+					{
+						"name": "BUDGET_PD",
+						"type": "BINARY"
+					},
+					{
+						"name": "KONTT",
+						"type": "BINARY"
+					},
+					{
+						"name": "KONTL",
+						"type": "BINARY"
+					},
+					{
+						"name": "UEBGDAT",
+						"type": "INT32"
+					},
+					{
+						"name": "VNAME",
+						"type": "BINARY"
+					},
+					{
+						"name": "EGRUP",
+						"type": "BINARY"
+					},
+					{
+						"name": "BTYPE",
+						"type": "BINARY"
+					},
+					{
+						"name": "PROPMANO",
+						"type": "BINARY"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/twadfpracticestorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquetoutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "output"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/twadfpracticestorage')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PowerQueryBlobStorage')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -4418,6 +5779,61 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/parquetoutputcsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/twadfpracticestorage')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLSGen2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -4457,6 +5873,19 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageAuthenticationKey')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorageAuthenticationKey_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -4489,6 +5918,37 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSQLDBwithexpression')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"server": {
+						"type": "string",
+						"defaultValue": "twadfpractice.database.windows.net"
+					},
+					"database": {
+						"type": "string",
+						"defaultValue": "practice001"
+					},
+					"user": {
+						"type": "string",
+						"defaultValue": "DBA"
+					},
+					"pw": {
+						"type": "string",
+						"defaultValue": "Laowang001"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSQLDBwithexpression_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseLinkedService')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -4510,6 +5970,32 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureStorageLinkedService_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSynapseAnalytics_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CosmosDb1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('CosmosDb1_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -4565,6 +6051,109 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_insight_ADLS_DMZ_Legacy')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"Account": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "devinsightIRAzure02",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/devinsightIRAzure02')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_insight_ADLS_Data_Transfer')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "19251001devinsightxfer01",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_insight_ADLS_Data_Transfer_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "devinsightIRAzure02",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/devinsightIRAzure02')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LocalSQLPractice2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('LocalSQLPractice2_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "TutorialIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/TutorialIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/New REST')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('New REST_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous",
+					"authHeaders": {
+						"Accept": {
+							"type": "SecureString",
+							"value": "**********"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PrivateEndpoint')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('PrivateEndpoint_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "CentralUSIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/CentralUSIR')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SELFHOSTNODE1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -4594,13 +6183,62 @@
 					"connectionString": "[parameters('SELFHOSTNODE1_AdventureWorksDW2016_connectionString')]"
 				},
 				"connectVia": {
-					"referenceName": "selfhostHA",
+					"referenceName": "PrivateEndPoint",
 					"type": "IntegrationRuntimeReference"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/selfhostHA')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/PrivateEndPoint')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SapTable1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SapTable",
+				"typeProperties": {
+					"clientId": "[parameters('SapTable1_properties_typeProperties_clientId')]",
+					"sncMode": false,
+					"userName": "[parameters('SapTable1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SapTable1_password')]"
+					},
+					"server": "[parameters('SapTable1_properties_typeProperties_server')]",
+					"systemNumber": "[parameters('SapTable1_properties_typeProperties_systemNumber')]"
+				},
+				"connectVia": {
+					"referenceName": "TutorialIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/TutorialIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Sftp1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Sftp",
+				"typeProperties": {
+					"host": "[parameters('Sftp1_properties_typeProperties_host')]",
+					"port": 22,
+					"skipHostKeyValidation": false,
+					"hostKeyFingerprint": "[parameters('Sftp1_properties_typeProperties_hostKeyFingerprint')]",
+					"authenticationType": "Basic",
+					"userName": "[parameters('Sftp1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Sftp1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerLinkedService')]",
@@ -4625,6 +6263,48 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/TEST')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('TEST_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous",
+					"authHeaders": {
+						"Content-Type": {
+							"type": "SecureString",
+							"value": "**********"
+						},
+						"Content-Length": {
+							"type": "SecureString",
+							"value": "**********"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/datalakestorage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('datalakestorage_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('datalakestorage_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/twadfpracticestorage')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -4634,6 +6314,19 @@
 				"typeProperties": {
 					"serviceEndpoint": "[parameters('twadfpracticestorage_properties_typeProperties_serviceEndpoint')]",
 					"accountKind": "StorageV2"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/twadfpracticestorage2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('twadfpracticestorage2_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -4786,6 +6479,35 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureIRWithVnet')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "East US",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false
+						},
+						"pipelineExternalComputeScaleProperties": {
+							"timeToLive": 60
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CentralUSIR')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -4793,7 +6515,7 @@
 				"type": "Managed",
 				"typeProperties": {
 					"computeProperties": {
-						"location": "Central US",
+						"location": "East US",
 						"dataFlowProperties": {
 							"computeType": "General",
 							"coreCount": 8,
@@ -4806,12 +6528,61 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/NewAutoResolve')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PrivateEndPoint')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/TutorialIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/devinsightIRAzure02')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
 			},
 			"dependsOn": []
 		},
@@ -4842,7 +6613,6 @@
 							}
 						}
 					],
-					"sinks": [],
 					"script": "section Section1;\r\nshared AzureSQLPracticeDBDimCustomer = let\r\n  AdfDoc = Sql.Database(\"twadfpractice.database.windows.net\", \"Practice001\", [CreateNavigationProperties = false]),\r\n  InputTable = AdfDoc{[Schema = \"dbo\", Item = \"DimCustomer\"]}[Data]\r\nin\r\n  InputTable;\r\nshared UserQuery = let\r\n  Source = AzureSQLPracticeDBDimCustomer,\r\n  #\"Filtered rows\" = Table.SelectRows(Source, each ([GeographyKey] = 8))\r\nin\r\n  #\"Filtered rows\";\r\n"
 				}
 			},
@@ -4945,7 +6715,7 @@
 							"name": "Select1"
 						}
 					],
-					"script": "parameters{\n\tparameter1 as date (currentDate())\n}\nsource(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoviesDB\nMoviesDB filter(toInteger(year) >= 1910 && toInteger(year) <= 2000 && rlike(genres, 'Comedy')) ~> FilterYears\nFilterYears aggregate(groupBy(year,\n\t\ttitle),\n\tAverageComedyRating = avg(toInteger(Rating))) ~> AggregateComedyRatings\nAggregateComedyRatings, MoviesDB join(AggregateComedyRatings@title == MoviesDB@title\n\t&& AggregateComedyRatings@year == MoviesDB@year,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nJoin1 select(mapColumn(\n\t\tmovie,\n\t\tgenres,\n\t\ttitle = AggregateComedyRatings@title,\n\t\tyear = AggregateComedyRatings@year,\n\t\tRating,\n\t\tAverageComedyRating,\n\t\t{Rotton Tomato}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nAggregateComedyRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"{currentDate()} .txt\"\r\n)],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('roundRobin', 2)) ~> Sink\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"JoinResult_{currentDate()}.txt\")],\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
+					"script": "parameters{\n\tparameter1 as date (currentDate())\n}\nsource(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoviesDB\nMoviesDB filter(toInteger(year) >= 1910 && toInteger(year) <= 2000 && rlike(genres, 'Comedy')) ~> FilterYears\nFilterYears aggregate(groupBy(year,\n\t\ttitle),\n\tAverageComedyRating = avg(toInteger(Rating))) ~> AggregateComedyRatings\nAggregateComedyRatings, MoviesDB join(AggregateComedyRatings@title == MoviesDB@title\n\t&& AggregateComedyRatings@year == MoviesDB@year,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join1\nJoin1 select(mapColumn(\n\t\tmovie,\n\t\tgenres,\n\t\ttitle = AggregateComedyRatings@title,\n\t\tyear = AggregateComedyRatings@year,\n\t\tRating,\n\t\tAverageComedyRating,\n\t\t{Rotton Tomato}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nAggregateComedyRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"{currentDate()} .txt\"\r\n)],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('roundRobin', 2)) ~> Sink\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"JoinResult_{currentDate()}.txt\")],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
 				}
 			},
 			"dependsOn": [
@@ -4960,6 +6730,44 @@
 			"apiVersion": "2018-06-01",
 			"properties": {},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/AzureSqlDatabase278-serverless')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('AzureSqlDatabase278-serverless_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('AzureSqlDatabase278-serverless_properties_groupId')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/Private1')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('Private1_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('Private1_properties_groupId')]",
+				"fqdns": "[parameters('Private1_properties_fqdns')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/TWTEST001')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('TWTEST001_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('TWTEST001_properties_groupId')]",
+				"fqdns": "[parameters('TWTEST001_properties_fqdns')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/default/twadfpracticeprivatepoint')]",

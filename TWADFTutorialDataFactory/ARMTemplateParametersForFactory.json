@@ -8,19 +8,37 @@
 		"ADLSGen2_accountKey": {
 			"value": ""
 		},
+		"AzureBlobStorageAuthenticationKey_connectionString": {
+			"value": ""
+		},
 		"AzureSQLDB_SELFHOSTIR_connectionString": {
 			"value": ""
 		},
+		"AzureSQLDBwithexpression_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().server};Initial Catalog=@{linkedService().database};User ID=@{linkedService().user};Password=@{linkedService().pw}"
+		},
 		"AzureSqlDatabaseLinkedService_connectionString": {
-			"value": ""
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001"
 		},
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
-		"DataMovementLabAzureSQL_connectionString": {
+		"AzureSynapseAnalytics_connectionString": {
 			"value": ""
 		},
+		"CosmosDb1_connectionString": {
+			"value": ""
+		},
+		"DataMovementLabAzureSQL_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=twadfpractice.database.windows.net;Initial Catalog=Practice001;User ID=SSISUser"
+		},
 		"HDILabBlobStorage_connectionString": {
+			"value": ""
+		},
+		"LocalSQLPractice2_connectionString": {
+			"value": ""
+		},
+		"PrivateEndpoint_connectionString": {
 			"value": ""
 		},
 		"SELFHOSTNODE1_connectionString": {
@@ -29,7 +47,19 @@
 		"SELFHOSTNODE1_AdventureWorksDW2016_connectionString": {
 			"value": ""
 		},
+		"SapTable1_password": {
+			"value": ""
+		},
+		"Sftp1_password": {
+			"value": ""
+		},
 		"SqlServerLinkedService_connectionString": {
+			"value": ""
+		},
+		"datalakestorage_accountKey": {
+			"value": ""
+		},
+		"twadfpracticestorage2_connectionString": {
 			"value": ""
 		},
 		"ADLSGen2_properties_typeProperties_url": {
@@ -44,11 +74,75 @@
 		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 			"value": "https://twadfpracticestorage.blob.core.windows.net"
 		},
+		"LS_insight_ADLS_DMZ_Legacy_properties_typeProperties_url": {
+			"value": "@{linkedService().Account}"
+		},
+		"LS_insight_ADLS_Data_Transfer_properties_typeProperties_url": {
+			"value": "https://19251001devinsightxfer01.dfs.core.windows.net"
+		},
+		"New REST_properties_typeProperties_url": {
+			"value": " https://api.anaplan.com/2/0/workspaces/8a81b0946181ceb301619fb619445643/models/4B938EEE5E9A43AC8D4AB3A156600FB9/files/116000000055/chunks/0"
+		},
+		"SapTable1_properties_typeProperties_clientId": {
+			"value": "11111"
+		},
+		"SapTable1_properties_typeProperties_userName": {
+			"value": "1111"
+		},
+		"SapTable1_properties_typeProperties_server": {
+			"value": "1111"
+		},
+		"SapTable1_properties_typeProperties_systemNumber": {
+			"value": "1111"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"value": "1111"
+		},
+		"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+			"value": "111"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"value": "111"
+		},
+		"TEST_properties_typeProperties_url": {
+			"value": "https://redcap.petermac.org.au/api/"
+		},
+		"datalakestorage_properties_typeProperties_url": {
+			"value": "https://twdatalakeaccount.dfs.core.windows.net"
+		},
 		"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
 			"value": "https://twadfpracticestorage.blob.core.windows.net"
 		},
 		"Tumbling_properties_pipeline_parameters_GetTime": {
 			"value": "@trigger().outputs.windowStartTime"
+		},
+		"AzureSqlDatabase278-serverless_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/synapseworkspace-managedrg-89c41f9a-9d1b-4791-a055-34305bdf81e8/providers/Microsoft.Sql/servers/syntest-tw001"
+		},
+		"AzureSqlDatabase278-serverless_properties_groupId": {
+			"value": "sqlServer"
+		},
+		"Private1_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/privatet1"
+		},
+		"Private1_properties_groupId": {
+			"value": "blob"
+		},
+		"Private1_properties_fqdns": {
+			"value": [
+				"privatet1.blob.core.windows.net"
+			]
+		},
+		"TWTEST001_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.KeyVault/vaults/TWTEST001"
+		},
+		"TWTEST001_properties_groupId": {
+			"value": "vault"
+		},
+		"TWTEST001_properties_fqdns": {
+			"value": [
+				"twtest001.vaultcore.azure.net"
+			]
 		},
 		"twadfpracticeprivatepoint_properties_privateLinkResourceId": {
 			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Sql/servers/twadfpractice"
