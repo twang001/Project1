@@ -1803,13 +1803,6 @@
 								"type": "NotebookReference"
 							},
 							"snapshot": true,
-							"sparkPool": {
-								"referenceName": {
-									"value": "test",
-									"type": "Expression"
-								},
-								"type": "BigDataPoolReference"
-							},
 							"conf": {
 								"spark.dynamicAllocation.enabled": null,
 								"spark.dynamicAllocation.minExecutors": null,
