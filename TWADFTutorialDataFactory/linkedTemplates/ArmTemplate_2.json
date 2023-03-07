@@ -20,10 +20,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LocalSQLPractice2'"
 		},
-		"PrivateEndpoint_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'PrivateEndpoint'"
-		},
 		"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
 			"type": "string",
 			"defaultValue": "BlobSAS"
@@ -41,6 +37,37 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twadfpracticestorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "inputEmp.txt",
+						"container": "adfv2tutorial"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "FirstName|LastName",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DelimitedText3')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -1415,23 +1442,6 @@
 				},
 				"connectVia": {
 					"referenceName": "TutorialIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PrivateEndpoint')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('PrivateEndpoint_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "CentralUSIR",
 					"type": "IntegrationRuntimeReference"
 				}
 			},

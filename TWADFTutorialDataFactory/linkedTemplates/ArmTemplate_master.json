@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageAuthenticationKey'"
 		},
+		"AzureFileStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+		},
 		"AzureSQLDB_SELFHOSTIR_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB_SELFHOSTIR'"
@@ -82,6 +86,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'datalakestorage'"
 		},
+		"twadfpractice_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'twadfpractice'"
+		},
 		"twadfpracticestorage2_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'twadfpracticestorage2'"
@@ -97,6 +105,10 @@
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://TWKV.vault.azure.net/"
+		},
+		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
 		},
 		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 			"type": "string",
@@ -165,6 +177,14 @@
 		"AzureSqlDatabase278-serverless_properties_groupId": {
 			"type": "string",
 			"defaultValue": "sqlServer"
+		},
+		"AzureSynapseAnalyticssyntest_tw001_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+		},
+		"AzureSynapseAnalyticssyntest_tw001_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dev"
 		},
 		"Private1_properties_privateLinkResourceId": {
 			"type": "string",
@@ -240,6 +260,9 @@
 					},
 					"AzureBlobStorageAuthenticationKey_connectionString": {
 						"value": "[parameters('AzureBlobStorageAuthenticationKey_connectionString')]"
+					},
+					"AzureFileStorage1_connectionString": {
+						"value": "[parameters('AzureFileStorage1_connectionString')]"
 					},
 					"AzureSQLDBwithexpression_connectionString": {
 						"value": "[parameters('AzureSQLDBwithexpression_connectionString')]"
@@ -345,9 +368,6 @@
 					"LocalSQLPractice2_connectionString": {
 						"value": "[parameters('LocalSQLPractice2_connectionString')]"
 					},
-					"PrivateEndpoint_connectionString": {
-						"value": "[parameters('PrivateEndpoint_connectionString')]"
-					},
 					"AzureBlobStorage1_properties_typeProperties_sasUri_secretName": {
 						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_sasUri_secretName')]"
 					},
@@ -377,6 +397,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"PrivateEndpoint_connectionString": {
+						"value": "[parameters('PrivateEndpoint_connectionString')]"
+					},
 					"SELFHOSTNODE1_connectionString": {
 						"value": "[parameters('SELFHOSTNODE1_connectionString')]"
 					},
@@ -388,6 +411,9 @@
 					},
 					"SqlServerLinkedService_connectionString": {
 						"value": "[parameters('SqlServerLinkedService_connectionString')]"
+					},
+					"twadfpractice_connectionString": {
+						"value": "[parameters('twadfpractice_connectionString')]"
 					},
 					"SapTable1_properties_typeProperties_clientId": {
 						"value": "[parameters('SapTable1_properties_typeProperties_clientId')]"
@@ -409,6 +435,12 @@
 					},
 					"AzureSqlDatabase278-serverless_properties_groupId": {
 						"value": "[parameters('AzureSqlDatabase278-serverless_properties_groupId')]"
+					},
+					"AzureSynapseAnalyticssyntest_tw001_properties_privateLinkResourceId": {
+						"value": "[parameters('AzureSynapseAnalyticssyntest_tw001_properties_privateLinkResourceId')]"
+					},
+					"AzureSynapseAnalyticssyntest_tw001_properties_groupId": {
+						"value": "[parameters('AzureSynapseAnalyticssyntest_tw001_properties_groupId')]"
 					},
 					"Private1_properties_privateLinkResourceId": {
 						"value": "[parameters('Private1_properties_privateLinkResourceId')]"
@@ -456,6 +488,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+						"value": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]"
 					}
 				}
 			},
