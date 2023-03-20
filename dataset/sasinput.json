@@ -1,0 +1,26 @@
+{
+	"name": "sasinput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SASInput",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"path": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().path",
+					"type": "Expression"
+				},
+				"container": "sasinput"
+			}
+		}
+	}
+}
