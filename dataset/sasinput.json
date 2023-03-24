@@ -5,11 +5,6 @@
 			"referenceName": "SASInput",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"path": {
-				"type": "String"
-			}
-		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
