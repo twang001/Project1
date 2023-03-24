@@ -5,8 +5,7 @@
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
-			"sasUri": "https://twadfpracticestorage.blob.core.windows.net/sasinput",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDEyOUIyQjFFLUQ2RDQtNDcxOS05NUE5LTM5M0QyNDRENURGQV82ZjNmY2QxZS0xYjZhLTRjOWYtYmJkNS1mNDdlYWMxOGE4MTgiDQp9"
+			"sasUri": "https://twadfpracticestorage.blob.core.windows.net/sasoutput?sp=rl&st=2023-03-24T06:54:19Z&se=2023-03-28T14:54:19Z&spr=https&sv=2021-12-02&sr=c&sig=U17DOw0g1C4oYRT%2Bnhpfvl3iT67zzPh%2FWT84E9jlgd4%3D?https://twadfpracticestorage.blob.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-06-23T15:00:02Z&st=2021-06-23T07:00:02Z&spr=https&sig=e4Lbo5Q4o3fZhhGbelTw%2B10HpAjb2zxYn4d4L4KTD%2FY%3D"
 		}
 	}
 }
