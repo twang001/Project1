@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "test001.txt",
 				"container": "sasinput"
 			}
 		}
