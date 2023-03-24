@@ -15,7 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "sasinput"
+				"container": "sastest"
 			}
 		}
 	}
