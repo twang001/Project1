@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "synapsenotebook",
+				"name": "Notebook1",
 				"type": "SynapseNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -23,12 +23,21 @@
 						"type": "NotebookReference"
 					},
 					"snapshot": true,
-					"conf": {
-						"spark.dynamicAllocation.enabled": null,
-						"spark.dynamicAllocation.minExecutors": null,
-						"spark.dynamicAllocation.maxExecutors": null
+					"sparkPool": {
+						"referenceName": {
+							"value": "test",
+							"type": "Expression"
+						},
+						"type": "BigDataPoolReference"
 					},
-					"numExecutors": null
+					"executorSize": "Small",
+					"conf": {
+						"spark.dynamicAllocation.enabled": true,
+						"spark.dynamicAllocation.minExecutors": 1,
+						"spark.dynamicAllocation.maxExecutors": 2
+					},
+					"driverSize": "Small",
+					"numExecutors": 1
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseArtifacts1",
