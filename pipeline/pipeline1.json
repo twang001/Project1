@@ -16,18 +16,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"notebook": {
-						"referenceName": {
-							"value": "test001",
-							"type": "Expression"
-						},
+						"referenceName": "test001",
 						"type": "NotebookReference"
 					},
 					"snapshot": true,
 					"sparkPool": {
-						"referenceName": {
-							"value": "test",
-							"type": "Expression"
-						},
+						"referenceName": "test",
 						"type": "BigDataPoolReference"
 					},
 					"executorSize": "Small",
@@ -38,10 +32,6 @@
 					},
 					"driverSize": "Small",
 					"numExecutors": 1
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureSynapseArtifacts1",
-					"type": "LinkedServiceReference"
 				}
 			}
 		],
