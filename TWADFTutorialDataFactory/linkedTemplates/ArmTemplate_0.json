@@ -49,10 +49,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Sftp1'"
 		},
-		"datalakestorage_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'datalakestorage'"
-		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.dfs.core.windows.net"
@@ -60,6 +56,10 @@
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://TWKV.vault.azure.net/"
+		},
+		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
 		},
 		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 			"type": "string",
@@ -100,10 +100,6 @@
 		"TEST_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://redcap.petermac.org.au/api/"
-		},
-		"datalakestorage_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://twdatalakeaccount.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -280,6 +276,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseArtifacts1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSynapseArtifacts",
+				"typeProperties": {
+					"endpoint": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CosmosDb1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -435,23 +446,6 @@
 							"type": "SecureString",
 							"value": "**********"
 						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/datalakestorage')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('datalakestorage_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('datalakestorage_accountKey')]"
 					}
 				}
 			},

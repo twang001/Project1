@@ -7,7 +7,7 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "TWADFTutorialDataFactory"
 		},
-		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+		"AzureSynapseArtifactsMPE_properties_typeProperties_endpoint": {
 			"type": "string",
 			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
 		}
@@ -16,6 +16,72 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "emp"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WatermarkDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SELFHOSTNODE1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "incrementalcopy"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "TableName",
+						"type": "varchar"
+					},
+					{
+						"name": "WatermarkValue",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "watermarktable"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/data_source_table')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -55,14 +121,14 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSynapseArtifacts1')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseArtifactsMPE')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "AzureSynapseArtifacts",
 				"typeProperties": {
-					"endpoint": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]",
+					"endpoint": "[parameters('AzureSynapseArtifactsMPE_properties_typeProperties_endpoint')]",
 					"authentication": "MSI",
 					"workspaceResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
 				},
@@ -630,6 +696,7 @@
 				"lastPublishTime": "2021-07-05T03:38:42Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/WatermarkDataset')]",
 				"[concat(variables('factoryId'), '/datasets/data_source_table')]"
 			]
 		},
@@ -769,7 +836,9 @@
 				"annotations": [],
 				"lastPublishTime": "2021-07-06T02:15:27Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerDataset')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Synapse Test Pipeline')]",
@@ -2127,10 +2196,15 @@
 								},
 								"type": "BigDataPoolReference"
 							},
-							"conf": {}
+							"conf": {
+								"spark.dynamicAllocation.enabled": false,
+								"spark.dynamicAllocation.minExecutors": 0,
+								"spark.dynamicAllocation.maxExecutors": 0
+							},
+							"numExecutors": 0
 						},
 						"linkedServiceName": {
-							"referenceName": "AzureSynapseArtifacts1",
+							"referenceName": "AzureSynapseArtifactsMPE",
 							"type": "LinkedServiceReference"
 						}
 					}
@@ -2142,7 +2216,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifacts1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifactsMPE')]"
 			]
 		},
 		{
@@ -2174,68 +2248,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RunEveryMinute')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Copy Data",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2021-06-24T11:25:00",
-						"endTime": "2021-06-25T11:30:00",
-						"timeZone": "China Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Copy Data')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Tumbling Window Trigger Every One Min')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipeline": {
-					"pipelineReference": {
-						"referenceName": "UntilAgentJob",
-						"type": "PipelineReference"
-					},
-					"parameters": {}
-				},
-				"type": "TumblingWindowTrigger",
-				"typeProperties": {
-					"frequency": "Minute",
-					"interval": 5,
-					"startTime": "2021-07-07T06:57:00Z",
-					"delay": "00:00:00",
-					"maxConcurrency": 1,
-					"retryPolicy": {
-						"intervalInSeconds": 30
-					},
-					"dependsOn": []
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/UntilAgentJob')]"
-			]
 		}
 	]
 }

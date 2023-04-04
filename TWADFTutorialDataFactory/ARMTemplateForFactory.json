@@ -114,6 +114,10 @@
 			"type": "string",
 			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
 		},
+		"AzureSynapseArtifactsMPE_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
+		},
 		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
@@ -197,6 +201,14 @@
 		"AzureSqlDatabase278-serverless_properties_groupId": {
 			"type": "string",
 			"defaultValue": "sqlServer"
+		},
+		"AzureSynapseArtifacts911_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+		},
+		"AzureSynapseArtifacts911_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dev"
 		},
 		"Private1_properties_privateLinkResourceId": {
 			"type": "string",
@@ -3283,10 +3295,15 @@
 								},
 								"type": "BigDataPoolReference"
 							},
-							"conf": {}
+							"conf": {
+								"spark.dynamicAllocation.enabled": false,
+								"spark.dynamicAllocation.minExecutors": 0,
+								"spark.dynamicAllocation.maxExecutors": 0
+							},
+							"numExecutors": 0
 						},
 						"linkedServiceName": {
-							"referenceName": "AzureSynapseArtifacts1",
+							"referenceName": "AzureSynapseArtifactsMPE",
 							"type": "LinkedServiceReference"
 						}
 					}
@@ -3298,7 +3315,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifacts1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifactsMPE')]"
 			]
 		},
 		{
@@ -6194,6 +6211,21 @@
 					"endpoint": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]",
 					"authentication": "MSI",
 					"workspaceResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseArtifactsMPE')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSynapseArtifacts",
+				"typeProperties": {
+					"endpoint": "[parameters('AzureSynapseArtifactsMPE_properties_typeProperties_endpoint')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
 				},
 				"connectVia": {
 					"referenceName": "AzureIRWithVnet",
@@ -7056,6 +7088,18 @@
 			"properties": {
 				"privateLinkResourceId": "[parameters('AzureSqlDatabase278-serverless_properties_privateLinkResourceId')]",
 				"groupId": "[parameters('AzureSqlDatabase278-serverless_properties_groupId')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/AzureSynapseArtifacts911')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('AzureSynapseArtifacts911_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('AzureSynapseArtifacts911_properties_groupId')]"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"

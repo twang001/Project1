@@ -83,6 +83,9 @@
 		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
 			"value": "https://syntest-tw001.dev.azuresynapse.net"
 		},
+		"AzureSynapseArtifactsMPE_properties_typeProperties_endpoint": {
+			"value": "https://syntest-tw001.dev.azuresynapse.net"
+		},
 		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 			"value": "https://twadfpracticestorage.blob.core.windows.net"
 		},
@@ -145,6 +148,12 @@
 		},
 		"AzureSqlDatabase278-serverless_properties_groupId": {
 			"value": "sqlServer"
+		},
+		"AzureSynapseArtifacts911_properties_privateLinkResourceId": {
+			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+		},
+		"AzureSynapseArtifacts911_properties_groupId": {
+			"value": "dev"
 		},
 		"Private1_properties_privateLinkResourceId": {
 			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/privatet1"

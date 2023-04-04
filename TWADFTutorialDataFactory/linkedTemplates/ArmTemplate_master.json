@@ -114,6 +114,10 @@
 			"type": "string",
 			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
 		},
+		"AzureSynapseArtifactsMPE_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
+		},
 		"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
@@ -197,6 +201,14 @@
 		"AzureSqlDatabase278-serverless_properties_groupId": {
 			"type": "string",
 			"defaultValue": "sqlServer"
+		},
+		"AzureSynapseArtifacts911_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+		},
+		"AzureSynapseArtifacts911_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dev"
 		},
 		"Private1_properties_privateLinkResourceId": {
 			"type": "string",
@@ -297,14 +309,14 @@
 					"Sftp1_password": {
 						"value": "[parameters('Sftp1_password')]"
 					},
-					"datalakestorage_accountKey": {
-						"value": "[parameters('datalakestorage_accountKey')]"
-					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
 					},
 					"AzureKeyVault1_properties_typeProperties_baseUrl": {
 						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					},
+					"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+						"value": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]"
 					},
 					"DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint": {
 						"value": "[parameters('DataMovementLabBlobStorage_properties_typeProperties_serviceEndpoint')]"
@@ -335,9 +347,6 @@
 					},
 					"TEST_properties_typeProperties_url": {
 						"value": "[parameters('TEST_properties_typeProperties_url')]"
-					},
-					"datalakestorage_properties_typeProperties_url": {
-						"value": "[parameters('datalakestorage_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -357,8 +366,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"datalakestorage_accountKey": {
+						"value": "[parameters('datalakestorage_accountKey')]"
+					},
 					"twadfpracticestorage2_connectionString": {
 						"value": "[parameters('twadfpracticestorage2_connectionString')]"
+					},
+					"datalakestorage_properties_typeProperties_url": {
+						"value": "[parameters('datalakestorage_properties_typeProperties_url')]"
 					},
 					"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
 						"value": "[parameters('twadfpracticestorage_properties_typeProperties_serviceEndpoint')]"
@@ -463,6 +478,12 @@
 					"AzureSqlDatabase278-serverless_properties_groupId": {
 						"value": "[parameters('AzureSqlDatabase278-serverless_properties_groupId')]"
 					},
+					"AzureSynapseArtifacts911_properties_privateLinkResourceId": {
+						"value": "[parameters('AzureSynapseArtifacts911_properties_privateLinkResourceId')]"
+					},
+					"AzureSynapseArtifacts911_properties_groupId": {
+						"value": "[parameters('AzureSynapseArtifacts911_properties_groupId')]"
+					},
 					"Private1_properties_privateLinkResourceId": {
 						"value": "[parameters('Private1_properties_privateLinkResourceId')]"
 					},
@@ -471,6 +492,26 @@
 					},
 					"Private1_properties_fqdns": {
 						"value": "[parameters('Private1_properties_fqdns')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"TWTEST001_properties_privateLinkResourceId": {
 						"value": "[parameters('TWTEST001_properties_privateLinkResourceId')]"
@@ -493,26 +534,6 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_2')]"
-			]
-		},
-		{
-			"name": "TWADFTutorialDataFactory_ArmTemplate_4",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
-					}
-				}
-			},
-			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_3')]"
 			]
 		},
@@ -530,13 +551,33 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
-						"value": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]"
+					"AzureSynapseArtifactsMPE_properties_typeProperties_endpoint": {
+						"value": "[parameters('AzureSynapseArtifactsMPE_properties_typeProperties_endpoint')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_4')]"
+			]
+		},
+		{
+			"name": "TWADFTutorialDataFactory_ArmTemplate_6",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_6.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'TWADFTutorialDataFactory_ArmTemplate_5')]"
 			]
 		}
 	]
