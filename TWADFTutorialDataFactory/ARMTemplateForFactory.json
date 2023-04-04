@@ -58,6 +58,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LocalSQLPractice2'"
 		},
+		"OracleSHIR_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'OracleSHIR'"
+		},
 		"PrivateEndpoint_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'PrivateEndpoint'"
@@ -126,6 +130,22 @@
 			"type": "string",
 			"defaultValue": " https://api.anaplan.com/2/0/workspaces/8a81b0946181ceb301619fb619445643/models/4B938EEE5E9A43AC8D4AB3A156600FB9/files/116000000055/chunks/0"
 		},
+		"SASAzureGen2_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'SASAzureGen2'"
+		},
+		"SASInput_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'SASInput'"
+		},
+		"SASOutput_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net/"
+		},
+		"SASinputfolder_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'SASinputfolder'"
+		},
 		"SapTable1_properties_typeProperties_clientId": {
 			"type": "string",
 			"defaultValue": "11111"
@@ -177,14 +197,6 @@
 		"AzureSqlDatabase278-serverless_properties_groupId": {
 			"type": "string",
 			"defaultValue": "sqlServer"
-		},
-		"AzureSynapseAnalyticssyntest_tw001_properties_privateLinkResourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
-		},
-		"AzureSynapseAnalyticssyntest_tw001_properties_groupId": {
-			"type": "string",
-			"defaultValue": "dev"
 		},
 		"Private1_properties_privateLinkResourceId": {
 			"type": "string",
@@ -3244,7 +3256,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "synapsenotebook",
+						"name": "Notebook1",
 						"type": "SynapseNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -3264,12 +3276,14 @@
 								"type": "NotebookReference"
 							},
 							"snapshot": true,
-							"conf": {
-								"spark.dynamicAllocation.enabled": null,
-								"spark.dynamicAllocation.minExecutors": null,
-								"spark.dynamicAllocation.maxExecutors": null
+							"sparkPool": {
+								"referenceName": {
+									"value": "test",
+									"type": "Expression"
+								},
+								"type": "BigDataPoolReference"
 							},
-							"numExecutors": null
+							"conf": {}
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureSynapseArtifacts1",
@@ -3898,6 +3912,29 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Binary3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SASinputfolder",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "test001.txt",
+						"container": "sasinput"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SASinputfolder')]"
 			]
 		},
 		{
@@ -5957,6 +5994,28 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/sasinput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SASInput",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sastest"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SASInput')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLSGen2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -6293,6 +6352,25 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/OracleSHIR')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Oracle",
+				"typeProperties": {
+					"connectionString": "[parameters('OracleSHIR_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "OracleSHIR",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/OracleSHIR')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PrivateEndpoint')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -6310,6 +6388,59 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/CentralUSIR')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASAzureGen2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('SASAzureGen2_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASInput')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('SASInput_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASOutput')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"serviceEndpoint": "[parameters('SASOutput_properties_typeProperties_serviceEndpoint')]",
+					"accountKind": "StorageV2"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASinputfolder')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('SASinputfolder_sasUri')]"
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SELFHOSTNODE1')]",
@@ -6725,6 +6856,16 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/OracleSHIR')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PrivateEndPoint')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -6915,18 +7056,6 @@
 			"properties": {
 				"privateLinkResourceId": "[parameters('AzureSqlDatabase278-serverless_properties_privateLinkResourceId')]",
 				"groupId": "[parameters('AzureSqlDatabase278-serverless_properties_groupId')]"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/default/AzureSynapseAnalyticssyntest_tw001')]",
-			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"privateLinkResourceId": "[parameters('AzureSynapseAnalyticssyntest_tw001_properties_privateLinkResourceId')]",
-				"groupId": "[parameters('AzureSynapseAnalyticssyntest_tw001_properties_groupId')]"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"

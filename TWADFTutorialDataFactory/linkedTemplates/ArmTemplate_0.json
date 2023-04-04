@@ -53,10 +53,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'datalakestorage'"
 		},
-		"twadfpracticestorage2_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'twadfpracticestorage2'"
-		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://twadfpracticestorage.dfs.core.windows.net"
@@ -72,6 +68,22 @@
 		"New REST_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": " https://api.anaplan.com/2/0/workspaces/8a81b0946181ceb301619fb619445643/models/4B938EEE5E9A43AC8D4AB3A156600FB9/files/116000000055/chunks/0"
+		},
+		"SASAzureGen2_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'SASAzureGen2'"
+		},
+		"SASInput_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'SASInput'"
+		},
+		"SASOutput_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net/"
+		},
+		"SASinputfolder_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'SASinputfolder'"
 		},
 		"Sftp1_properties_typeProperties_host": {
 			"type": "string",
@@ -92,10 +104,6 @@
 		"datalakestorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://twdatalakeaccount.dfs.core.windows.net"
-		},
-		"twadfpracticestorage_properties_typeProperties_serviceEndpoint": {
-			"type": "string",
-			"defaultValue": "https://twadfpracticestorage.blob.core.windows.net"
 		}
 	},
 	"variables": {
@@ -333,6 +341,59 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SASAzureGen2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('SASAzureGen2_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASInput')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('SASInput_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASOutput')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"serviceEndpoint": "[parameters('SASOutput_properties_typeProperties_serviceEndpoint')]",
+					"accountKind": "StorageV2"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SASinputfolder')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('SASinputfolder_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Sftp1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -391,73 +452,6 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('datalakestorage_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/twadfpracticestorage')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"serviceEndpoint": "[parameters('twadfpracticestorage_properties_typeProperties_serviceEndpoint')]",
-					"accountKind": "StorageV2"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/twadfpracticestorage2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('twadfpracticestorage2_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Schedule Trigger Every One Min')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2021-07-07T06:48:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CentralUSIR')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "East US",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 10,
-							"cleanup": false
-						}
 					}
 				}
 			},

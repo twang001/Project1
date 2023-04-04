@@ -6,12 +6,321 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "TWADFTutorialDataFactory"
+		},
+		"AzureSynapseArtifacts1_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://syntest-tw001.dev.azuresynapse.net"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/data_source_table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SELFHOSTNODE1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "incrementalcopy"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "PersonID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Name",
+						"type": "varchar"
+					},
+					{
+						"name": "LastModifytime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "data_source_table"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseArtifacts1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSynapseArtifacts",
+				"typeProperties": {
+					"endpoint": "[parameters('AzureSynapseArtifacts1_properties_typeProperties_endpoint')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
+				},
+				"connectVia": {
+					"referenceName": "AzureIRWithVnet",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSQLPracticeDBDimCustomerpowerquery')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "WranglingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"name": "AzureSQLPracticeDBDimCustomer",
+							"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> AzureSQLPracticeDBDimCustomer",
+							"dataset": {
+								"referenceName": "AzureSQLPracticeDBDimCustomer",
+								"type": "DatasetReference"
+							}
+						}
+					],
+					"script": "section Section1;\r\nshared AzureSQLPracticeDBDimCustomer = let\r\n  AdfDoc = Sql.Database(\"twadfpractice.database.windows.net\", \"Practice001\", [CreateNavigationProperties = false]),\r\n  InputTable = AdfDoc{[Schema = \"dbo\", Item = \"DimCustomer\"]}[Data]\r\nin\r\n  InputTable;\r\nshared UserQuery = let\r\n  Source = AzureSQLPracticeDBDimCustomer,\r\n  #\"Filtered rows\" = Table.SelectRows(Source, each ([GeographyKey] = 8))\r\nin\r\n  #\"Filtered rows\";\r\n"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ErrorHandling')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "MoviesDB",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSQLJUNKTable",
+								"type": "DatasetReference"
+							},
+							"name": "AzureSQLDBTable"
+						},
+						{
+							"dataset": {
+								"referenceName": "BadRows",
+								"type": "DatasetReference"
+							},
+							"name": "BadRows"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						},
+						{
+							"name": "GoodRows"
+						}
+					],
+					"script": "source(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 derive(movie = toInteger(movie)) ~> DerivedColumn1\nDerivedColumn1 split(length(title) <= 5,\n\tdisjoint: false) ~> GoodRows@(GoodRows, BadRows)\nGoodRows@GoodRows sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tNAME as string,\n\t\tID as integer\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\terrorHandlingOption: 'stopOnFirstError',\n\toutputRejectedData: true,\n\tmapColumn(\n\t\tNAME = title,\n\t\tID = movie\n\t)) ~> AzureSQLDBTable\nGoodRows@BadRows sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"BadRows_{currentDate()}.txt\")],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> BadRows"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TransformMovies')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "MoviesDB",
+								"type": "DatasetReference"
+							},
+							"name": "MoviesDB"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "MoviesSink",
+								"type": "DatasetReference"
+							},
+							"name": "Sink"
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureBlobStorage_DataFlow_Output",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "FilterYears"
+						},
+						{
+							"name": "AggregateComedyRatings"
+						},
+						{
+							"name": "Join1"
+						},
+						{
+							"name": "Select1"
+						}
+					],
+					"script": "parameters{\n\tparameter1 as date (currentDate())\n}\nsource(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoviesDB\nMoviesDB filter(toInteger(year) >= 1910 && toInteger(year) <= 2000 && rlike(genres, 'Comedy')) ~> FilterYears\nFilterYears aggregate(groupBy(year,\n\t\ttitle),\n\tAverageComedyRating = avg(toInteger(Rating))) ~> AggregateComedyRatings\nAggregateComedyRatings, MoviesDB join(AggregateComedyRatings@title == MoviesDB@title\n\t&& AggregateComedyRatings@year == MoviesDB@year,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join1\nJoin1 select(mapColumn(\n\t\tmovie,\n\t\tgenres,\n\t\ttitle = AggregateComedyRatings@title,\n\t\tyear = AggregateComedyRatings@year,\n\t\tRating,\n\t\tAverageComedyRating,\n\t\t{Rotton Tomato}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nAggregateComedyRatings sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"{currentDate()} .txt\"\r\n)],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('roundRobin', 2)) ~> Sink\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[(\"JoinResult_{currentDate()}.txt\")],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureCopy')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CUSTOMER1 COPY",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "TRUNCATE TABLE [dbo].[Customer1]",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AzurePractice001",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Customer1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy Data')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Binary1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Binary2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "SimpleCopy"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-07-06T02:15:27Z"
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ErrorHandling')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -60,7 +369,9 @@
 				"annotations": [],
 				"lastPublishTime": "2021-08-05T02:41:06Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/ErrorHandling')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/HAonSelfIR')]",
@@ -318,7 +629,9 @@
 				"annotations": [],
 				"lastPublishTime": "2021-07-05T03:38:42Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/data_source_table')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PowerQuery')]",
@@ -381,7 +694,9 @@
 				"annotations": [],
 				"lastPublishTime": "2021-07-28T03:58:28Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/AzureSQLPracticeDBDimCustomerpowerquery')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SQLServerToBlobPipeline')]",
@@ -585,7 +900,9 @@
 				"annotations": [],
 				"lastPublishTime": "2021-08-05T02:41:07Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/TransformMovies')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/UntilActivity')]",
@@ -1783,7 +2100,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "synapsenotebook",
+						"name": "Notebook1",
 						"type": "SynapseNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -1803,12 +2120,14 @@
 								"type": "NotebookReference"
 							},
 							"snapshot": true,
-							"conf": {
-								"spark.dynamicAllocation.enabled": null,
-								"spark.dynamicAllocation.minExecutors": null,
-								"spark.dynamicAllocation.maxExecutors": null
+							"sparkPool": {
+								"referenceName": {
+									"value": "test",
+									"type": "Expression"
+								},
+								"type": "BigDataPoolReference"
 							},
-							"numExecutors": null
+							"conf": {}
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureSynapseArtifacts1",
@@ -1822,7 +2141,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseArtifacts1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Tumbling Window Test')]",
@@ -1881,7 +2202,9 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Copy Data')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Tumbling Window Trigger Every One Min')]",

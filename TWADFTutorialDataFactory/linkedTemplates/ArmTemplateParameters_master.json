@@ -41,6 +41,9 @@
 		"LocalSQLPractice2_connectionString": {
 			"value": ""
 		},
+		"OracleSHIR_connectionString": {
+			"value": ""
+		},
 		"PrivateEndpoint_connectionString": {
 			"value": ""
 		},
@@ -92,6 +95,18 @@
 		"New REST_properties_typeProperties_url": {
 			"value": " https://api.anaplan.com/2/0/workspaces/8a81b0946181ceb301619fb619445643/models/4B938EEE5E9A43AC8D4AB3A156600FB9/files/116000000055/chunks/0"
 		},
+		"SASAzureGen2_sasUri": {
+			"value": ""
+		},
+		"SASInput_sasUri": {
+			"value": ""
+		},
+		"SASOutput_properties_typeProperties_serviceEndpoint": {
+			"value": "https://twadfpracticestorage.blob.core.windows.net/"
+		},
+		"SASinputfolder_sasUri": {
+			"value": ""
+		},
 		"SapTable1_properties_typeProperties_clientId": {
 			"value": "11111"
 		},
@@ -130,12 +145,6 @@
 		},
 		"AzureSqlDatabase278-serverless_properties_groupId": {
 			"value": "sqlServer"
-		},
-		"AzureSynapseAnalyticssyntest_tw001_properties_privateLinkResourceId": {
-			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001"
-		},
-		"AzureSynapseAnalyticssyntest_tw001_properties_groupId": {
-			"value": "dev"
 		},
 		"Private1_properties_privateLinkResourceId": {
 			"value": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/ThomasADFParctice/providers/Microsoft.Storage/storageAccounts/privatet1"
