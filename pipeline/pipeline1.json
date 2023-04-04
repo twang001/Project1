@@ -40,7 +40,7 @@
 					"numExecutors": 1
 				},
 				"linkedServiceName": {
-					"referenceName": "AzureSynapseArtifacts1",
+					"referenceName": "AzureSynapseArtifactsMPE",
 					"type": "LinkedServiceReference"
 				}
 			}
