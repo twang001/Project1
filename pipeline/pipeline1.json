@@ -30,14 +30,12 @@
 						},
 						"type": "BigDataPoolReference"
 					},
-					"executorSize": "Small",
 					"conf": {
-						"spark.dynamicAllocation.enabled": true,
-						"spark.dynamicAllocation.minExecutors": 1,
-						"spark.dynamicAllocation.maxExecutors": 1
+						"spark.dynamicAllocation.enabled": false,
+						"spark.dynamicAllocation.minExecutors": 0,
+						"spark.dynamicAllocation.maxExecutors": 0
 					},
-					"driverSize": "Small",
-					"numExecutors": 1
+					"numExecutors": 0
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseArtifactsMPE",
