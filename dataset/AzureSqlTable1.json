@@ -24,7 +24,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "emp1"
+			"table": "Customer1"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
