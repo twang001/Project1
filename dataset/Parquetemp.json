@@ -1,0 +1,19 @@
+{
+	"name": "Parquetemp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageAuthenticationKey",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "parquetemp"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
