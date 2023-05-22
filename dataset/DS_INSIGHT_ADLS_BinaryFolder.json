@@ -1,0 +1,26 @@
+{
+	"name": "DS_INSIGHT_ADLS_BinaryFolder",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_insight_ADLS_Data_Transfer",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Folder": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().Folder",
+					"type": "Expression"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -29,7 +29,6 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"preCopyScript": "--TRUNCATE TABLE [dbo].[emp]",
-						"writeBehavior": "insert",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,

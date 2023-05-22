@@ -1,0 +1,27 @@
+{
+	"name": "Customer1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "twadfpractice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "CustomerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Name",
+				"type": "nchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Customer1"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

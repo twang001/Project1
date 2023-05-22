@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Notebook1",
+				"type": "SynapseNotebook",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "7.00:00:00",
+					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -15,57 +15,36 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "AvroSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						}
-					},
-					"sink": {
-						"type": "SqlDWSink",
-						"allowCopyCommand": true
-					},
-					"enableStaging": true,
-					"stagingSettings": {
-						"linkedServiceName": {
-							"referenceName": "datalakestorage",
-							"type": "LinkedServiceReference"
+					"notebook": {
+						"referenceName": {
+							"value": "test001",
+							"type": "Expression"
 						},
-						"path": "filesystem"
-					}
+						"type": "NotebookReference"
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": {
+							"value": "test",
+							"type": "Expression"
+						},
+						"type": "BigDataPoolReference"
+					},
+					"conf": {
+						"spark.dynamicAllocation.enabled": false,
+						"spark.dynamicAllocation.minExecutors": 0,
+						"spark.dynamicAllocation.maxExecutors": 0
+					},
+					"numExecutors": 0
 				},
-				"inputs": [
-					{
-						"referenceName": "Avrosample",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "AzureSynapseAnalyticsTable",
-						"type": "DatasetReference"
-					}
-				]
-			},
-			{
-				"name": "Copy data2",
-				"type": "Copy",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"enableStaging": false
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseArtifactsMPE",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2023-04-04T06:25:56Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

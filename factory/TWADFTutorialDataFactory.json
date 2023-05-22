@@ -2,8 +2,14 @@
 	"name": "TWADFTutorialDataFactory",
 	"location": "eastus",
 	"identity": {
-		"type": "SystemAssigned",
+		"type": "SystemAssigned,UserAssigned",
 		"principalId": "42a56d9a-ccb5-4aa8-9717-080511577823",
-		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+		"userAssignedIdentities": {
+			"/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourcegroups/twadfpractice-RG-2021-06-24T09-21-25Z/providers/Microsoft.ManagedIdentity/userAssignedIdentities/test": {
+				"clientId": "f970aa39-4b54-48ad-aa96-1e0b91e134cc",
+				"principalId": "87e99ca4-ab11-4f04-9ac5-b76465ecb33e"
+			}
+		}
 	}
 }

@@ -1,0 +1,11 @@
+{
+	"name": "devinsightIRAzure02",
+	"properties": {
+		"type": "Managed",
+		"typeProperties": {
+			"computeProperties": {
+				"location": "AutoResolve"
+			}
+		}
+	}
+}

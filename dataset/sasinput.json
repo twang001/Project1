@@ -1,0 +1,18 @@
+{
+	"name": "sasinput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SASInput",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "sastest"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

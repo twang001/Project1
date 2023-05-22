@@ -1,0 +1,7 @@
+{
+	"name": "AzureSynapseArtifacts511",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/5e115213-f9c8-4c49-b57e-ff9a0647c4ac/resourceGroups/syntest/providers/Microsoft.Synapse/workspaces/syntest-tw001",
+		"groupId": "dev"
+	}
+}

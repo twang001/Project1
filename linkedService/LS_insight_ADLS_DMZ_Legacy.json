@@ -1,0 +1,20 @@
+{
+	"name": "LS_insight_ADLS_DMZ_Legacy",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "@{linkedService().Account}"
+		},
+		"connectVia": {
+			"referenceName": "devinsightIRAzure02",
+			"type": "IntegrationRuntimeReference"
+		},
+		"parameters": {
+			"Account": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}

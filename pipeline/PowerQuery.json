@@ -23,16 +23,21 @@
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"sinks": {
-						"UserQuery": {
-							"name": "SinkPowerQueryBlobStorage",
-							"dataset": {
-								"referenceName": "PowerQueryBlobStorage",
-								"type": "DatasetReference"
-							},
-							"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SinkPowerQueryBlobStorage"
+					"queries": [
+						{
+							"queryName": "UserQuery",
+							"dataflowSinks": [
+								{
+									"name": "SinkPowerQueryBlobStorage",
+									"dataset": {
+										"referenceName": "PowerQueryBlobStorage",
+										"type": "DatasetReference"
+									},
+									"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SinkPowerQueryBlobStorage"
+								}
+							]
 						}
-					}
+					]
 				}
 			}
 		],

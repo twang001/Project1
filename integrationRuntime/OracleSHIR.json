@@ -1,0 +1,6 @@
+{
+	"name": "OracleSHIR",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

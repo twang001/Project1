@@ -1,27 +1,23 @@
 {
 	"name": "TEST",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"parameters": {
-			"token": {
-				"type": "string",
-				"defaultValue": "C1A3E983C6512C54B6581E3A0859A76C"
-			},
-			"content": {
-				"type": "string",
-				"defaultValue": "record"
-			},
-			"format": {
-				"type": "string",
-				"defaultValue": "json"
-			}
-		},
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
 			"url": "https://redcap.petermac.org.au/api/",
-			"enableServerCertificateValidation": false,
-			"authenticationType": "Anonymous"
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous",
+			"authHeaders": {
+				"Content-Type": {
+					"type": "SecureString",
+					"value": "**********"
+				},
+				"Content-Length": {
+					"type": "SecureString",
+					"value": "**********"
+				}
+			}
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
