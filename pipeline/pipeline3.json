@@ -49,8 +49,8 @@
 				]
 			},
 			{
-				"name": "Set variable1",
-				"type": "SetVariable",
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
 				"dependsOn": [
 					{
 						"activity": "Copy data1",
@@ -60,16 +60,24 @@
 					}
 				],
 				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "Rowcount",
-					"value": {
-						"value": "@activity('Copy data1').output",
-						"type": "Expression"
-					}
+					"dataset": {
+						"referenceName": "AzurePractice001",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						{
+							"value": "@activity('Copy data1').output.rowsCopied",
+							"type": "Expression"
+						}
+					]
 				}
 			}
 		],
