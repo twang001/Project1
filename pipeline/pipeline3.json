@@ -75,7 +75,7 @@
 		],
 		"variables": {
 			"Rowcount": {
-				"type": "Array"
+				"type": "String"
 			}
 		},
 		"annotations": []
