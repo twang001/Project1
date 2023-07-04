@@ -67,7 +67,7 @@
 				"typeProperties": {
 					"variableName": "Rowcount",
 					"value": {
-						"value": "@activity('Copy data1').output.rowsCopied",
+						"value": "@activity('Copy data1').output",
 						"type": "Expression"
 					}
 				}
