@@ -1,0 +1,35 @@
+{
+	"name": "pipeline4",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://stg-udp-admin.dksh.com/authorizationserver/oauth/token",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": {
+						"client_id": "tec_pim_occ_channel_client_stg",
+						"client_secret": "secret",
+						"grant_type": "password",
+						"username": "dksh_bi_client",
+						"password": "Aa@12341234"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
