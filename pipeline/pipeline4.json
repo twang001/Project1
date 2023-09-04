@@ -20,13 +20,7 @@
 					"headers": {
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
-					"body": {
-						"client_id": "tec_pim_occ_channel_client_stg",
-						"client_secret": "secret",
-						"grant_type": "password",
-						"username": "dksh_bi_client",
-						"password": "Aa@12341234"
-					}
+					"body": "client_id=tec_pim_occ_channel_client_stg&client_secret=secret&grant_type=password&username=dksh_bi_client&password=Aa%4012341234"
 				}
 			}
 		],
