@@ -1,0 +1,36 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"folder": {
+			"name": "Live-edw"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "source1"
+				},
+				{
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"name": "combinetraffic"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Flatten1"
+				},
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "Select1"
+				}
+			],
+			"script": "parameters{\n\tmetric_name_split as string (metric_name)\n}\nsource(output(\n\t\tok as boolean,\n\t\tmetrics as (name as string, ok as boolean, data as (group as (uuid as string, name as string, type as string), index as integer, next_level as (value as integer, validity as string, group as (start as string, finish as string, type as string), index as integer)[])[])[],\n\t\tmetric_date as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionBy('dynamicRange', 2,\n\t\tmetric_date,\n\t\tmetrics.name\n\t)) ~> source1\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> source2\nsource1 foldDown(unroll(metrics.data.next_level, metrics.data),\n\tmapColumn(\n\t\tgroup = metrics.data.group,\n\t\tindex = metrics.data.index,\n\t\tnext_level = metrics.data.next_level,\n\t\tmetric_name = metrics,\n\t\tmetric_date,\n\t\tlocation_id = metrics\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten1\nFlatten1 derive(location_id = group.uuid,\n\t\tmetric_name = metric_name.name,\n\t\tmetric_start = next_level.group.start,\n\t\tmetric_finish = next_level.group.finish,\n\t\tmetric_value = toInteger(next_level.value),\n\t\tmetric_validity = next_level.validity) ~> DerivedColumn1\nDerivedColumn1 select(mapColumn(\n\t\tmetric_name,\n\t\tmetric_date,\n\t\tlocation_id,\n\t\tmetric_start,\n\t\tmetric_finish,\n\t\tmetric_value,\n\t\tmetric_validity\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\ttruncate: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tlocation_id,\n\t\tmetric_date,\n\t\tmetric_name,\n\t\tmetric_start,\n\t\tmetric_finish,\n\t\tmetric_value,\n\t\tmetric_validity\n\t),\n\tformat: 'table') ~> combinetraffic"
+		}
+	}
+}
