@@ -1,0 +1,98 @@
+{
+	"name": "Json3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "jsontest"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"ok": {
+					"type": "boolean"
+				},
+				"metrics": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"ok": {
+								"type": "boolean"
+							},
+							"data": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"group": {
+											"type": "object",
+											"properties": {
+												"uuid": {
+													"type": "string"
+												},
+												"name": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												}
+											}
+										},
+										"index": {
+											"type": "integer"
+										},
+										"next_level": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"value": {
+														"type": "integer"
+													},
+													"validity": {
+														"type": "string"
+													},
+													"group": {
+														"type": "object",
+														"properties": {
+															"start": {
+																"type": "string"
+															},
+															"finish": {
+																"type": "string"
+															},
+															"type": {
+																"type": "string"
+															}
+														}
+													},
+													"index": {
+														"type": "integer"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"metric_date": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
