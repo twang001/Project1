@@ -1,0 +1,23 @@
+{
+	"name": "MDSSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MDSSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "decimaltest",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "decimaltest"
+		}
+	}
+}
