@@ -1,0 +1,30 @@
+{
+	"name": "AzureSynapseAnalyticsTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Synapse_twtest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Name",
+				"type": "nchar"
+			},
+			{
+				"name": "Other",
+				"type": "nchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Test1"
+		}
+	}
+}

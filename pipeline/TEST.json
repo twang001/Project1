@@ -16,34 +16,47 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "OracleSource",
-						"partitionOption": "None",
-						"queryTimeout": "02:00:00"
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
+						"type": "SqlDWSink",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						},
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
+						"mappings": [
+							{
+								"source": {
+									"name": "TO_BINARY_FLOAT(NUMBERTEST)",
+									"type": "Single"
+								},
+								"sink": {
+									"name": "decimaltest",
+									"type": "Decimal"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "OracleTable1",
+						"referenceName": "AzureSynapseAnalyticsTable1",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "MDSSQL",
+						"referenceName": "AzureSynapseAnalyticsTable1",
 						"type": "DatasetReference"
 					}
 				]
