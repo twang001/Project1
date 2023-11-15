@@ -16,9 +16,73 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlDWSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBatchSize": 1,
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "NUMBERTEST",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "decimaltest",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 3,
+									"precision": 18
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "MDSSQL",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
 					},
 					"sink": {
 						"type": "SqlDWSink",
@@ -27,22 +91,39 @@
 							"rejectValue": 0,
 							"rejectType": "value",
 							"useTypeDefault": true
-						},
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
+						}
 					},
-					"enableStaging": false,
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "twadfpracticestorage",
+							"type": "LinkedServiceReference"
+						},
+						"path": "input"
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
 							{
 								"source": {
-									"name": "TO_BINARY_FLOAT(NUMBERTEST)",
-									"type": "Single"
+									"name": "NUMBERTEST",
+									"type": "Double"
 								},
 								"sink": {
-									"name": "decimaltest",
-									"type": "Decimal"
+									"name": "ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "Other",
+									"type": "String"
 								}
 							}
 						]
@@ -50,13 +131,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSynapseAnalyticsTable1",
+						"referenceName": "OracleTable1",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSynapseAnalyticsTable1",
+						"referenceName": "AzureSynapseAnalyticsTable",
 						"type": "DatasetReference"
 					}
 				]
