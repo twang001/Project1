@@ -1,0 +1,12 @@
+{
+	"name": "Sapcdctest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Sapcdctest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapOdpResource",
+		"schema": []
+	}
+}
