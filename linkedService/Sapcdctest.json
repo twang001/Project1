@@ -1,0 +1,21 @@
+{
+	"name": "Sapcdctest",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SapOdp",
+		"typeProperties": {
+			"clientId": "test",
+			"language": "test",
+			"sncMode": false,
+			"userName": "BlobSAS",
+			"server": "test",
+			"systemNumber": "test",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2ZDI3MThkMC0zYzc0LTQ1NTItYjA0OC02YjM1MmM5YTMzN2YiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "OracleSHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
