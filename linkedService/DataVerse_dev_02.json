@@ -1,0 +1,20 @@
+{
+	"name": "DataVerse_dev_02",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "CommonDataServiceForApps",
+		"typeProperties": {
+			"deploymentType": "Online",
+			"serviceUri": "https://ract-tst07.crm6.dynamics.com",
+			"authenticationType": "AADServicePrincipal",
+			"servicePrincipalId": "fc8096a6-1cb7-4876-afc9-b51f25a7c4f2",
+			"servicePrincipalCredentialType": "ServicePrincipalKey",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIlNZTkFQU0VAM0ZFNkQ2OUItOEU0Qy00MDAzLUJCNjktQzNGMkZEREI2RUY4XzBjYjNiOTM5LTQzNmUtNGVhZS1iZWVhLThlODQ4N2Y1YTg0ZSINCn0="
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
