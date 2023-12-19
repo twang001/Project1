@@ -1,5 +1,5 @@
 {
-	"name": "AzureSynapseAnalyticsTable1",
+	"name": "AzureSynapseAnalyticsTableX",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Synapse_twtest",
