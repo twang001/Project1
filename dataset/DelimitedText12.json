@@ -1,0 +1,24 @@
+{
+	"name": "DelimitedText12",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "part-00000-b7abace1-a7db-48b5-aa2e-feacf1d749ac-c000.csv",
+				"fileSystem": "yud-target"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -154,7 +154,7 @@
 				"          transactioncurrencyid_entitytype as string,",
 				"          ownerid as string,",
 				"          ownerid_entitytype as string,",
-				"          customerid as string,",
+				"          customerid_value as string,",
 				"          customerid_entitytype as string,",
 				"          accountidname as string,",
 				"          accountidyominame as string,",

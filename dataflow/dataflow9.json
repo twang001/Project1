@@ -1,0 +1,57 @@
+{
+	"name": "dataflow9",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Json6",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText12",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flatten1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          value as (id as string, userId as string, deviceName as string, managedDeviceOwnerType as string, enrolledDateTime as string, lastSyncDateTime as string, operatingSystem as string, complianceState as string, jailBroken as string, managementAgent as string, osVersion as string, easActivated as boolean, easDeviceId as string, easActivationDateTime as string, azureADRegistered as boolean, deviceEnrollmentType as string, activationLockBypassCode as string, emailAddress as string, azureADDeviceId as string, deviceRegistrationState as string, deviceCategoryDisplayName as string, isSupervised as boolean, exchangeLastSuccessfulSyncDateTime as string, exchangeAccessState as string, exchangeAccessStateReason as string, remoteAssistanceSessionUrl as string, remoteAssistanceSessionErrorDetails as string, isEncrypted as boolean, userPrincipalName as string, model as string, manufacturer as string, imei as string, complianceGracePeriodExpirationDateTime as string, serialNumber as string, phoneNumber as string, androidSecurityPatchLevel as string, userDisplayName as string, configurationManagerClientEnabledFeatures as string, wiFiMacAddress as string, deviceHealthAttestationState as string, subscriberCarrier as string, meid as string, totalStorageSpaceInBytes as integer, freeStorageSpaceInBytes as integer, managedDeviceName as string, partnerReportedThreatState as string, requireUserEnrollmentApproval as boolean, managementCertificateExpirationDate as string, iccid as string, udid as string, notes as string, ethernetMacAddress as string, physicalMemoryInBytes as integer, deviceActionResults as string[])[]",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     purgeFiles: true,",
+				"     documentForm: 'documentPerLine') ~> source1",
+				"source1 foldDown(unroll(value, value),",
+				"     mapColumn(",
+				"          id = value.id",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          id",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
