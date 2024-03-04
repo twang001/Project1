@@ -18,33 +18,43 @@
 		},
 		"schema": [
 			{
+				"name": "Loan ID",
 				"type": "String"
 			},
 			{
+				"name": "Sub-loan",
 				"type": "String"
 			},
 			{
+				"name": "Tranche",
 				"type": "String"
 			},
 			{
+				"name": "Payment Type",
 				"type": "String"
 			},
 			{
+				"name": "Reference Date",
 				"type": "String"
 			},
 			{
+				"name": "Value Type",
 				"type": "String"
 			},
 			{
+				"name": "Payment Date",
 				"type": "String"
 			},
 			{
+				"name": "Payment Amount",
 				"type": "String"
 			},
 			{
+				"name": "Scheduled Payment Date",
 				"type": "String"
 			},
 			{
+				"name": "Scheduled Payment Amount",
 				"type": "String"
 			}
 		]
