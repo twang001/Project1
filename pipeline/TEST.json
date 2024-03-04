@@ -177,6 +177,119 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Loan ID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LoanID",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Sub-loan",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Subloan",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Tranche",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Tranche",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Payment Type",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PaymentType",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Reference Date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ReferenceDate",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Value Type",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ValueType",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Payment Date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PaymentDate",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Payment Amount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PaymentAmount",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Scheduled Payment Date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ScheduledPaymentDate",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "Scheduled Payment Amount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ScheduledPaymentAmount",
+									"physicalType": "UTF8"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
