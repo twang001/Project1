@@ -226,7 +226,7 @@
 							{
 								"source": {
 									"name": "Reference Date",
-									"type": "String",
+									"type": "DateTime",
 									"physicalType": "String"
 								},
 								"sink": {
@@ -270,7 +270,7 @@
 							{
 								"source": {
 									"name": "Scheduled Payment Date",
-									"type": "String",
+									"type": "DateTime",
 									"physicalType": "String"
 								},
 								"sink": {
