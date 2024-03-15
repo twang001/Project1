@@ -344,10 +344,14 @@
 					"sink": {
 						"type": "BinarySink",
 						"storeSettings": {
-							"type": "AzureFileStorageWriteSettings"
+							"type": "AzureFileStorageWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"preserve": [
+						"Attributes"
+					]
 				},
 				"inputs": [
 					{
