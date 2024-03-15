@@ -9,8 +9,7 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureFileStorageLocation",
-				"fileName": "Loan Cashflow report 01.31.2024.xlsx"
+				"type": "AzureFileStorageLocation"
 			}
 		}
 	}
