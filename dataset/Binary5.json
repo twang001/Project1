@@ -1,0 +1,16 @@
+{
+	"name": "Binary5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureFileStoragedest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureFileStorageLocation"
+			}
+		}
+	}
+}
