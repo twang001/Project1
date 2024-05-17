@@ -16,7 +16,7 @@
 			"transformations": [],
 			"scriptLines": [
 				"parameters{",
-				"     run_mode as string",
+				"     run_mode as string (\"incrementalLoad\")",
 				"}",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
