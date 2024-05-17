@@ -1,0 +1,20 @@
+{
+	"name": "SapOdp1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SapOdp",
+		"typeProperties": {
+			"clientId": "test",
+			"sncMode": false,
+			"userName": "test",
+			"server": "test",
+			"systemNumber": "test",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjYTEwOWI1OC02NjNjLTQxYzYtOGJjMS1lNmM0M2Q3MDM3MTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "OracleSHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
