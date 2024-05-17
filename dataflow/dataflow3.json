@@ -1,0 +1,31 @@
+{
+	"name": "dataflow3",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SapOdpResource1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"parameters{",
+				"     run_mode as string",
+				"}",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     staged: true,",
+				"     readMode: (fullAndIncrementalLoad),",
+				"     keys: [],",
+				"     format: 'sapObject',",
+				"     fixDecimalPrecision: true) ~> source1"
+			]
+		}
+	}
+}
