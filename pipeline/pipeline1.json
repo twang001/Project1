@@ -1,0 +1,104 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['OrderIndex']"
+								},
+								"sink": {
+									"name": "OrderIndex"
+								}
+							},
+							{
+								"source": {
+									"path": "['HierarchyLevel']"
+								},
+								"sink": {
+									"name": "HierarchyLevel"
+								}
+							},
+							{
+								"source": {
+									"path": "['Name']"
+								},
+								"sink": {
+									"name": "Name"
+								}
+							},
+							{
+								"source": {
+									"path": "['ID']"
+								},
+								"sink": {
+									"name": "ID"
+								}
+							},
+							{
+								"source": {
+									"path": "['TypeID']"
+								},
+								"sink": {
+									"name": "TypeID"
+								}
+							}
+						],
+						"collectionReference": "$['dataset']['data'][0]"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Parquet1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-08-07T02:36:38Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,9 @@
+{
+	"name": "ADFTesttwang",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "88b7c0d1-cb56-4d1b-a53c-f7420afbad34",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}

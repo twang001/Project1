@@ -1,0 +1,247 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "source.json",
+				"container": "source"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"dataset": {
+					"type": "object",
+					"properties": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"manifest": {
+									"type": "object",
+									"properties": {
+										"datasetname": {
+											"type": "string"
+										},
+										"datafieldsmode": {
+											"type": "string"
+										},
+										"dbsqltype": {
+											"type": "string"
+										},
+										"schemaformat": {
+											"type": "string"
+										},
+										"dataformat": {
+											"type": "string"
+										},
+										"encoding": {
+											"type": "string"
+										},
+										"hasoutputparameters": {
+											"type": "boolean"
+										},
+										"meta": {
+											"type": "object",
+											"properties": {
+												"valueKind": {
+													"type": "integer"
+												}
+											}
+										},
+										"security": {
+											"type": "object",
+											"properties": {
+												"valueKind": {
+													"type": "integer"
+												}
+											}
+										},
+										"cacheable": {
+											"type": "object",
+											"properties": {
+												"valueKind": {
+													"type": "integer"
+												}
+											}
+										}
+									}
+								},
+								"columns": {
+									"type": "array",
+									"items": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"name": {
+													"type": "string"
+												},
+												"heading": {
+													"type": "string"
+												},
+												"headingglobalizationenabled": {
+													"type": "boolean"
+												},
+												"sqlparamname": {
+													"type": "null"
+												},
+												"datatype": {
+													"type": "string"
+												},
+												"datatypecharlength": {
+													"type": "integer"
+												},
+												"datatypenumericprecision": {
+													"type": "integer"
+												},
+												"datatypenumericprecisionradix": {
+													"type": "null"
+												},
+												"datatypenumericscale": {
+													"type": "integer"
+												},
+												"datatypedatetimeprecision": {
+													"type": "null"
+												},
+												"allownulls": {
+													"type": "boolean"
+												},
+												"defaultvalue": {
+													"type": "null"
+												},
+												"controlvisual": {
+													"type": "null"
+												},
+												"validator": {
+													"type": "null"
+												},
+												"ordinalposition": {
+													"type": "integer"
+												},
+												"direction": {
+													"type": "string"
+												},
+												"lookup": {
+													"type": "null"
+												},
+												"returnvalue": {
+													"type": "null"
+												}
+											}
+										}
+									}
+								},
+								"parameters": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"heading": {
+												"type": "string"
+											},
+											"headingglobalizationenabled": {
+												"type": "boolean"
+											},
+											"sqlparamname": {
+												"type": "string"
+											},
+											"datatype": {
+												"type": "string"
+											},
+											"datatypecharlength": {
+												"type": "null"
+											},
+											"datatypenumericprecision": {
+												"type": "integer"
+											},
+											"datatypenumericprecisionradix": {
+												"type": "integer"
+											},
+											"datatypenumericscale": {
+												"type": "integer"
+											},
+											"datatypedatetimeprecision": {
+												"type": "null"
+											},
+											"allownulls": {
+												"type": "boolean"
+											},
+											"defaultvalue": {
+												"type": "null"
+											},
+											"controlvisual": {
+												"type": "object",
+												"properties": {
+													"valueKind": {
+														"type": "integer"
+													}
+												}
+											},
+											"validator": {
+												"type": "object",
+												"properties": {
+													"valueKind": {
+														"type": "integer"
+													}
+												}
+											},
+											"ordinalposition": {
+												"type": "integer"
+											},
+											"direction": {
+												"type": "string"
+											},
+											"lookup": {
+												"type": "null"
+											},
+											"returnvalue": {
+												"type": "null"
+											}
+										}
+									}
+								}
+							}
+						},
+						"data": {
+							"type": "array",
+							"items": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"OrderIndex": {
+											"type": "integer"
+										},
+										"HierarchyLevel": {
+											"type": "integer"
+										},
+										"Name": {
+											"type": "string"
+										},
+										"ID": {
+											"type": "string"
+										},
+										"TypeID": {
+											"type": "integer"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
