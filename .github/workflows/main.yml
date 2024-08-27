@@ -1,0 +1,22 @@
+name: ADFARMDeploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+steps:
+  - name: Login via Az module
+    uses: azure/login@v1
+    with:
+      creds: ${{ secrets.AZURE_CREDENTIALS }}
+      enable-AzPSSession: true 
+
+  - name: Deploy resources
+    uses: Azure/data-factory-deploy-action@v1.2.0
+    with:
+      resourceGroupName: ADF
+      dataFactoryName: ADFTesttwang
+      armTemplateFile: myArmTemplate.json
+      # armTemplateParametersFile: myArmTemplateParameters.json [optional]
+      # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+      # skipAzModuleInstallation: true [optional]
