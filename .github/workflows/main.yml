@@ -23,4 +23,4 @@ jobs:
         armTemplateFile: myArmTemplate.json
       # armTemplateParametersFile: myArmTemplateParameters.json [optional]
         additionalParameters: '-AllowClobber=true'
-      # skipAzModuleInstallation: true [optional]
+        skipAzModuleInstallation: true 
