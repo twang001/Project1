@@ -15,13 +15,3 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         enable-AzPSSession: true 
     
-    - name: Deploy resources
-      uses: Azure/data-factory-deploy-action@v1.2.0
-      with:
-        resourceGroupName: ADF
-        dataFactoryName: ADFTesttwang
-        armTemplateFile: ./myArmTemplate.json
-      # armTemplateParametersFile: myArmTemplateParameters.json [optional]
-      # additionalParameters: '-AllowClobber=true'
-        skipAzModuleInstallation: true 
-
