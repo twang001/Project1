@@ -17,16 +17,16 @@ jobs:
         node-version: 14.x  
         
 # In order to leverage the artifact in another job, we need to upload it with the upload action 
-    - name: upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ExportedArmTemplate # (4) use the same artifact name you used in the previous export step
-        path: ${{github.workspace}}/armtemplate
+  # - name: upload artifact
+  #   uses: actions/upload-artifact@v3
+  #   with:
+  #     name: ExportedArmTemplate # (4) use the same artifact name you used in the previous export step
+  #     path: ${{github.workspace}}/armtemplate
    
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v3.0.2
-      with:
-        name: ExportedArmTemplate # (5) Artifact name 
+  # - name: Download a Build Artifact
+  #   uses: actions/download-artifact@v3.0.2
+  #   with:
+  #     name: ExportedArmTemplate # (5) Artifact name 
     
     - name: Login via Az module
       uses: azure/login@v1
@@ -42,4 +42,4 @@ jobs:
         armTemplateFile: ${{github.workspace}}/myArmTemplate.json
       # armTemplateParametersFile: myArmTemplateParameters.json [optional]
       # additionalParameters: '-AllowClobber=true'
-        skipAzModuleInstallation: true 
+      # skipAzModuleInstallation: true 
