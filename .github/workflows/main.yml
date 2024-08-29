@@ -20,7 +20,7 @@ jobs:
       with:
         resourceGroupName: ADF
         dataFactoryName: ADFTesttwang
-        armTemplateFile: myArmTemplate.json
+        armTemplateFile: ./myArmTemplate.json
       # armTemplateParametersFile: myArmTemplateParameters.json [optional]
       # additionalParameters: '-AllowClobber=true'
         skipAzModuleInstallation: true 
