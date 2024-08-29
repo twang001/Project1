@@ -40,6 +40,6 @@ jobs:
         resourceGroupName: ADF
         dataFactoryName: ADFTesttwang
         armTemplateFile: ${{github.workspace}}/myArmTemplate.json
-      # armTemplateParametersFile: myArmTemplateParameters.json [optional]
+        armTemplateParametersFile: ARMTemplateParametersForFactory.json
       # additionalParameters: '-AllowClobber=true'
       # skipAzModuleInstallation: true 
