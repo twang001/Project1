@@ -1,0 +1,538 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "ADFTesttwang"
+        },
+        "AzureBlobStorage1_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+        },
+        "AzureFileStorage1_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+        },
+        "Dynamics1_password": {
+            "type": "secureString",
+            "metadata": "Secure string for 'password' of 'Dynamics1'"
+        },
+        "RestService1_password": {
+            "type": "secureString",
+            "metadata": "Secure string for 'password' of 'RestService1'"
+        },
+        "SqlServer1_password": {
+            "type": "secureString",
+            "metadata": "Secure string for 'password' of 'SqlServer1'"
+        },
+        "Dynamics1_properties_typeProperties_username": {
+            "type": "string",
+            "defaultValue": "test"
+        },
+        "RestService1_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "test"
+        },
+        "RestService1_properties_typeProperties_userName": {
+            "type": "string",
+            "defaultValue": "test"
+        },
+        "SqlServer1_properties_typeProperties_server": {
+            "type": "string",
+            "defaultValue": "test"
+        },
+        "SqlServer1_properties_typeProperties_database": {
+            "type": "string",
+            "defaultValue": "test"
+        },
+        "SqlServer1_properties_typeProperties_userName": {
+            "type": "string",
+            "defaultValue": "test"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/pipeline1')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Copy data1",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "JsonSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageReadSettings",
+                                    "recursive": true,
+                                    "enablePartitionDiscovery": false
+                                },
+                                "formatSettings": {
+                                    "type": "JsonReadSettings"
+                                }
+                            },
+                            "sink": {
+                                "type": "ParquetSink",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageWriteSettings"
+                                },
+                                "formatSettings": {
+                                    "type": "ParquetWriteSettings"
+                                }
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "mappings": [
+                                    {
+                                        "source": {
+                                            "path": "[['OrderIndex']"
+                                        },
+                                        "sink": {
+                                            "name": "OrderIndex"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "path": "[['HierarchyLevel']"
+                                        },
+                                        "sink": {
+                                            "name": "HierarchyLevel"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "path": "[['Name']"
+                                        },
+                                        "sink": {
+                                            "name": "Name"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "path": "[['ID']"
+                                        },
+                                        "sink": {
+                                            "name": "ID"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "path": "[['TypeID']"
+                                        },
+                                        "sink": {
+                                            "name": "TypeID"
+                                        }
+                                    }
+                                ],
+                                "collectionReference": "$['dataset']['data'][0]"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "Json1",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "Parquet1",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    }
+                ],
+                "policy": {
+                    "elapsedTimeMetric": {}
+                },
+                "annotations": [],
+                "lastPublishTime": "2024-08-07T02:36:38Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/Json1')]",
+                "[concat(variables('factoryId'), '/datasets/Parquet1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Json1')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorage1",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "Json",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": "source.json",
+                        "container": "source"
+                    }
+                },
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "dataset": {
+                            "type": "object",
+                            "properties": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "manifest": {
+                                            "type": "object",
+                                            "properties": {
+                                                "datasetname": {
+                                                    "type": "string"
+                                                },
+                                                "datafieldsmode": {
+                                                    "type": "string"
+                                                },
+                                                "dbsqltype": {
+                                                    "type": "string"
+                                                },
+                                                "schemaformat": {
+                                                    "type": "string"
+                                                },
+                                                "dataformat": {
+                                                    "type": "string"
+                                                },
+                                                "encoding": {
+                                                    "type": "string"
+                                                },
+                                                "hasoutputparameters": {
+                                                    "type": "boolean"
+                                                },
+                                                "meta": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "valueKind": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                },
+                                                "security": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "valueKind": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                },
+                                                "cacheable": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "valueKind": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "columns": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "heading": {
+                                                            "type": "string"
+                                                        },
+                                                        "headingglobalizationenabled": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "sqlparamname": {
+                                                            "type": "null"
+                                                        },
+                                                        "datatype": {
+                                                            "type": "string"
+                                                        },
+                                                        "datatypecharlength": {
+                                                            "type": "integer"
+                                                        },
+                                                        "datatypenumericprecision": {
+                                                            "type": "integer"
+                                                        },
+                                                        "datatypenumericprecisionradix": {
+                                                            "type": "null"
+                                                        },
+                                                        "datatypenumericscale": {
+                                                            "type": "integer"
+                                                        },
+                                                        "datatypedatetimeprecision": {
+                                                            "type": "null"
+                                                        },
+                                                        "allownulls": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "defaultvalue": {
+                                                            "type": "null"
+                                                        },
+                                                        "controlvisual": {
+                                                            "type": "null"
+                                                        },
+                                                        "validator": {
+                                                            "type": "null"
+                                                        },
+                                                        "ordinalposition": {
+                                                            "type": "integer"
+                                                        },
+                                                        "direction": {
+                                                            "type": "string"
+                                                        },
+                                                        "lookup": {
+                                                            "type": "null"
+                                                        },
+                                                        "returnvalue": {
+                                                            "type": "null"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "parameters": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "heading": {
+                                                        "type": "string"
+                                                    },
+                                                    "headingglobalizationenabled": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "sqlparamname": {
+                                                        "type": "string"
+                                                    },
+                                                    "datatype": {
+                                                        "type": "string"
+                                                    },
+                                                    "datatypecharlength": {
+                                                        "type": "null"
+                                                    },
+                                                    "datatypenumericprecision": {
+                                                        "type": "integer"
+                                                    },
+                                                    "datatypenumericprecisionradix": {
+                                                        "type": "integer"
+                                                    },
+                                                    "datatypenumericscale": {
+                                                        "type": "integer"
+                                                    },
+                                                    "datatypedatetimeprecision": {
+                                                        "type": "null"
+                                                    },
+                                                    "allownulls": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "defaultvalue": {
+                                                        "type": "null"
+                                                    },
+                                                    "controlvisual": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "valueKind": {
+                                                                "type": "integer"
+                                                            }
+                                                        }
+                                                    },
+                                                    "validator": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "valueKind": {
+                                                                "type": "integer"
+                                                            }
+                                                        }
+                                                    },
+                                                    "ordinalposition": {
+                                                        "type": "integer"
+                                                    },
+                                                    "direction": {
+                                                        "type": "string"
+                                                    },
+                                                    "lookup": {
+                                                        "type": "null"
+                                                    },
+                                                    "returnvalue": {
+                                                        "type": "null"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "OrderIndex": {
+                                                    "type": "integer"
+                                                },
+                                                "HierarchyLevel": {
+                                                    "type": "integer"
+                                                },
+                                                "Name": {
+                                                    "type": "string"
+                                                },
+                                                "ID": {
+                                                    "type": "string"
+                                                },
+                                                "TypeID": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Parquet1')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorage1",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "Parquet",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "container": "sink"
+                    },
+                    "compressionCodec": "snappy"
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureFileStorage1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureFileStorage",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureFileStorage1_connectionString')]",
+                    "fileShare": "fstest"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Dynamics1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "Dynamics",
+                "typeProperties": {
+                    "deploymentType": "Online",
+                    "serviceUri": "test",
+                    "authenticationType": "Office365",
+                    "username": "[parameters('Dynamics1_properties_typeProperties_username')]",
+                    "password": {
+                        "type": "SecureString",
+                        "value": "[parameters('Dynamics1_password')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/RestService1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "RestService",
+                "typeProperties": {
+                    "url": "[parameters('RestService1_properties_typeProperties_url')]",
+                    "enableServerCertificateValidation": true,
+                    "authenticationType": "Basic",
+                    "userName": "[parameters('RestService1_properties_typeProperties_userName')]",
+                    "password": {
+                        "type": "SecureString",
+                        "value": "[parameters('RestService1_password')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/SqlServer1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "SqlServer",
+                "typeProperties": {
+                    "server": "[parameters('SqlServer1_properties_typeProperties_server')]",
+                    "database": "[parameters('SqlServer1_properties_typeProperties_database')]",
+                    "encrypt": "mandatory",
+                    "trustServerCertificate": false,
+                    "authenticationType": "SQL",
+                    "userName": "[parameters('SqlServer1_properties_typeProperties_userName')]",
+                    "password": {
+                        "type": "SecureString",
+                        "value": "[parameters('SqlServer1_password')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}
