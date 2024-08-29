@@ -2,7 +2,7 @@ name: ADFARMDeploy
 on: 
   push:
     branches:
-      - newmain
+      - main
 
 jobs:
   deploy:
