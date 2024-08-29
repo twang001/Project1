@@ -21,7 +21,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ExportedArmTemplate # (4) use the same artifact name you used in the previous export step
-        path: ${{github.workspace}}/ARMTemplateForFactory.json
+        path: ${{github.workspace}}/armtemplate
    
     - name: Download a Build Artifact
       uses: actions/download-artifact@v3.0.2
