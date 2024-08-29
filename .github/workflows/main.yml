@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     
     - name: Login via Az module
@@ -22,5 +22,5 @@ jobs:
         dataFactoryName: ADFTesttwang
         armTemplateFile: ./myArmTemplate.json
       # armTemplateParametersFile: myArmTemplateParameters.json [optional]
-        additionalParameters: '-AllowClobber=true'
-        skipAzModuleInstallation: true 
+      # additionalParameters: '-AllowClobber=true'
+      # skipAzModuleInstallation: true 
