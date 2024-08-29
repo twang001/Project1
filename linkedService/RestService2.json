@@ -1,0 +1,12 @@
+{
+	"name": "RestService2",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://microsoftapc-my.sharepoint.com/personal/jinleiwang_microsoft_com/Documents/2003.xlsx?web=1",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
