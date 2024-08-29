@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "ADFTesttwang"
+        },
+        "AzureBlobStorage1_connectionString": {
+            "value": ""
+        },
+        "AzureFileStorage1_connectionString": {
+            "value": ""
+        },
+        "Dynamics1_password": {
+            "value": ""
+        },
+        "RestService1_password": {
+            "value": ""
+        },
+        "SqlServer1_password": {
+            "value": ""
+        },
+        "Dynamics1_properties_typeProperties_username": {
+            "value": "test"
+        },
+        "RestService1_properties_typeProperties_url": {
+            "value": "test"
+        },
+        "RestService1_properties_typeProperties_userName": {
+            "value": "test"
+        },
+        "SqlServer1_properties_typeProperties_server": {
+            "value": "test"
+        },
+        "SqlServer1_properties_typeProperties_database": {
+            "value": "test"
+        },
+        "SqlServer1_properties_typeProperties_userName": {
+            "value": "test"
+        }
+    }
+}
