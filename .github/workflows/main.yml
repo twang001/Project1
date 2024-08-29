@@ -16,20 +16,6 @@ jobs:
       with:
         node-version: 14.x
         
-    - name: install ADF Utilities package
-      run: npm install
-      working-directory: Project1/armtemplate  # (1) provide the folder location of the package.json file
-        
-# Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
-    - name: Validate
-      run: npm run build validate Project1/armtemplate/ /subscriptions/6a6216a0-c933-4611-9c34-c7deb038b2b7/resourceGroups/ADF/providers/Microsoft.DataFactory/factories/ADFTesttwang # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
-      working-directory: Project1/armtemplate/build
- 
-
-    - name: Validate and Generate ARM template
-      run: npm run build export Project1/armtemplate/ /subscriptions/6a6216a0-c933-4611-9c34-c7deb038b2b7/resourceGroups/ADF/providers/Microsoft.DataFactory/factories/ADFTesttwang "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
-      working-directory: Project1/armtemplate
- 
 # In order to leverage the artifact in another job, we need to upload it with the upload action 
     - name: upload artifact
       uses: actions/upload-artifact@v3
