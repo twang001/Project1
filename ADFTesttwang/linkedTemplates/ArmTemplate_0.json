@@ -1,0 +1,972 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADFTesttwang"
+		},
+		"AmazonRdsForSqlServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AmazonRdsForSqlServer1'"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureFileStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
+		"Dynamics1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dynamics1'"
+		},
+		"RestService1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'RestService1'"
+		},
+		"Snowflake1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Snowflake1'"
+		},
+		"SqlServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServer1'"
+		},
+		"ADLSG2_SAStest_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'ADLSG2_SAStest'"
+		},
+		"AmazonRdsForSqlServer1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"AmazonRdsForSqlServer1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"AmazonRdsForSqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://twangstorage001.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "twazsqldb.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test001"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sa"
+		},
+		"Dynamics1_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"RestService1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"RestService2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://microsoftapc-my.sharepoint.com/personal/jinleiwang_microsoft_com/Documents/2003.xlsx?web=1"
+		},
+		"Snowflake1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "test"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLSG2_SAStest')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"sasUri": "[parameters('ADLSG2_SAStest_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AmazonRdsForSqlServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AmazonRdsForSqlServer",
+				"typeProperties": {
+					"server": "[parameters('AmazonRdsForSqlServer1_properties_typeProperties_server')]",
+					"database": "[parameters('AmazonRdsForSqlServer1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AmazonRdsForSqlServer1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AmazonRdsForSqlServer1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFileStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFileStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureFileStorage1_connectionString')]",
+					"fileShare": "fstest"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSqlDatabase1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Dynamics1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Dynamics",
+				"typeProperties": {
+					"deploymentType": "Online",
+					"serviceUri": "test",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dynamics1_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dynamics1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestService1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestService1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('RestService1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('RestService1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestService2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestService2_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Snowflake1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SnowflakeV2",
+				"typeProperties": {
+					"authenticationType": "Basic",
+					"accountIdentifier": "test",
+					"user": "test",
+					"database": "[parameters('Snowflake1_properties_typeProperties_database')]",
+					"warehouse": "test",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Snowflake1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('SqlServer1_properties_typeProperties_server')]",
+					"database": "[parameters('SqlServer1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('SqlServer1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SqlServer1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLSG2Sink_Json2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSG2_SAStest",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "synapsefile001"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseToSQLDestination')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tablename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"typeProperties": {
+					"tableName": {
+						"value": "@dataset().tablename",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "source.json",
+						"container": "source"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"dataset": {
+							"type": "object",
+							"properties": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"manifest": {
+											"type": "object",
+											"properties": {
+												"datasetname": {
+													"type": "string"
+												},
+												"datafieldsmode": {
+													"type": "string"
+												},
+												"dbsqltype": {
+													"type": "string"
+												},
+												"schemaformat": {
+													"type": "string"
+												},
+												"dataformat": {
+													"type": "string"
+												},
+												"encoding": {
+													"type": "string"
+												},
+												"hasoutputparameters": {
+													"type": "boolean"
+												},
+												"meta": {
+													"type": "object",
+													"properties": {
+														"valueKind": {
+															"type": "integer"
+														}
+													}
+												},
+												"security": {
+													"type": "object",
+													"properties": {
+														"valueKind": {
+															"type": "integer"
+														}
+													}
+												},
+												"cacheable": {
+													"type": "object",
+													"properties": {
+														"valueKind": {
+															"type": "integer"
+														}
+													}
+												}
+											}
+										},
+										"columns": {
+											"type": "array",
+											"items": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"properties": {
+														"name": {
+															"type": "string"
+														},
+														"heading": {
+															"type": "string"
+														},
+														"headingglobalizationenabled": {
+															"type": "boolean"
+														},
+														"sqlparamname": {
+															"type": "null"
+														},
+														"datatype": {
+															"type": "string"
+														},
+														"datatypecharlength": {
+															"type": "integer"
+														},
+														"datatypenumericprecision": {
+															"type": "integer"
+														},
+														"datatypenumericprecisionradix": {
+															"type": "null"
+														},
+														"datatypenumericscale": {
+															"type": "integer"
+														},
+														"datatypedatetimeprecision": {
+															"type": "null"
+														},
+														"allownulls": {
+															"type": "boolean"
+														},
+														"defaultvalue": {
+															"type": "null"
+														},
+														"controlvisual": {
+															"type": "null"
+														},
+														"validator": {
+															"type": "null"
+														},
+														"ordinalposition": {
+															"type": "integer"
+														},
+														"direction": {
+															"type": "string"
+														},
+														"lookup": {
+															"type": "null"
+														},
+														"returnvalue": {
+															"type": "null"
+														}
+													}
+												}
+											}
+										},
+										"parameters": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"name": {
+														"type": "string"
+													},
+													"heading": {
+														"type": "string"
+													},
+													"headingglobalizationenabled": {
+														"type": "boolean"
+													},
+													"sqlparamname": {
+														"type": "string"
+													},
+													"datatype": {
+														"type": "string"
+													},
+													"datatypecharlength": {
+														"type": "null"
+													},
+													"datatypenumericprecision": {
+														"type": "integer"
+													},
+													"datatypenumericprecisionradix": {
+														"type": "integer"
+													},
+													"datatypenumericscale": {
+														"type": "integer"
+													},
+													"datatypedatetimeprecision": {
+														"type": "null"
+													},
+													"allownulls": {
+														"type": "boolean"
+													},
+													"defaultvalue": {
+														"type": "null"
+													},
+													"controlvisual": {
+														"type": "object",
+														"properties": {
+															"valueKind": {
+																"type": "integer"
+															}
+														}
+													},
+													"validator": {
+														"type": "object",
+														"properties": {
+															"valueKind": {
+																"type": "integer"
+															}
+														}
+													},
+													"ordinalposition": {
+														"type": "integer"
+													},
+													"direction": {
+														"type": "string"
+													},
+													"lookup": {
+														"type": "null"
+													},
+													"returnvalue": {
+														"type": "null"
+													}
+												}
+											}
+										}
+									}
+								},
+								"data": {
+									"type": "array",
+									"items": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"OrderIndex": {
+													"type": "integer"
+												},
+												"HierarchyLevel": {
+													"type": "integer"
+												},
+												"Name": {
+													"type": "string"
+												},
+												"ID": {
+													"type": "string"
+												},
+												"TypeID": {
+													"type": "integer"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OptionsetMetadataSourceDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSG2_SAStest",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"container": {
+						"type": "string"
+					},
+					"folder": {
+						"type": "string"
+					},
+					"metadateentityname": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().metadateentityname",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@concat(dataset().folder,'/OptionsetMetadata')",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().container",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sink"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/modelJson')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSG2_SAStest",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"container": {
+						"type": "string"
+					},
+					"folder": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "model.json",
+						"folderPath": {
+							"value": "@dataset().folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().container",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseCDMToSQL')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Data flow which reads CDM entity, transforms the data and move the data to destination SQL DB",
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "ADLSG2_SAStest",
+								"type": "LinkedServiceReference"
+							},
+							"name": "CDMEntity"
+						},
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "getMaxVersion"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "AzureSQLDB"
+						},
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "AzureSQLDBDeleteLog"
+						}
+					],
+					"transformations": [
+						{
+							"name": "IdentifyColumns"
+						},
+						{
+							"name": "AlterRow"
+						},
+						{
+							"name": "Rank"
+						},
+						{
+							"name": "Dedup"
+						},
+						{
+							"name": "FilterFolders"
+						},
+						{
+							"name": "FilterDeletedRows"
+						},
+						{
+							"name": "AddEntityName"
+						},
+						{
+							"name": "SelectDeleteLogColumns"
+						},
+						{
+							"name": "FilterMaxVersion"
+						}
+					],
+					"scriptLines": [
+						"parameters{",
+						"     container as string,",
+						"     folder as string,",
+						"     entity as string,",
+						"     dbschema as string,",
+						"     prefix as string",
+						"}",
+						"source(useSchema: false,",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     inferDriftedColumnTypes: true,",
+						"     ignoreNoFilesFound: true,",
+						"     entity: ($entity),",
+						"     format: 'cdm',",
+						"     manifestType: 'model',",
+						"     folderPath: ($folder),",
+						"     fileSystem: ($container),",
+						"     dateFormats: ['MM/dd/yyyy','yyyy-MM-dd'],",
+						"     timestampFormats: ['MM/dd/yyyy hh:mm:ss a','yyyy-MM-dd\\'T\\'HH:mm:ss.SSS\\'Z\\'','yyyy-MM-dd\\'T\\'HH:mm:ss\\'Z\\'','MM/dd/yyyy HH:mm:ss','yyyy-MM-dd\\'T\\'HH:mm:ss']) ~> CDMEntity",
+						"source(output(",
+						"          maxversion as long",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'query',",
+						"     store: 'sqlserver',",
+						"     query: (\"SELECT COALESCE(MAX(versionnumber),0) AS maxversion FROM \" + $dbschema + \".\" + $prefix + $entity ),",
+						"     isolationLevel: 'READ_UNCOMMITTED') ~> getMaxVersion",
+						"CDMEntity derive(Id = toString(byName(\"Id\")),",
+						"          versionnumber = toLong(byName(\"versionnumber\")),",
+						"          IsDelete = toBoolean(byName(\"IsDelete\")),",
+						"          SinkModifiedOn = toTimestamp(byName(\"SinkModifiedOn\"))) ~> IdentifyColumns",
+						"FilterMaxVersion alterRow(deleteIf(IsDelete==true()),",
+						"     upsertIf(isNull(IsDelete)||IsDelete==false())) ~> AlterRow",
+						"IdentifyColumns window(over(Id),",
+						"     desc(Id, false),",
+						"     desc(versionnumber, false),",
+						"     desc(SinkModifiedOn, false),",
+						"     {_RowVersion} = denseRank()) ~> Rank",
+						"Rank filter(toLong(byName(\"_RowVersion\"))==1) ~> Dedup",
+						"Dedup, getMaxVersion join(versionnumber > maxversion,",
+						"     joinType:'left',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'right')~> FilterFolders",
+						"FilterMaxVersion filter(IsDelete==true()) ~> FilterDeletedRows",
+						"FilterDeletedRows derive(EntityName = $entity) ~> AddEntityName",
+						"AddEntityName select(mapColumn(",
+						"          EntityName,",
+						"          RecordId = Id,",
+						"          SinkDeleteTime = SinkModifiedOn,",
+						"          VersionNumber = versionnumber",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: true) ~> SelectDeleteLogColumns",
+						"FilterFolders filter(versionnumber>toLong(maxversion)) ~> FilterMaxVersion",
+						"AlterRow sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: ($dbschema),",
+						"     tableName: ($prefix + $entity),",
+						"     insertable: true,",
+						"     updateable: false,",
+						"     deletable: true,",
+						"     upsertable: true,",
+						"     keys:['id'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDB",
+						"SelectDeleteLogColumns sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: ($dbschema),",
+						"     tableName: ($prefix+'DeleteLog'),",
+						"     insertable: true,",
+						"     updateable: false,",
+						"     deletable: false,",
+						"     upsertable: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDBDeleteLog"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLSG2Sink_Json2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Json1')]",
+				"[concat(variables('factoryId'), '/datasets/ADLSG2Sink_Json2')]"
+			]
+		}
+	]
+}
