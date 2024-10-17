@@ -1,0 +1,43 @@
+{
+	"name": "OptionsetMetadataSourceDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSG2_SAStest",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"folder": {
+				"type": "string"
+			},
+			"metadateentityname": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().metadateentityname",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat(dataset().folder,'/OptionsetMetadata')",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

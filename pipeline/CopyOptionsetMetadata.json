@@ -1,0 +1,697 @@
+{
+	"name": "CopyOptionsetMetadata",
+	"properties": {
+		"description": "Copies 5 optionset metadata files",
+		"activities": [
+			{
+				"name": "CreateOptionSetMetadataTable",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "NonQuery",
+							"text": {
+								"value": "-- Lengths are based on Synapse external table schema. \n-- Constraints are based on DES table schema\nDECLARE @schemaName NVARCHAR(20) = '@{variables('dbschema')}';\nDECLARE @tablePrefix NVARCHAR(148) = '@{variables('prefix')}';\n\nIF NOT EXISTS (SELECT name FROM sys.schemas WHERE name =@schemaName)\nEXEC('CREATE SCHEMA ['+@schemaName+']')\n\nDECLARE @CreateOptionSetMetadataTableDDL NVARCHAR(MAX) =\n'IF OBJECT_ID(''' + @schemaName + '.' + @tablePrefix + 'OptionSetMetadata'',''U'') IS NULL \nCREATE TABLE '+ @schemaName + '.' + '[' + @tablePrefix + 'OptionSetMetadata](\n\t[EntityName] [nvarchar](128) NOT NULL,\n\t[OptionSetName] [nvarchar](128) NOT NULL,\n\t[Option] [int] NOT NULL,\n\t[IsUserLocalizedLabel] [bit] NOT NULL,\n\t[LocalizedLabelLanguageCode] [int] NOT NULL,\n\t[LocalizedLabel] [nvarchar](700) NULL,\nPRIMARY KEY CLUSTERED \n(\n\t[EntityName] ASC,\n\t[OptionSetName] ASC,\n\t[Option] ASC,\n\t[IsUserLocalizedLabel] ASC,\n\t[LocalizedLabelLanguageCode] ASC\n)\n) ON [PRIMARY]';\nEXECUTE sp_executesql  @CreateOptionSetMetadataTableDDL;\n\nDECLARE @CreateGlobalOptionSetMetadataTableDDL NVARCHAR(MAX) =\n'IF OBJECT_ID(''' + @schemaName + '.' + @tablePrefix + 'GlobalOptionSetMetadata'',''U'') IS NULL \nCREATE TABLE '+ @schemaName + '.' + '[' + @tablePrefix + 'GlobalOptionSetMetadata](\n\t[OptionSetName] [nvarchar](128) NOT NULL,\n\t[Option] [int] NOT NULL,\n\t[IsUserLocalizedLabel] [bit] NOT NULL,\n\t[LocalizedLabelLanguageCode] [int] NOT NULL,\n\t[LocalizedLabel] [nvarchar](700) NULL,\n\t[GlobalOptionSetName] [varchar](128) NOT NULL DEFAULT (''''),\n\t[EntityName] [varchar](128) NOT NULL,\nPRIMARY KEY CLUSTERED \n(\n\t[GlobalOptionSetName] ASC,\n\t[OptionSetName] ASC,\n\t[Option] ASC,\n\t[IsUserLocalizedLabel] ASC,\n\t[LocalizedLabelLanguageCode] ASC,\n\t[EntityName] ASC\n)\n) ON [PRIMARY]';\nEXECUTE sp_executesql  @CreateGlobalOptionSetMetadataTableDDL;\n\nDECLARE @CreateStateSetMetadataTableDDL NVARCHAR(MAX) =\n'IF OBJECT_ID(''' + @schemaName + '.' + @tablePrefix + 'StateMetadata'',''U'') IS NULL \nCREATE TABLE '+ @schemaName + '.' + '[' + @tablePrefix + 'StateMetadata](\n\t[EntityName] [nvarchar](128) NOT NULL,\n\t[State] [int] NOT NULL,\n\t[IsUserLocalizedLabel] [bit] NOT NULL,\n\t[LocalizedLabelLanguageCode] [int] NOT NULL,\n\t[LocalizedLabel] [nvarchar](700) NULL,\nPRIMARY KEY CLUSTERED \n(\n\t[EntityName] ASC,\n\t[State] ASC,\n\t[IsUserLocalizedLabel] ASC,\n\t[LocalizedLabelLanguageCode] ASC\n)\n) ON [PRIMARY]';\nEXECUTE sp_executesql  @CreateStateSetMetadataTableDDL;\n\nDECLARE @CreateStatusMetadataTableDDL NVARCHAR(MAX) =\n'IF OBJECT_ID(''' + @schemaName + '.' + @tablePrefix + 'StatusMetadata'',''U'') IS NULL \nCREATE TABLE '+ @schemaName + '.' + '[' + @tablePrefix + 'StatusMetadata](\n\t[EntityName] [nvarchar](64) NOT NULL,\n\t[State] [int] NOT NULL,\n\t[Status] [int] NOT NULL,\n\t[IsUserLocalizedLabel] [bit] NOT NULL,\n\t[LocalizedLabelLanguageCode] [int] NOT NULL,\n\t[LocalizedLabel] [nvarchar](700) NULL,\nPRIMARY KEY CLUSTERED \n(\n\t[EntityName] ASC,\n\t[State] ASC,\n\t[Status] ASC,\n\t[IsUserLocalizedLabel] ASC,\n\t[LocalizedLabelLanguageCode] ASC\n)\n) ON [PRIMARY]';\nEXECUTE sp_executesql  @CreateStatusMetadataTableDDL;\n\nDECLARE @CreateTargetMetadataTableDDL NVARCHAR(MAX) =\n'IF OBJECT_ID(''' + @schemaName + '.' + @tablePrefix + 'TargetMetadata'',''U'') IS NULL \nCREATE TABLE '+ @schemaName + '.' + '[' + @tablePrefix + 'TargetMetadata](\n\t[EntityName] [nvarchar](64) NOT NULL,\n\t[AttributeName] [nvarchar](64) NOT NULL,\n\t[ReferencedEntity] [nvarchar](64) NOT NULL,\n\t[ReferencedAttribute] [nvarchar](64) NULL,\nPRIMARY KEY CLUSTERED \n(\n\t[EntityName] ASC,\n\t[AttributeName] ASC,\n\t[ReferencedEntity] ASC\n)\n) ON [PRIMARY]';\nEXECUTE sp_executesql  @CreateTargetMetadataTableDDL;",
+								"type": "Expression"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Copy OptionsetMetadata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "CreateOptionSetMetadataTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EntityName",
+								"OptionSetName",
+								"Option",
+								"IsUserLocalizedLabel",
+								"LocalizedLabelLanguageCode"
+							]
+						},
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "EntityName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "OptionSetName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "Option"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "IsUserLocalizedLabel"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 5
+								},
+								"sink": {
+									"name": "LocalizedLabelLanguageCode"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 6
+								},
+								"sink": {
+									"name": "LocalizedLabel"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OptionsetMetadataSourceDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "@pipeline().parameters.container",
+							"folder": "@pipeline().parameters.folder",
+							"metadateentityname": "OptionsetMetadata.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseToSQLDestination",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@concat(variables('dbschema'),'.','[',variables('prefix'),'OptionSetMetadata]')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy GlobalOptionsetMetadata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "CreateOptionSetMetadataTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"OptionSetName",
+								"Option",
+								"IsUserLocalizedLabel",
+								"LocalizedLabelLanguageCode",
+								"EntityName"
+							]
+						},
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "OptionSetName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "Option"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "IsUserLocalizedLabel"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "LocalizedLabelLanguageCode"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 5
+								},
+								"sink": {
+									"name": "LocalizedLabel"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 6
+								},
+								"sink": {
+									"name": "GlobalOptionSetName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 7
+								},
+								"sink": {
+									"name": "EntityName"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OptionsetMetadataSourceDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "@pipeline().parameters.container",
+							"folder": "@pipeline().parameters.folder",
+							"metadateentityname": "GlobalOptionsetMetadata.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseToSQLDestination",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@concat(variables('dbschema'),'.','[',variables('prefix'),'GlobalOptionsetMetadata]')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy StateMetadata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "CreateOptionSetMetadataTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EntityName",
+								"State",
+								"IsUserLocalizedLabel",
+								"LocalizedLabelLanguageCode"
+							]
+						},
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "EntityName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "State"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "IsUserLocalizedLabel"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "LocalizedLabelLanguageCode"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 5
+								},
+								"sink": {
+									"name": "LocalizedLabel"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OptionsetMetadataSourceDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "@pipeline().parameters.container",
+							"folder": "@pipeline().parameters.folder",
+							"metadateentityname": "StateMetadata.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseToSQLDestination",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@concat(variables('dbschema'),'.','[',variables('prefix'),'StateMetadata]')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy StatusMetadata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "CreateOptionSetMetadataTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EntityName",
+								"State",
+								"Status",
+								"IsUserLocalizedLabel",
+								"LocalizedLabelLanguageCode"
+							]
+						},
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "EntityName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "State"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "Status"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "IsUserLocalizedLabel"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 5
+								},
+								"sink": {
+									"name": "LocalizedLabelLanguageCode"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 6
+								},
+								"sink": {
+									"name": "LocalizedLabel"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OptionsetMetadataSourceDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "@pipeline().parameters.container",
+							"folder": "@pipeline().parameters.folder",
+							"metadateentityname": "StatusMetadata.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseToSQLDestination",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@concat(variables('dbschema'),'.','[',variables('prefix'),'StatusMetadata]')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy TargetMetadata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "CreateOptionSetMetadataTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EntityName",
+								"AttributeName",
+								"ReferencedEntity"
+							]
+						},
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "EntityName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "AttributeName"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "ReferencedEntity"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "ReferencedAttribute"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OptionsetMetadataSourceDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "@pipeline().parameters.container",
+							"folder": "@pipeline().parameters.folder",
+							"metadateentityname": "TargetMetadata.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseToSQLDestination",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@concat(variables('dbschema'),'.','[',variables('prefix'),'TargetMetadata]')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"folder": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"dbschema": {
+				"type": "String",
+				"defaultValue": "dbo"
+			},
+			"prefix": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataverseToLakeToSQL"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-24T04:46:20Z"
+	}
+}
