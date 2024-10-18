@@ -162,6 +162,13 @@
 													}
 												}
 											},
+											"staging": {
+												"linkedService": {
+													"referenceName": "AzureDataLakeStorage1",
+													"type": "LinkedServiceReference"
+												},
+												"folderPath": "test/test"
+											},
 											"compute": {
 												"coreCount": 8,
 												"computeType": "MemoryOptimized"
