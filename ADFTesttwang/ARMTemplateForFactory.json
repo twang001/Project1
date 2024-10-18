@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
 		},
+		"AzureSynapseAnalytics1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSynapseAnalytics1'"
+		},
 		"Dynamics1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Dynamics1'"
@@ -78,6 +82,18 @@
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sa"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "synapsewithoutvnet.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dedicatedsql"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DBA"
 		},
 		"Dynamics1_properties_typeProperties_username": {
 			"type": "string",
@@ -977,7 +993,7 @@
 										}
 									],
 									"linkedServiceName": {
-										"referenceName": "AzureSqlDatabase1",
+										"referenceName": "AzureSynapseAnalytics1",
 										"type": "LinkedServiceReference"
 									},
 									"typeProperties": {
@@ -1062,7 +1078,13 @@
 															"AzureSQLDBDeleteLog": {}
 														}
 													},
-													"staging": {},
+													"staging": {
+														"linkedService": {
+															"referenceName": "AzureDataLakeStorage1",
+															"type": "LinkedServiceReference"
+														},
+														"folderPath": "test/test"
+													},
 													"compute": {
 														"coreCount": 8,
 														"computeType": "MemoryOptimized"
@@ -1105,8 +1127,9 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/modelJson')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]",
-				"[concat(variables('factoryId'), '/dataflows/DataverseCDMToSQL')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseAnalytics1')]",
+				"[concat(variables('factoryId'), '/dataflows/DataverseCDMToSQL')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -2075,6 +2098,28 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalytics1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"server": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSynapseAnalytics1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Dynamics1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -2173,6 +2218,38 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/IntegrationRuntimewithManagedVnet')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "East US",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						},
+						"pipelineExternalComputeScaleProperties": {
+							"timeToLive": 60,
+							"numberOfPipelineNodes": 1,
+							"numberOfExternalNodes": 1
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DataverseCDMToSQL')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -2190,7 +2267,7 @@
 						},
 						{
 							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
+								"referenceName": "AzureSynapseAnalytics1",
 								"type": "LinkedServiceReference"
 							},
 							"name": "getMaxVersion"
@@ -2199,14 +2276,14 @@
 					"sinks": [
 						{
 							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
+								"referenceName": "AzureSynapseAnalytics1",
 								"type": "LinkedServiceReference"
 							},
 							"name": "AzureSQLDB"
 						},
 						{
 							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
+								"referenceName": "AzureSynapseAnalytics1",
 								"type": "LinkedServiceReference"
 							},
 							"name": "AzureSQLDBDeleteLog"
@@ -2267,9 +2344,10 @@
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'query',",
-						"     store: 'sqlserver',",
+						"     store: 'synapseanalytics',",
 						"     query: (\"SELECT COALESCE(MAX(versionnumber),0) AS maxversion FROM \" + $dbschema + \".\" + $prefix + $entity ),",
-						"     isolationLevel: 'READ_UNCOMMITTED') ~> getMaxVersion",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     staged: true) ~> getMaxVersion",
 						"CDMEntity derive(Id = toString(byName(\"Id\")),",
 						"          versionnumber = toLong(byName(\"versionnumber\")),",
 						"          IsDelete = toBoolean(byName(\"IsDelete\")),",
@@ -2301,27 +2379,31 @@
 						"AlterRow sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'table',",
-						"     store: 'sqlserver',",
+						"     store: 'synapseanalytics',",
 						"     schemaName: ($dbschema),",
-						"     tableName: ($prefix + $entity),",
+						"     tableName: ($prefix + $entity\r",
+						"),",
 						"     insertable: true,",
 						"     updateable: false,",
-						"     deletable: true,",
-						"     upsertable: true,",
-						"     keys:['id'],",
+						"     deletable: false,",
+						"     upsertable: false,",
+						"     allowCopyCommand: true,",
+						"     staged: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDB",
 						"SelectDeleteLogColumns sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'table',",
-						"     store: 'sqlserver',",
+						"     store: 'synapseanalytics',",
 						"     schemaName: ($dbschema),",
 						"     tableName: ($prefix+'DeleteLog'),",
 						"     insertable: true,",
 						"     updateable: false,",
 						"     deletable: false,",
 						"     upsertable: false,",
+						"     allowCopyCommand: true,",
+						"     staged: true,",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDBDeleteLog"
@@ -2330,8 +2412,15 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseAnalytics1')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
 		}
 	]
 }

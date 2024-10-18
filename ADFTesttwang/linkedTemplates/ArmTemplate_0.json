@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
 		},
+		"AzureSynapseAnalytics1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSynapseAnalytics1'"
+		},
 		"Dynamics1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Dynamics1'"
@@ -78,6 +82,18 @@
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sa"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "synapsewithoutvnet.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dedicatedsql"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DBA"
 		},
 		"Dynamics1_properties_typeProperties_username": {
 			"type": "string",
@@ -231,6 +247,28 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalytics1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"server": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSynapseAnalytics1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Dynamics1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -326,6 +364,13 @@
 					}
 				}
 			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
 			"dependsOn": []
 		},
 		{
@@ -738,234 +783,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DataverseCDMToSQL')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Data flow which reads CDM entity, transforms the data and move the data to destination SQL DB",
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"linkedService": {
-								"referenceName": "ADLSG2_SAStest",
-								"type": "LinkedServiceReference"
-							},
-							"name": "CDMEntity"
-						},
-						{
-							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
-								"type": "LinkedServiceReference"
-							},
-							"name": "getMaxVersion"
-						}
-					],
-					"sinks": [
-						{
-							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
-								"type": "LinkedServiceReference"
-							},
-							"name": "AzureSQLDB"
-						},
-						{
-							"linkedService": {
-								"referenceName": "AzureSqlDatabase1",
-								"type": "LinkedServiceReference"
-							},
-							"name": "AzureSQLDBDeleteLog"
-						}
-					],
-					"transformations": [
-						{
-							"name": "IdentifyColumns"
-						},
-						{
-							"name": "AlterRow"
-						},
-						{
-							"name": "Rank"
-						},
-						{
-							"name": "Dedup"
-						},
-						{
-							"name": "FilterFolders"
-						},
-						{
-							"name": "FilterDeletedRows"
-						},
-						{
-							"name": "AddEntityName"
-						},
-						{
-							"name": "SelectDeleteLogColumns"
-						},
-						{
-							"name": "FilterMaxVersion"
-						}
-					],
-					"scriptLines": [
-						"parameters{",
-						"     container as string,",
-						"     folder as string,",
-						"     entity as string,",
-						"     dbschema as string,",
-						"     prefix as string",
-						"}",
-						"source(useSchema: false,",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     inferDriftedColumnTypes: true,",
-						"     ignoreNoFilesFound: true,",
-						"     entity: ($entity),",
-						"     format: 'cdm',",
-						"     manifestType: 'model',",
-						"     folderPath: ($folder),",
-						"     fileSystem: ($container),",
-						"     dateFormats: ['MM/dd/yyyy','yyyy-MM-dd'],",
-						"     timestampFormats: ['MM/dd/yyyy hh:mm:ss a','yyyy-MM-dd\\'T\\'HH:mm:ss.SSS\\'Z\\'','yyyy-MM-dd\\'T\\'HH:mm:ss\\'Z\\'','MM/dd/yyyy HH:mm:ss','yyyy-MM-dd\\'T\\'HH:mm:ss']) ~> CDMEntity",
-						"source(output(",
-						"          maxversion as long",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'query',",
-						"     store: 'sqlserver',",
-						"     query: (\"SELECT COALESCE(MAX(versionnumber),0) AS maxversion FROM \" + $dbschema + \".\" + $prefix + $entity ),",
-						"     isolationLevel: 'READ_UNCOMMITTED') ~> getMaxVersion",
-						"CDMEntity derive(Id = toString(byName(\"Id\")),",
-						"          versionnumber = toLong(byName(\"versionnumber\")),",
-						"          IsDelete = toBoolean(byName(\"IsDelete\")),",
-						"          SinkModifiedOn = toTimestamp(byName(\"SinkModifiedOn\"))) ~> IdentifyColumns",
-						"FilterMaxVersion alterRow(deleteIf(IsDelete==true()),",
-						"     upsertIf(isNull(IsDelete)||IsDelete==false())) ~> AlterRow",
-						"IdentifyColumns window(over(Id),",
-						"     desc(Id, false),",
-						"     desc(versionnumber, false),",
-						"     desc(SinkModifiedOn, false),",
-						"     {_RowVersion} = denseRank()) ~> Rank",
-						"Rank filter(toLong(byName(\"_RowVersion\"))==1) ~> Dedup",
-						"Dedup, getMaxVersion join(versionnumber > maxversion,",
-						"     joinType:'left',",
-						"     matchType:'exact',",
-						"     ignoreSpaces: false,",
-						"     broadcast: 'right')~> FilterFolders",
-						"FilterMaxVersion filter(IsDelete==true()) ~> FilterDeletedRows",
-						"FilterDeletedRows derive(EntityName = $entity) ~> AddEntityName",
-						"AddEntityName select(mapColumn(",
-						"          EntityName,",
-						"          RecordId = Id,",
-						"          SinkDeleteTime = SinkModifiedOn,",
-						"          VersionNumber = versionnumber",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: true) ~> SelectDeleteLogColumns",
-						"FilterFolders filter(versionnumber>toLong(maxversion)) ~> FilterMaxVersion",
-						"AlterRow sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'table',",
-						"     store: 'sqlserver',",
-						"     schemaName: ($dbschema),",
-						"     tableName: ($prefix + $entity),",
-						"     insertable: true,",
-						"     updateable: false,",
-						"     deletable: true,",
-						"     upsertable: true,",
-						"     keys:['id'],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDB",
-						"SelectDeleteLogColumns sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'table',",
-						"     store: 'sqlserver',",
-						"     schemaName: ($dbschema),",
-						"     tableName: ($prefix+'DeleteLog'),",
-						"     insertable: true,",
-						"     updateable: false,",
-						"     deletable: false,",
-						"     upsertable: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDBDeleteLog"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSG2_SAStest')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Copy')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Json1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ADLSG2Sink_Json2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Json1')]",
-				"[concat(variables('factoryId'), '/datasets/ADLSG2Sink_Json2')]"
 			]
 		}
 	]

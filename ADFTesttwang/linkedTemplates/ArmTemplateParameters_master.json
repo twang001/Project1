@@ -20,6 +20,9 @@
 		"AzureSqlDatabase1_password": {
 			"value": ""
 		},
+		"AzureSynapseAnalytics1_password": {
+			"value": ""
+		},
 		"Dynamics1_password": {
 			"value": ""
 		},
@@ -58,6 +61,15 @@
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"value": "sa"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"value": "synapsewithoutvnet.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"value": "dedicatedsql"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
+			"value": "DBA"
 		},
 		"Dynamics1_properties_typeProperties_username": {
 			"value": "test"
