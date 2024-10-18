@@ -14,7 +14,7 @@
 				},
 				{
 					"linkedService": {
-						"referenceName": "AzureSqlDatabase1",
+						"referenceName": "AzureSynapseAnalytics1",
 						"type": "LinkedServiceReference"
 					},
 					"name": "getMaxVersion"
@@ -23,14 +23,14 @@
 			"sinks": [
 				{
 					"linkedService": {
-						"referenceName": "AzureSqlDatabase1",
+						"referenceName": "AzureSynapseAnalytics1",
 						"type": "LinkedServiceReference"
 					},
 					"name": "AzureSQLDB"
 				},
 				{
 					"linkedService": {
-						"referenceName": "AzureSqlDatabase1",
+						"referenceName": "AzureSynapseAnalytics1",
 						"type": "LinkedServiceReference"
 					},
 					"name": "AzureSQLDBDeleteLog"
@@ -91,9 +91,10 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'query',",
-				"     store: 'sqlserver',",
+				"     store: 'synapseanalytics',",
 				"     query: (\"SELECT COALESCE(MAX(versionnumber),0) AS maxversion FROM \" + $dbschema + \".\" + $prefix + $entity ),",
-				"     isolationLevel: 'READ_UNCOMMITTED') ~> getMaxVersion",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> getMaxVersion",
 				"CDMEntity derive(Id = toString(byName(\"Id\")),",
 				"          versionnumber = toLong(byName(\"versionnumber\")),",
 				"          IsDelete = toBoolean(byName(\"IsDelete\")),",
@@ -125,27 +126,31 @@
 				"AlterRow sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
-				"     store: 'sqlserver',",
+				"     store: 'synapseanalytics',",
 				"     schemaName: ($dbschema),",
-				"     tableName: ($prefix + $entity),",
+				"     tableName: ($prefix + $entity\r",
+				"),",
 				"     insertable: true,",
 				"     updateable: false,",
-				"     deletable: true,",
-				"     upsertable: true,",
-				"     keys:['id'],",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     allowCopyCommand: true,",
+				"     staged: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDB",
 				"SelectDeleteLogColumns sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
-				"     store: 'sqlserver',",
+				"     store: 'synapseanalytics',",
 				"     schemaName: ($dbschema),",
 				"     tableName: ($prefix+'DeleteLog'),",
 				"     insertable: true,",
 				"     updateable: false,",
 				"     deletable: false,",
 				"     upsertable: false,",
+				"     allowCopyCommand: true,",
+				"     staged: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError') ~> AzureSQLDBDeleteLog"

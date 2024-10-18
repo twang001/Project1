@@ -83,7 +83,7 @@
 								}
 							],
 							"linkedServiceName": {
-								"referenceName": "AzureSqlDatabase1",
+								"referenceName": "AzureSynapseAnalytics1",
 								"type": "LinkedServiceReference"
 							},
 							"typeProperties": {
