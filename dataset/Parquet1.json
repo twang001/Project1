@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "data_1bebeece-d205-49f6-90ce-9299be00c3c5_8d9093db-47d7-4cc0-a559-b6b0141f946a.parquet",
 				"container": "sink"
 			},
 			"compressionCodec": "snappy"
