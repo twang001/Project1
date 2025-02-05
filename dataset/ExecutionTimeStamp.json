@@ -1,0 +1,16 @@
+{
+	"name": "ExecutionTimeStamp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureTableIDSTimestamp",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "ExecutionTimeStamp"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

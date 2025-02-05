@@ -1,0 +1,11 @@
+{
+	"name": "AzureTableIDSTimestamp",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureTableStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://strgiuafnoidsuat.table.core.windows.net/"
+		}
+	}
+}

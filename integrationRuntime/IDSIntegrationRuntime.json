@@ -1,0 +1,12 @@
+{
+	"name": "IDSIntegrationRuntime",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/7b3b2d9a-b1ed-4db9-a009-6d3c01d214b7/resourcegroups/aueast-iua-gwy-rg/providers/Microsoft.DataFactory/factories/adf-isuzu-aue-d01/integrationruntimes/integrationRuntime1test",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

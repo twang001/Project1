@@ -1,0 +1,16 @@
+{
+	"name": "IDSDB2DataSet",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Db2",
+		"typeProperties": {
+			"connectionString": "server=172.16.100.20:446;database=B72920F1;username=beyond24;packagecollection=NULLID;authenticationtype=Basic;timeout=600000",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5ZDM4OTg4MS0zY2IzLTQ3Y2UtOTFkNi00YTYwNGMyYTk5ZDMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IDSIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

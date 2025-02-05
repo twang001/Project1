@@ -1,0 +1,25 @@
+{
+	"name": "VendorInvoice",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IDSBlobLinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat(formatDateTime(utcNow(),'yyyy-MM-dd-hh-mm'),'.json')",
+					"type": "Expression"
+				},
+				"folderPath": "VendorInvoice",
+				"container": "ids"
+			},
+			"encodingName": "UTF-8 without BOM"
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

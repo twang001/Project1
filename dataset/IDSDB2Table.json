@@ -1,0 +1,17 @@
+{
+	"name": "IDSDB2Table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IDSDB2DataSet",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Db2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IUA11U001",
+			"table": "ARFL0005"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

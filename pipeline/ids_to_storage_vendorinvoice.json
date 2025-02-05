@@ -1,0 +1,295 @@
+{
+	"name": "ids_to_storage_vendorinvoice",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Last Execution Time",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureTableSource",
+						"azureTableSourceQuery": "Entity eq 'VendorInvoice'",
+						"azureTableSourceIgnoreTableNotFound": false
+					},
+					"dataset": {
+						"referenceName": "ExecutionTimeStamp",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Set Last Execution Time",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Last Execution Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "VendorInvoiceLastExecutionTime",
+					"value": {
+						"value": "@activity('Get Last Execution Time').output.value[0].LastExecutionTime\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Copy Vendor Invoice Data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set Last Execution Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": {
+							"value": "WITH Invoices AS \n( \n    SELECT \n        a.COMPL1 AS Company, \n       \n        a.SUPPL1 AS Supplier_Code, \n        a.SINVL1 AS Supplier_Invoice_Number, \n        a.DOC#L1 AS Document_Number,\n        a.DOCTL1 AS Document_Type, \n        a.TEXTL1 AS Invoice_Description, \n        a.TYPEL1 AS Invoice_Type, \n        a.HOLDL1 AS Hold_Code, \n        a.PRTYL1 AS Priority, \n        a.PORDL1 AS Purchase_Order_Number, \n        a.RUN#L1 AS Payment_Batch_Run_Number, \n        a.BTCHL1 AS GL_Batch_Number,\n        a.TERML1 AS Term_Days, \n        a.CURVL1 AS Overseas_Currency, \n        a.EXCHL1 AS Exchange_Rate, \n        a.CURFL1 AS Currency_Flag, \n        a.CNT#L1 AS Contract_Number, \n        a.BANKL1 AS Bank_Name, \n        a.DBCRL1 AS Debit_Credit_Flag,\n        a.INPYL1 AS Invoice_or_Payment_Flag, \n        a.MSCRL1 AS Miscellaneous_Creditor_Flag, \n        a.MACRL1 AS Manual_Apply_of_Credits, \n        a.AUTHL1 AS Authorised_by, \n        a.SVALL1 AS Suppliers_Invoice_Value, \n        a.IVALL1 AS Invoice_Payment_Value, \n        a.PVALL1 AS Paid_to_Date_Value, \n        a.JVALL1 AS Journal_Value, \n        a.DVALL1 AS Discount_Taken_Value, \n        a.DSCVL1 AS Discount_Allowed_Value, \n        a.DSCPL1 AS Discount_Percent, \n        a.DSCDL1 AS Discount_Days, \n        a.GVDRL1 AS Government_VAT_Reference, \n        a.DSYYL1 CONCAT '-' CONCAT LPAD(a.DSMML1, 2, '0') CONCAT '-' CONCAT LPAD(a.DSDDL1, 2, '0') AS Discount_Date, \n        a.TRYYL1 CONCAT '-' CONCAT LPAD(a.TRMML1, 2, '0') CONCAT '-' CONCAT LPAD(a.TRDDL1, 2, '0') AS Transaction_Date, \n        a.INYYL1 CONCAT '-' CONCAT LPAD(a.INMML1, 2, '0') CONCAT '-' CONCAT LPAD(a.INDDL1, 2, '0') AS Invoice_Date, \n        a.DUYYL1 CONCAT '-' CONCAT LPAD(a.DUMML1, 2, '0') CONCAT '-' CONCAT LPAD(a.DUDDL1, 2, '0') AS Due_Date, \n        a.PEYYL1 CONCAT '-' CONCAT LPAD(a.PEMML1, 2, '0') AS Entered_Processing_Date, \n        a.TXYYL1 CONCAT '-' CONCAT LPAD(a.TXMML1, 2, '0') CONCAT '-' CONCAT LPAD(a.TXDDL1, 2, '0') AS Tax_Date, \n        a.PPYYL1 CONCAT '-' CONCAT LPAD(a.PPMML1, 2, '0') AS Entered_Posting_Date, \n\n        CASE a.TERML1 \n                        WHEN '1' THEN '1 DAYS' \n                        When '7' then '7 DAYS' \n                        When '14' then '14 DAYS' \n                        When '15' then '15 DAYS' \n                        When '20' then '20 DAYS' \n                        When '30' then '30 DAYS' \n                        When '37' then '20 Monthly' \n                        Else '' \n                        END AS PAYMENT_TERMS_DAYS_CODE             \n    FROM \n        IUA11P001.APFP01 AS a \n    WHERE \n        a.COMPL1 = '001' \n        AND a.STSL1 <> 'C' \n),\n\nSupplierInvoice as ( \n \nSELECT     * FROM   Invoices \nWHERE \n    Transaction_Date >= '@{variables('VendorInvoiceLastExecutionTime')}'\n    AND Invoice_or_Payment_Flag = 'I'  \n\nORDER BY \n    Transaction_Date\n),\n \n\nACCOUNTTYPEVENDOR AS (\n\n\nSELECT  \n    SUM(GeneralLedgerLines.VALUH7) AS Posted_Amount, \n    SupplierInvoice.Currency_Flag AS CURRENCY_FLAG,\n    SupplierInvoice.Transaction_Date AS TRANSACTION_DATE,      \n    SupplierInvoice.Due_Date AS DUE_DATE,\n\tSupplierInvoice.Invoice_Date as Invoice_Date,\n    SupplierInvoice.Exchange_Rate as EXCHANGE_RATE,\n    GeneralLedgerLines.DOC#H7 as DOCUMENT_NUMBER, \n    SupplierInvoice.PAYMENT_TERMS_DAYS_CODE AS PAYMENT_TERMS_DAYS_CODE,    \n    GeneralLedgerLines.SUPPH7 AS Supplier_Code, \n    GeneralLedgerLines.GLNOH7 AS GL_Number,\n    'vend' as Customer_Type  \n                 \n   \nFROM  \nSupplierInvoice\nLEFT JOIN \n    IUA11P001.GLFL4700 AS GeneralLedgerLines ON SupplierInvoice.Supplier_Invoice_Number=GeneralLedgerLines.DOC#H7 AND\n\tSupplierInvoice.Supplier_Code=GeneralLedgerLines.SUPPH7 AND\n\tSupplierInvoice.Document_Type=GeneralLedgerLines.DOCTH7\n\nWHERE  \n\n    GeneralLedgerLines.TSRCH7 = 'AP' AND GeneralLedgerLines.GLNOH7 IN ('1961300','1961301')  \n    GROUP BY \n     SupplierInvoice.Currency_Flag ,\n     SupplierInvoice.Transaction_Date ,      \n     SupplierInvoice.Due_Date ,\n\t SupplierInvoice.Invoice_Date,\n     SupplierInvoice.Exchange_Rate ,\n     GeneralLedgerLines.DOC#H7 , \n     SupplierInvoice.PAYMENT_TERMS_DAYS_CODE ,    \n     GeneralLedgerLines.SUPPH7 , \n     GeneralLedgerLines.GLNOH7     ),\n    \n   -- ORDER BY SupplierInvoice.Document_Number\n    \n    ACCOUNTTYPELEDGER AS (\n\n\nSELECT  \n\n    GeneralLedgerLines.VALUH7 AS Posted_Amount, \n     SupplierInvoice.Currency_Flag AS CURRENCY_FLAG,\n     SupplierInvoice.Transaction_Date AS TRANSACTION_DATE,      \n    SupplierInvoice.Due_Date AS DUE_DATE,\n\tSupplierInvoice.Invoice_Date as Invoice_Date,\n         SupplierInvoice.Exchange_Rate as EXCHANGE_RATE,\n             GeneralLedgerLines.DOC#H7 AS Document_Number, \n           SupplierInvoice.PAYMENT_TERMS_DAYS_CODE AS PAYMENT_TERMS_DAYS_CODE,    \n                 GeneralLedgerLines.SUPPH7 AS Supplier_Code, \n                GeneralLedgerLines.GLNOH7 AS GL_Number,\n                'ledger' as Customer_Type    \n                 \n   \nFROM  \nSupplierInvoice\nLEFT JOIN \n    IUA11P001.GLFL4700 AS GeneralLedgerLines ON SupplierInvoice.Supplier_Invoice_Number=GeneralLedgerLines.DOC#H7 AND\n\tSupplierInvoice.Supplier_Code=GeneralLedgerLines.SUPPH7 AND\n\tSupplierInvoice.Document_Type=GeneralLedgerLines.DOCTH7\n\nWHERE  \n\n    GeneralLedgerLines.TSRCH7 = 'AP' AND GeneralLedgerLines.GLNOH7 NOT IN ('1961300','1961301')  \n         ),\n     CombineTable AS(  \n     \n     Select * from ACCOUNTTYPEVENDOR Union ALL Select * from AccountTypeLedger)\n     \n     Select * from CombineTable order by Document_Number,Customer_Type\n    \n    ",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings",
+							"filePattern": "arrayOfObjects"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "POSTED_AMOUNT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"path": "$['POSTED_AMOUNT']"
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENCY_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['CURRENCY_FLAG']"
+								}
+							},
+							{
+								"source": {
+									"name": "TRANSACTION_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TRANSACTION_DATE']"
+								}
+							},
+							{
+								"source": {
+									"name": "DUE_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DUE_DATE']"
+								}
+							},
+							{
+								"source": {
+									"name": "INVOICE_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['INVOICE_DATE']"
+								}
+							},
+							{
+								"source": {
+									"name": "EXCHANGE_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"path": "$['EXCHANGE_RATE']"
+								}
+							},
+							{
+								"source": {
+									"name": "DOCUMENT_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DOCUMENT_NUMBER']"
+								}
+							},
+							{
+								"source": {
+									"name": "PAYMENT_TERMS_DAYS_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['PAYMENT_TERMS_DAYS_CODE']"
+								}
+							},
+							{
+								"source": {
+									"name": "SUPPLIER_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['SUPPLIER_CODE']"
+								}
+							},
+							{
+								"source": {
+									"name": "GL_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['GL_NUMBER']"
+								}
+							},
+							{
+								"source": {
+									"name": "CUSTOMER_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['CUSTOMER_TYPE']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "IDSDB2Table",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "VendorInvoice",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Set Last Execution Time to Current Date",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Copy Vendor Invoice Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "VendorInvoiceLastExecutionTime",
+					"value": {
+						"value": "@formatDateTime(utcNow(),'yyyy-MM-ddTHH:mm:ss')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Update Execution Time",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Set Last Execution Time to Current Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-19.australiaeast.logic.azure.com:443/workflows/a1091cece21843c8ad73f1b8f3a424f0/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=MulThmYfPIzncmGbuj6tESNe22n5iPlSvjJkFF2Ac98",
+					"body": {
+						"value": "\t{\n    \"Entity\": \"VendorInvoice\",\n     \"LastExecutionTime\": \"@{variables('VendorInvoiceLastExecutionTime')}\"\n          \n     }",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"dataset": {
+						"referenceName": "IDSDB2Table",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"variables": {
+			"VendorInvoiceLastExecutionTime": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-01-26T21:29:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
