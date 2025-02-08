@@ -1,0 +1,56 @@
+{
+	"name": "SnowflakeTableP44Shipment",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake_Consolidation",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"feature.enableSnowflakeV2": false
+			}
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [
+			{
+				"name": "id",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "createdDateTime",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "type",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "value",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "name",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "value2",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "shipmentShareLink",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "lastModifiedDateTime",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "timestamp",
+				"type": "VARCHAR"
+			}
+		],
+		"typeProperties": {
+			"schema": "TMS",
+			"table": "V_TMS_RTTV_SCAC"
+		}
+	}
+}

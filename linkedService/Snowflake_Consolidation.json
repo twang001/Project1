@@ -1,0 +1,29 @@
+{
+	"name": "Snowflake_Consolidation",
+	"properties": {
+		"parameters": {
+			"feature.enableSnowflakeV2": {
+				"type": "bool",
+				"defaultValue": false
+			}
+		},
+		"annotations": [],
+		"type": "SnowflakeV2",
+		"typeProperties": {
+			"authenticationType": "Basic",
+			"accountIdentifier": "ju96868.west-europe.azure",
+			"user": "ADF_TO_SF_TEST",
+			"database": "DEV_CONSOLIDATION",
+			"warehouse": "WH_ADF_LOAD",
+			"role": "R_IS_DEVELOPER",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault_DataFactory",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "ADF-TO-SF-TEST"
+			}
+		}
+	}
+}
