@@ -1,0 +1,28 @@
+{
+	"name": "MDSSQLSourcetable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MDSSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TEXT",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 20
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "SourceTable"
+		}
+	}
+}
