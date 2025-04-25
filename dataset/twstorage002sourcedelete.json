@@ -1,0 +1,26 @@
+{
+	"name": "twstorage002sourcedelete",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "twstorage002",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"deletefile": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().deletefile",
+					"type": "Expression"
+				},
+				"container": "source"
+			}
+		}
+	}
+}
