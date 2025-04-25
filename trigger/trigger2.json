@@ -1,0 +1,25 @@
+{
+	"name": "trigger2",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Sample",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source/blobs/t",
+			"blobPathEndsWith": ".xlsx",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/6a6216a0-c933-4611-9c34-c7deb038b2b7/resourceGroups/ADF/providers/Microsoft.Storage/storageAccounts/twstorage002",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
