@@ -11,13 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AmazonRdsForSqlServer1'"
 		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
-		},
 		"AzureDataLakeStorage1_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
 		"AzureFileStorage1_connectionString": {
 			"type": "secureString",
@@ -35,9 +35,37 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Dynamics1'"
 		},
+		"DynamicsCrm1_servicePrincipalCredential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'DynamicsCrm1'"
+		},
+		"HttpServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'HttpServer1'"
+		},
+		"IDSDB2DataSet_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'IDSDB2DataSet'"
+		},
+		"MDSSQL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MDSSQL'"
+		},
+		"MySqllocal_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySqllocal'"
+		},
+		"Oracle1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Oracle1'"
+		},
 		"RestService1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'RestService1'"
+		},
+		"Sftp1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sftp1'"
 		},
 		"Snowflake1_password": {
 			"type": "secureString",
@@ -46,6 +74,10 @@
 		"SqlServer1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServer1'"
+		},
+		"twstorage002_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'twstorage002'"
 		},
 		"ADLSG2_SAStest_sasUri": {
 			"type": "secureString",
@@ -63,6 +95,10 @@
 			"type": "string",
 			"defaultValue": "test"
 		},
+		"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twangstorage001.blob.core.windows.net/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://twangstorage001.dfs.core.windows.net/"
@@ -70,6 +106,10 @@
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "test"
+		},
+		"AzureKeyVault_DataFactory_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://RA-raglobaldna.vault.azure.net/"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"type": "string",
@@ -81,7 +121,7 @@
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "sa"
+			"defaultValue": "DBA"
 		},
 		"AzureSynapseAnalytics1_properties_typeProperties_server": {
 			"type": "string",
@@ -95,9 +135,41 @@
 			"type": "string",
 			"defaultValue": "DBA"
 		},
+		"AzureTableIDSTimestamp_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://strgiuafnoidsuat.table.core.windows.net/"
+		},
 		"Dynamics1_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "test"
+		},
+		"DynamicsCrm1_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"HttpServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "twang"
+		},
+		"IDSBlobLinkedservice_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://strgiuafnoidsuat.blob.core.windows.net/"
+		},
+		"MySqllocal_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MySqllocal_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test1"
+		},
+		"MySqllocal_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
 		},
 		"RestService1_properties_typeProperties_url": {
 			"type": "string",
@@ -111,9 +183,25 @@
 			"type": "string",
 			"defaultValue": "https://microsoftapc-my.sharepoint.com/personal/jinleiwang_microsoft_com/Documents/2003.xlsx?web=1"
 		},
+		"Sftp1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+			"type": "string",
+			"defaultValue": "test"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "test"
+		},
 		"Snowflake1_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "test"
+		},
+		"Snowflake_Consolidation_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "DEV_CONSOLIDATION"
 		},
 		"SqlServer1_properties_typeProperties_server": {
 			"type": "string",
@@ -126,6 +214,18 @@
 		"SqlServer1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "test"
+		},
+		"trigger2_properties_Sample_parameters_filename": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"trigger2_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/6a6216a0-c933-4611-9c34-c7deb038b2b7/resourceGroups/ADF/providers/Microsoft.Storage/storageAccounts/twstorage002"
+		},
+		"IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/7b3b2d9a-b1ed-4db9-a009-6d3c01d214b7/resourcegroups/aueast-iua-gwy-rg/providers/Microsoft.DataFactory/factories/adf-isuzu-aue-d01/integrationruntimes/integrationRuntime1test"
 		},
 		"containerUri": {
 			"type": "string",
@@ -157,11 +257,11 @@
 					"AmazonRdsForSqlServer1_password": {
 						"value": "[parameters('AmazonRdsForSqlServer1_password')]"
 					},
-					"AzureBlobStorage1_connectionString": {
-						"value": "[parameters('AzureBlobStorage1_connectionString')]"
-					},
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
 					"AzureFileStorage1_connectionString": {
 						"value": "[parameters('AzureFileStorage1_connectionString')]"
@@ -175,14 +275,23 @@
 					"Dynamics1_password": {
 						"value": "[parameters('Dynamics1_password')]"
 					},
+					"DynamicsCrm1_servicePrincipalCredential": {
+						"value": "[parameters('DynamicsCrm1_servicePrincipalCredential')]"
+					},
+					"HttpServer1_password": {
+						"value": "[parameters('HttpServer1_password')]"
+					},
+					"Oracle1_connectionString": {
+						"value": "[parameters('Oracle1_connectionString')]"
+					},
 					"RestService1_password": {
 						"value": "[parameters('RestService1_password')]"
 					},
+					"Sftp1_password": {
+						"value": "[parameters('Sftp1_password')]"
+					},
 					"Snowflake1_password": {
 						"value": "[parameters('Snowflake1_password')]"
-					},
-					"SqlServer1_password": {
-						"value": "[parameters('SqlServer1_password')]"
 					},
 					"ADLSG2_SAStest_sasUri": {
 						"value": "[parameters('ADLSG2_SAStest_sasUri')]"
@@ -196,11 +305,17 @@
 					"AmazonRdsForSqlServer1_properties_typeProperties_userName": {
 						"value": "[parameters('AmazonRdsForSqlServer1_properties_typeProperties_userName')]"
 					},
+					"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_serviceEndpoint')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
 					"AzureKeyVault1_properties_typeProperties_baseUrl": {
 						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					},
+					"AzureKeyVault_DataFactory_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault_DataFactory_properties_typeProperties_baseUrl')]"
 					},
 					"AzureSqlDatabase1_properties_typeProperties_server": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
@@ -220,8 +335,23 @@
 					"AzureSynapseAnalytics1_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]"
 					},
+					"AzureTableIDSTimestamp_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('AzureTableIDSTimestamp_properties_typeProperties_serviceEndpoint')]"
+					},
 					"Dynamics1_properties_typeProperties_username": {
 						"value": "[parameters('Dynamics1_properties_typeProperties_username')]"
+					},
+					"DynamicsCrm1_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('DynamicsCrm1_properties_typeProperties_servicePrincipalId')]"
+					},
+					"HttpServer1_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
+					},
+					"HttpServer1_properties_typeProperties_userName": {
+						"value": "[parameters('HttpServer1_properties_typeProperties_userName')]"
+					},
+					"IDSBlobLinkedservice_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('IDSBlobLinkedservice_properties_typeProperties_serviceEndpoint')]"
 					},
 					"RestService1_properties_typeProperties_url": {
 						"value": "[parameters('RestService1_properties_typeProperties_url')]"
@@ -232,17 +362,17 @@
 					"RestService2_properties_typeProperties_url": {
 						"value": "[parameters('RestService2_properties_typeProperties_url')]"
 					},
+					"Sftp1_properties_typeProperties_host": {
+						"value": "[parameters('Sftp1_properties_typeProperties_host')]"
+					},
+					"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+						"value": "[parameters('Sftp1_properties_typeProperties_hostKeyFingerprint')]"
+					},
+					"Sftp1_properties_typeProperties_userName": {
+						"value": "[parameters('Sftp1_properties_typeProperties_userName')]"
+					},
 					"Snowflake1_properties_typeProperties_database": {
 						"value": "[parameters('Snowflake1_properties_typeProperties_database')]"
-					},
-					"SqlServer1_properties_typeProperties_server": {
-						"value": "[parameters('SqlServer1_properties_typeProperties_server')]"
-					},
-					"SqlServer1_properties_typeProperties_database": {
-						"value": "[parameters('SqlServer1_properties_typeProperties_database')]"
-					},
-					"SqlServer1_properties_typeProperties_userName": {
-						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -261,11 +391,76 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SqlServer1_password": {
+						"value": "[parameters('SqlServer1_password')]"
+					},
+					"twstorage002_connectionString": {
+						"value": "[parameters('twstorage002_connectionString')]"
+					},
+					"IDSDB2DataSet_connectionString": {
+						"value": "[parameters('IDSDB2DataSet_connectionString')]"
+					},
+					"MDSSQL_connectionString": {
+						"value": "[parameters('MDSSQL_connectionString')]"
+					},
+					"SqlServer1_properties_typeProperties_server": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_server')]"
+					},
+					"SqlServer1_properties_typeProperties_database": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_database')]"
+					},
+					"SqlServer1_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
+					},
+					"IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'ADFTesttwang_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "ADFTesttwang_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"MySqllocal_password": {
+						"value": "[parameters('MySqllocal_password')]"
+					},
+					"MySqllocal_properties_typeProperties_server": {
+						"value": "[parameters('MySqllocal_properties_typeProperties_server')]"
+					},
+					"MySqllocal_properties_typeProperties_database": {
+						"value": "[parameters('MySqllocal_properties_typeProperties_database')]"
+					},
+					"MySqllocal_properties_typeProperties_username": {
+						"value": "[parameters('MySqllocal_properties_typeProperties_username')]"
+					},
+					"Snowflake_Consolidation_properties_typeProperties_database": {
+						"value": "[parameters('Snowflake_Consolidation_properties_typeProperties_database')]"
+					},
+					"trigger2_properties_Sample_parameters_filename": {
+						"value": "[parameters('trigger2_properties_Sample_parameters_filename')]"
+					},
+					"trigger2_properties_typeProperties_scope": {
+						"value": "[parameters('trigger2_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ADFTesttwang_ArmTemplate_1')]"
 			]
 		}
 	]

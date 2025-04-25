@@ -8,10 +8,10 @@
 		"AmazonRdsForSqlServer1_password": {
 			"value": ""
 		},
-		"AzureBlobStorage1_connectionString": {
+		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"AzureDataLakeStorage1_accountKey": {
+		"AzureDatabricks1_accessToken": {
 			"value": ""
 		},
 		"AzureFileStorage1_connectionString": {
@@ -26,13 +26,37 @@
 		"Dynamics1_password": {
 			"value": ""
 		},
+		"DynamicsCrm1_servicePrincipalCredential": {
+			"value": ""
+		},
+		"HttpServer1_password": {
+			"value": ""
+		},
+		"IDSDB2DataSet_connectionString": {
+			"value": ""
+		},
+		"MDSSQL_connectionString": {
+			"value": ""
+		},
+		"MySqllocal_password": {
+			"value": ""
+		},
+		"Oracle1_connectionString": {
+			"value": ""
+		},
 		"RestService1_password": {
+			"value": ""
+		},
+		"Sftp1_password": {
 			"value": ""
 		},
 		"Snowflake1_password": {
 			"value": ""
 		},
 		"SqlServer1_password": {
+			"value": ""
+		},
+		"twstorage002_connectionString": {
 			"value": ""
 		},
 		"ADLSG2_SAStest_sasUri": {
@@ -47,11 +71,17 @@
 		"AmazonRdsForSqlServer1_properties_typeProperties_userName": {
 			"value": "test"
 		},
+		"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+			"value": "https://twangstorage001.blob.core.windows.net/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://twangstorage001.dfs.core.windows.net/"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": "test"
+		},
+		"AzureKeyVault_DataFactory_properties_typeProperties_baseUrl": {
+			"value": "https://RA-raglobaldna.vault.azure.net/"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"value": "twazsqldb.database.windows.net"
@@ -60,7 +90,7 @@
 			"value": "test001"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
-			"value": "sa"
+			"value": "DBA"
 		},
 		"AzureSynapseAnalytics1_properties_typeProperties_server": {
 			"value": "synapsewithoutvnet.sql.azuresynapse.net"
@@ -71,8 +101,32 @@
 		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
 			"value": "DBA"
 		},
+		"AzureTableIDSTimestamp_properties_typeProperties_serviceEndpoint": {
+			"value": "https://strgiuafnoidsuat.table.core.windows.net/"
+		},
 		"Dynamics1_properties_typeProperties_username": {
 			"value": "test"
+		},
+		"DynamicsCrm1_properties_typeProperties_servicePrincipalId": {
+			"value": "test"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "test"
+		},
+		"HttpServer1_properties_typeProperties_userName": {
+			"value": "twang"
+		},
+		"IDSBlobLinkedservice_properties_typeProperties_serviceEndpoint": {
+			"value": "https://strgiuafnoidsuat.blob.core.windows.net/"
+		},
+		"MySqllocal_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"MySqllocal_properties_typeProperties_database": {
+			"value": "test1"
+		},
+		"MySqllocal_properties_typeProperties_username": {
+			"value": "root"
 		},
 		"RestService1_properties_typeProperties_url": {
 			"value": "test"
@@ -83,8 +137,20 @@
 		"RestService2_properties_typeProperties_url": {
 			"value": "https://microsoftapc-my.sharepoint.com/personal/jinleiwang_microsoft_com/Documents/2003.xlsx?web=1"
 		},
+		"Sftp1_properties_typeProperties_host": {
+			"value": "test"
+		},
+		"Sftp1_properties_typeProperties_hostKeyFingerprint": {
+			"value": "test"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"value": "test"
+		},
 		"Snowflake1_properties_typeProperties_database": {
 			"value": "test"
+		},
+		"Snowflake_Consolidation_properties_typeProperties_database": {
+			"value": "DEV_CONSOLIDATION"
 		},
 		"SqlServer1_properties_typeProperties_server": {
 			"value": "test"
@@ -94,6 +160,15 @@
 		},
 		"SqlServer1_properties_typeProperties_userName": {
 			"value": "test"
+		},
+		"trigger2_properties_Sample_parameters_filename": {
+			"value": "@triggerBody().fileName"
+		},
+		"trigger2_properties_typeProperties_scope": {
+			"value": "/subscriptions/6a6216a0-c933-4611-9c34-c7deb038b2b7/resourceGroups/ADF/providers/Microsoft.Storage/storageAccounts/twstorage002"
+		},
+		"IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/7b3b2d9a-b1ed-4db9-a009-6d3c01d214b7/resourcegroups/aueast-iua-gwy-rg/providers/Microsoft.DataFactory/factories/adf-isuzu-aue-d01/integrationruntimes/integrationRuntime1test"
 		},
 		"containerUri": {
 			"value": ""
