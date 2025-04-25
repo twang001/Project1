@@ -16,37 +16,26 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "ExcelSource",
+						"type": "BinarySource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "BinarySink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
-						"referenceName": "twstorage002source",
+						"referenceName": "twstorage002Binarysource",
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
@@ -58,7 +47,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "twstorage002sink",
+						"referenceName": "twstorage002binarysink",
 						"type": "DatasetReference"
 					}
 				]

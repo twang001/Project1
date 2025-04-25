@@ -1,22 +1,17 @@
 {
-	"name": "twstorage002sink",
+	"name": "twstorage002binarysink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "twstorage002",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"container": "sink"
-			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": false,
-			"quoteChar": "\""
-		},
-		"schema": []
+			}
+		}
 	}
 }

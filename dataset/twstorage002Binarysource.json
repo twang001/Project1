@@ -1,0 +1,26 @@
+{
+	"name": "twstorage002Binarysource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "twstorage002",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"container": "source"
+			}
+		}
+	}
+}
