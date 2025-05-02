@@ -71,13 +71,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Snowflake1'"
 		},
+		"Snowflake2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Snowflake2'"
+		},
 		"SqlServer1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServer1'"
-		},
-		"twstorage002_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'twstorage002'"
 		},
 		"ADLSG2_SAStest_sasUri": {
 			"type": "secureString",
@@ -199,6 +199,10 @@
 			"type": "string",
 			"defaultValue": "test"
 		},
+		"Snowflake2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
+		},
 		"Snowflake_Consolidation_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "DEV_CONSOLIDATION"
@@ -214,6 +218,10 @@
 		"SqlServer1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "test"
+		},
+		"twstorage002_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twstorage002.blob.core.windows.net/"
 		},
 		"trigger2_properties_Sample_parameters_filename": {
 			"type": "string",
@@ -392,17 +400,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"Snowflake2_password": {
+						"value": "[parameters('Snowflake2_password')]"
+					},
 					"SqlServer1_password": {
 						"value": "[parameters('SqlServer1_password')]"
 					},
-					"twstorage002_connectionString": {
-						"value": "[parameters('twstorage002_connectionString')]"
-					},
-					"IDSDB2DataSet_connectionString": {
-						"value": "[parameters('IDSDB2DataSet_connectionString')]"
-					},
-					"MDSSQL_connectionString": {
-						"value": "[parameters('MDSSQL_connectionString')]"
+					"Snowflake2_properties_typeProperties_database": {
+						"value": "[parameters('Snowflake2_properties_typeProperties_database')]"
 					},
 					"SqlServer1_properties_typeProperties_server": {
 						"value": "[parameters('SqlServer1_properties_typeProperties_server')]"
@@ -412,6 +417,9 @@
 					},
 					"SqlServer1_properties_typeProperties_userName": {
 						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
+					},
+					"twstorage002_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('twstorage002_properties_typeProperties_serviceEndpoint')]"
 					},
 					"IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]"
@@ -435,6 +443,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"IDSDB2DataSet_connectionString": {
+						"value": "[parameters('IDSDB2DataSet_connectionString')]"
+					},
+					"MDSSQL_connectionString": {
+						"value": "[parameters('MDSSQL_connectionString')]"
 					},
 					"MySqllocal_password": {
 						"value": "[parameters('MySqllocal_password')]"

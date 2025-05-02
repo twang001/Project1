@@ -7,21 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADFTesttwang"
 		},
+		"Snowflake2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Snowflake2'"
+		},
 		"SqlServer1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServer1'"
 		},
-		"twstorage002_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'twstorage002'"
-		},
-		"IDSDB2DataSet_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'IDSDB2DataSet'"
-		},
-		"MDSSQL_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'MDSSQL'"
+		"Snowflake2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
 		},
 		"SqlServer1_properties_typeProperties_server": {
 			"type": "string",
@@ -35,6 +31,10 @@
 			"type": "string",
 			"defaultValue": "test"
 		},
+		"twstorage002_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twstorage002.blob.core.windows.net/"
+		},
 		"IDSIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/7b3b2d9a-b1ed-4db9-a009-6d3c01d214b7/resourcegroups/aueast-iua-gwy-rg/providers/Microsoft.DataFactory/factories/adf-isuzu-aue-d01/integrationruntimes/integrationRuntime1test"
@@ -44,6 +44,27 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Snowflake2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SnowflakeV2",
+				"typeProperties": {
+					"authenticationType": "Basic",
+					"accountIdentifier": "test",
+					"user": "twang",
+					"database": "[parameters('Snowflake2_properties_typeProperties_database')]",
+					"warehouse": "test",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Snowflake2_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -74,7 +95,8 @@
 				"annotations": [],
 				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"connectionString": "[parameters('twstorage002_connectionString')]"
+					"serviceEndpoint": "[parameters('twstorage002_properties_typeProperties_serviceEndpoint')]",
+					"accountKind": "StorageV2"
 				}
 			},
 			"dependsOn": []
@@ -683,41 +705,34 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/IDSDB2DataSet')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/twstorage002sourcedelete')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "Db2",
-				"typeProperties": {
-					"connectionString": "[parameters('IDSDB2DataSet_connectionString')]"
+				"linkedServiceName": {
+					"referenceName": "twstorage002",
+					"type": "LinkedServiceReference"
 				},
-				"connectVia": {
-					"referenceName": "IDSIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
+				"parameters": {
+					"deletefile": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().deletefile",
+							"type": "Expression"
+						},
+						"container": "source"
+					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/IDSIntegrationRuntime')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/MDSSQL')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('MDSSQL_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SHIRMDS",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/SHIRMDS')]"
+				"[concat(variables('factoryId'), '/linkedServices/twstorage002')]"
 			]
 		}
 	]

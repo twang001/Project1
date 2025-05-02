@@ -71,13 +71,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Snowflake1'"
 		},
+		"Snowflake2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Snowflake2'"
+		},
 		"SqlServer1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SqlServer1'"
-		},
-		"twstorage002_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'twstorage002'"
 		},
 		"ADLSG2_SAStest_sasUri": {
 			"type": "secureString",
@@ -199,6 +199,10 @@
 			"type": "string",
 			"defaultValue": "test"
 		},
+		"Snowflake2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "test"
+		},
 		"Snowflake_Consolidation_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "DEV_CONSOLIDATION"
@@ -214,6 +218,10 @@
 		"SqlServer1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "test"
+		},
+		"twstorage002_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://twstorage002.blob.core.windows.net/"
 		},
 		"trigger2_properties_Sample_parameters_filename": {
 			"type": "string",
@@ -1274,6 +1282,37 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/twstorage002sourcedelete')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "twstorage002",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"deletefile": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().deletefile",
+							"type": "Expression"
+						},
+						"container": "source"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/twstorage002')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLSG2_SAStest')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1692,6 +1731,27 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Snowflake2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SnowflakeV2",
+				"typeProperties": {
+					"authenticationType": "Basic",
+					"accountIdentifier": "test",
+					"user": "twang",
+					"database": "[parameters('Snowflake2_properties_typeProperties_database')]",
+					"warehouse": "test",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Snowflake2_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Snowflake_Consolidation')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1755,7 +1815,8 @@
 				"annotations": [],
 				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"connectionString": "[parameters('twstorage002_connectionString')]"
+					"serviceEndpoint": "[parameters('twstorage002_properties_typeProperties_serviceEndpoint')]",
+					"accountKind": "StorageV2"
 				}
 			},
 			"dependsOn": []
@@ -1891,37 +1952,6 @@
 			"apiVersion": "2018-06-01",
 			"properties": {},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/twstorage002sourcedelete')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "twstorage002",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"deletefile": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().deletefile",
-							"type": "Expression"
-						},
-						"container": "source"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/twstorage002')]"
-			]
 		}
 	]
 }
